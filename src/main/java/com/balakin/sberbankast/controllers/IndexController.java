@@ -20,6 +20,6 @@ public class IndexController {
     public String getIndexPage(Model model){
         log.debug("getting index page");
         model.addAttribute("operators",operatorService.getOperators());
-        return "index.html";
+        return "index";
     }
 }

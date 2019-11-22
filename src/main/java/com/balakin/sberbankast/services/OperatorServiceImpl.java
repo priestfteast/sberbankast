@@ -1,10 +1,14 @@
 package com.balakin.sberbankast.services;
 
 
+import com.balakin.sberbankast.commands.OperatorCommand;
+import com.balakin.sberbankast.converters.OperatorCommandToOperator;
+import com.balakin.sberbankast.converters.OperatorToOperatorCommand;
 import com.balakin.sberbankast.domain.Operator;
 import com.balakin.sberbankast.repositories.OperatorRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -14,9 +18,13 @@ import java.util.Set;
 @Service
 public class OperatorServiceImpl implements OperatorService {
     private final OperatorRepository operatorRepository;
+    private final OperatorCommandToOperator operatorCommandToOperator;
+    private final OperatorToOperatorCommand operatorToOperatorCommand;
 
-    public OperatorServiceImpl(OperatorRepository operatorRepository) {
+    public OperatorServiceImpl(OperatorRepository operatorRepository, OperatorCommandToOperator operatorCommandToOperator, OperatorToOperatorCommand operatorToOperatorCommand) {
         this.operatorRepository = operatorRepository;
+        this.operatorCommandToOperator = operatorCommandToOperator;
+        this.operatorToOperatorCommand = operatorToOperatorCommand;
     }
 
     @Override
@@ -35,5 +43,14 @@ public class OperatorServiceImpl implements OperatorService {
         if(!operatorOptional.isPresent())
             throw new RuntimeException(String.format("There is no operator wit id %f",l));
         return operatorOptional.get();
+    }
+
+    @Override
+    @Transactional
+    public OperatorCommand saveOperatorCommand(OperatorCommand operatorCommand){
+        Operator detachedOperator = operatorCommandToOperator.convert(operatorCommand);
+        Operator savedOperator = operatorRepository.save(detachedOperator);
+
+        return operatorToOperatorCommand.convert(savedOperator);
     }
 }

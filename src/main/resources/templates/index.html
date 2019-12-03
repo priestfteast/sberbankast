@@ -34,23 +34,27 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>View</th>
+                                <th>Update</th>
                             </tr>
                             </thead>
                             <tr th:remove="all">
                                 <td>123</td>
                                 <td>Tasty Goodnees 1</td>
                                 <td><a href="#">View</a></td>
+                                <td><a href="#">Update</a></td>
                             </tr>
                             <tr th:remove="all">
                                 <td>12333</td>
                                 <td>Tasty Goodnees 2</td>
                                 <td><a href="#">View</a></td>
+                                <td><a href="#">Update</a></td>
                             </tr>
                             <tr th:each="operator : ${operators}">
                                 <!--/*@thymesVar id="operator" type="com.balakin.sberbankast.domain.Operator"*/-->
                                 <td th:text="${operator.id}">334</td>
                                 <td th:text="${operator.firstName +' '+ operator.lastName}">Tasty Goodnees 3</td>
-                                <td><a href="#" th:href="@{'/operator/show/' + ${operator.id}}">View</a></td>
+                                <td><a href="#" th:href="@{'/operator/' + ${operator.id}+'/show'}">View</a></td>
+                                <td><a href="#" th:href="@{'/operator/' + ${operator.id}+'/update'}">Update</a></td>
                             </tr>
                         </table>
                     </div>

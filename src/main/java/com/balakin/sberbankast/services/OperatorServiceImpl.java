@@ -46,6 +46,11 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
     @Override
+    public OperatorCommand findCommandById(Long l) {
+        return operatorToOperatorCommand.convert(findById(l));
+    }
+
+    @Override
     @Transactional
     public OperatorCommand saveOperatorCommand(OperatorCommand operatorCommand){
         Operator detachedOperator = operatorCommandToOperator.convert(operatorCommand);

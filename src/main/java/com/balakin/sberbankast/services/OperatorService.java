@@ -9,5 +9,6 @@ public interface OperatorService {
 
     Set<Operator> getOperators();
     Operator findById(Long l);
+    OperatorCommand findCommandById(Long l);
     OperatorCommand saveOperatorCommand(OperatorCommand operatorCommand);
 }

@@ -18,7 +18,7 @@ public class OperatorController {
         this.operatorService = operatorService;
     }
 
-    @RequestMapping({"/operator/show/{id}"})
+    @RequestMapping({"/operator/{id}/show"})
     public String showById(@PathVariable String id, Model model){
 
         model.addAttribute("operator", operatorService.findById(Long.valueOf(id)));
@@ -31,10 +31,17 @@ public class OperatorController {
         return "/operator/operatorform";
     }
 
+    @RequestMapping({"/operator/{id}/update"})
+    public String updateOperator(@PathVariable String id, Model model){
+
+        model.addAttribute("operator", operatorService.findCommandById(Long.valueOf(id)));
+        return "operator/operatorform";
+    }
+
     @PostMapping("operator")
     public String saveOrUpdate (@ModelAttribute OperatorCommand operatorCommand, Model model){
        OperatorCommand savedOperatorCommand = operatorService.saveOperatorCommand(operatorCommand);
 
-        return "redirect:/operator/show/"+savedOperatorCommand.getId();
+        return "redirect:/operator/"+savedOperatorCommand.getId()+"/show";
     }
 }

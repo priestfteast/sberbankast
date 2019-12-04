@@ -58,4 +58,9 @@ public class OperatorServiceImpl implements OperatorService {
 
         return operatorToOperatorCommand.convert(savedOperator);
     }
+
+    @Override
+    public void deleteById(Long idToDelete) {
+        operatorRepository.deleteById(idToDelete);
+    }
 }

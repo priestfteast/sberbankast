@@ -2,13 +2,12 @@ package com.balakin.sberbankast.controllers;
 
 import com.balakin.sberbankast.commands.OperatorCommand;
 import com.balakin.sberbankast.services.OperatorService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @Controller
 public class OperatorController {
 
@@ -30,7 +29,7 @@ public class OperatorController {
         model.addAttribute("operator", new OperatorCommand());
         return "/operator/operatorform";
     }
-
+    @GetMapping
     @RequestMapping({"/operator/{id}/update"})
     public String updateOperator(@PathVariable String id, Model model){
 
@@ -38,7 +37,15 @@ public class OperatorController {
         return "operator/operatorform";
     }
 
-    @PostMapping("operator")
+    @RequestMapping("operator/{id}/delete")
+    public String deleteById(@PathVariable String id){
+        log.debug("Deleting operator id: "+id);
+        operatorService.deleteById(Long.valueOf(id));
+        return "redirect:/";
+    }
+
+    @PostMapping
+    @RequestMapping("operator")
     public String saveOrUpdate (@ModelAttribute OperatorCommand operatorCommand, Model model){
        OperatorCommand savedOperatorCommand = operatorService.saveOperatorCommand(operatorCommand);
 

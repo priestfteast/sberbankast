@@ -11,4 +11,5 @@ public interface OperatorService {
     Operator findById(Long l);
     OperatorCommand findCommandById(Long l);
     OperatorCommand saveOperatorCommand(OperatorCommand operatorCommand);
+    void deleteById(Long idToDelete);
 }

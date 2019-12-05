@@ -76,9 +76,7 @@
                                 <ul>
                                     <li th:remove="all">cat one</li>
                                     <li th:remove="all">cat two</li>
-                                    <!--/*@thymesVar id="operator" type="com.balakin.sberbankast.domain.Operator"*/-->
-                                    <!--/*@thymesVar id="specialty" type="com.balakin.sberbankast.domain.Specialty"*/-->
-                                    <li th:each="specialty : ${operator.specialties}" th:text="${specialty.getDescription()}">cat three</li>
+                                    <li th:each="specialty : ${operator.specialties}" th:text="${specialty.getDescription()}">Specialty example</li>
                                 </ul>
                             </div>
                         </div>
@@ -93,6 +91,52 @@
                             <div class="col-md-12">
                                 <!--/*@thymesVar id="operator" type="com.balakin.sberbankast.domain.Operator"*/-->
                                 <p th:text="${operator.getNotes().getDescription()}">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-10 ">
+                                <h1 class="panel-title">Fines</h1>
+                            </div>
+                            <div class="col-md-1">
+                                <a class="btn btn-default" href="#" th:href="@{'/operator/' + ${operator.id} + '/fines'}" role="button">View</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul>
+                                    <li th:remove="all">cat one</li>
+                                    <li th:remove="all">cat two</li>
+                                    <li th:each="fine : ${operator.fines}" th:text="${fine.getSize()+'  rub. -  '+ fine.getDescription()}">1000  fine example</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-10 ">
+                                <h1 class="panel-title">Bonuses</h1>
+                            </div>
+                            <div class="col-md-1">
+                                <a class="btn btn-default" href="#" th:href="@{'/operator/' + ${operator.id} + '/bonuses'}" role="button">View</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul>
+                                    <li th:remove="all">cat one</li>
+                                    <li th:remove="all">cat two</li>
+                                    <li th:each="bonus : ${operator.bonuses}" th:text="${bonus.getSize()+'  rub. -  '+ bonus.getDescription()}">1000  bonus example</li>
+                                </ul>
                             </div>
                         </div>
                     </div>

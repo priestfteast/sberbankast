@@ -102,6 +102,56 @@
                         </div>
                     </div>
                 </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-10 ">
+                                <h1 class="panel-title">Fines</h1>
+                            </div>
+                            <div class="col-md-1">
+                                <a class="btn btn-default" href="#" role="button">Edit</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul>
+                                    <li th:remove="all">test 1</li>
+                                    <li th:remove="all">test 2</li>
+                                    <li th:each="fine : ${operator.fines}"
+                                        th:text="${fine.getSize() +' rub. - ' + fine.getDescription()}">Test Fine
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-10 ">
+                                <h1 class="panel-title">Bonuses</h1>
+                            </div>
+                            <div class="col-md-1">
+                                <a class="btn btn-default" href="#" role="button">Edit</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul>
+                                    <li th:remove="all">test 1</li>
+                                    <li th:remove="all">test 2</li>
+                                    <li th:each="bonus : ${operator.bonuses}"
+                                        th:text="${bonus.getSize() +' rub. - ' + bonus.getDescription()}">Test Bonus
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
             </form>

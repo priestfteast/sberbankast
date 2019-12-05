@@ -1,5 +1,7 @@
 package com.balakin.sberbankast.commands;
 
+import com.balakin.sberbankast.domain.Bonus;
+import com.balakin.sberbankast.domain.Fine;
 import com.balakin.sberbankast.domain.Shift;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,12 +25,13 @@ public class OperatorCommand {
 
     private String employementDate;
 
-
     private NotesCommand notes;
-
 
     private Set<SpecialtyCommand> specialties = new HashSet<>();
 
+    private Set<FineCommand> fines = new HashSet<>();
+
+    private Set<BonusCommand> bonuses = new HashSet<>();
 
     private Shift shift;
 }

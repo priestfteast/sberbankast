@@ -12,10 +12,14 @@ public class OperatorToOperatorCommand implements Converter<Operator, OperatorCo
 
     private final NotesToNotesCommand notesToNotesCommand;
     private final SpecialtyToSpecialtyCommand specialtyToSpecialtyCommand;
+    private final BonusToBonusCommand bonusToBonusCommand;
+    private final FineToFineCommand fineToFineCommand;
 
-    public OperatorToOperatorCommand(NotesToNotesCommand notesToNotesCommand, SpecialtyToSpecialtyCommand specialtyToSpecialtyCommand) {
+    public OperatorToOperatorCommand(NotesToNotesCommand notesToNotesCommand, SpecialtyToSpecialtyCommand specialtyToSpecialtyCommand, BonusToBonusCommand bonusToBonusCommand, FineToFineCommand fineToFineCommand) {
         this.notesToNotesCommand = notesToNotesCommand;
         this.specialtyToSpecialtyCommand = specialtyToSpecialtyCommand;
+        this.bonusToBonusCommand = bonusToBonusCommand;
+        this.fineToFineCommand = fineToFineCommand;
     }
 
     @Nullable
@@ -38,6 +42,16 @@ public class OperatorToOperatorCommand implements Converter<Operator, OperatorCo
         if(operator!=null&&operator.getSpecialties().size()>0){
             operator.getSpecialties().
                     forEach(specialty -> operatorCommand.getSpecialties().add(specialtyToSpecialtyCommand.convert(specialty)));
+        }
+
+        if(operator!=null&&operator.getBonuses().size()>0){
+            operator.getBonuses().
+                    forEach(bonus -> operatorCommand.getBonuses().add(bonusToBonusCommand.convert(bonus)));
+        }
+
+        if(operator!=null&&operator.getFines().size()>0){
+            operator.getFines().
+                    forEach(fine -> operatorCommand.getFines().add(fineToFineCommand.convert(fine)));
         }
 
         return operatorCommand;

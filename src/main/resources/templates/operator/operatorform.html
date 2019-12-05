@@ -109,7 +109,7 @@
                                 <h1 class="panel-title">Fines</h1>
                             </div>
                             <div class="col-md-1">
-                                <a class="btn btn-default" href="#" role="button">Edit</a>
+                                <a class="btn btn-default" href="#" th:href="@{'/operator/' + ${operator.id} + '/fines'}" role="button">Edit</a>
                             </div>
                         </div>
                     </div>
@@ -134,7 +134,7 @@
                                 <h1 class="panel-title">Bonuses</h1>
                             </div>
                             <div class="col-md-1">
-                                <a class="btn btn-default" href="#" role="button">Edit</a>
+                                <a class="btn btn-default" href="#" th:href="@{'/operator/' + ${operator.id} + '/bonuses'}" role="button">Edit</a>
                             </div>
                         </div>
                     </div>

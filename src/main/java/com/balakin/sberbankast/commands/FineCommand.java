@@ -9,6 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class FineCommand {
     private Long id;
+    private Long operatorId;
     private String description;
     private Long size;
 }

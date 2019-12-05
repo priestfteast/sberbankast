@@ -22,6 +22,9 @@ public class BonusToBonusCommand implements Converter<Bonus, BonusCommand> {
         }
         final BonusCommand bonusCommand = new BonusCommand();
         bonusCommand.setId(bonus.getId());
+        if(bonus.getOperator()!=null){
+            bonusCommand.setOperatorId(bonus.getOperator().getId());
+        }
         bonusCommand.setDescription(bonus.getDescription());
         bonusCommand.setSize(bonus.getSize());
         return bonusCommand;

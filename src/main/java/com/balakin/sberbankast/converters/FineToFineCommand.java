@@ -20,6 +20,9 @@ public class FineToFineCommand implements Converter<Fine, FineCommand> {
         }
         final FineCommand fineCommand = new FineCommand();
         fineCommand.setId(fine.getId());
+        if(fine.getOperator()!=null){
+            fineCommand.setOperatorId(fine.getOperator().getId());
+        }
         fineCommand.setSize(fine.getSize());
         fineCommand.setDescription(fine.getDescription());
         return fineCommand;

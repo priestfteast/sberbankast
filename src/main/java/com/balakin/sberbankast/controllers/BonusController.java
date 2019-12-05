@@ -1,5 +1,6 @@
 package com.balakin.sberbankast.controllers;
 
+import com.balakin.sberbankast.services.BonusService;
 import com.balakin.sberbankast.services.OperatorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 public class BonusController {
     private final OperatorService operatorService;
+    private final BonusService bonusService;
 
-    public BonusController(OperatorService operatorService) {
+    public BonusController(OperatorService operatorService, BonusService bonusService) {
         this.operatorService = operatorService;
+        this.bonusService = bonusService;
     }
 
     @GetMapping
@@ -25,5 +28,12 @@ public class BonusController {
         model.addAttribute("operator",operatorService.findCommandById(Long.valueOf(operatorId)));
 
         return "operator/bonuses/list";
+    }
+
+    @GetMapping
+    @RequestMapping({"operator/{operatorId}/bonuses/{id}/show"})
+    public String showOperatorBonus(@PathVariable String operatorId, @PathVariable String id, Model model){
+        model.addAttribute("bonus",bonusService.findByOperatorIdAndBonusId(Long.valueOf(operatorId),Long.valueOf(id)) );
+        return "operator/bonuses/show";
     }
 }

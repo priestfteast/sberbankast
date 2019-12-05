@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Fines</title>
+    <meta charset="UTF-8"/>
+    <title>View Fine</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -17,49 +17,39 @@
             crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 </head>
 <body>
-
-<!--/*@thymesVar id="fines" type="java.util.Set<com.balakin.sberbankast.commands.FineCommand>"*/-->
-<!--/*@thymesVar id="operator" type="com.balakin.sberbankast.domain.Operator"*/-->
+<!--/*@thymesVar id="fine" type="com.balakin.sberbankast.commands.FineCommand"*/-->
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-primary">
 
                 <div class="panel-heading">
-                    <h1 class="panel-title">Fines</h1>
+                    <h1 class="panel-title">Fine</h1>
                 </div>
                 <div class="panel-body">
-                    <div class="table-responsive" th:if="${not #lists.isEmpty(operator.fines)}">
+
+                    <div class="table-responsive">
                         <table class="table table-hover ">
                             <thead class="thead-inverse">
                             <tr>
                                 <th>ID</th>
                                 <th>Size</th>
                                 <th>Description</th>
-                                <th>View</th>
-                                <th>Update</th>
-                                <th>Delete</th>
                             </tr>
                             </thead>
                             <tr th:remove="all">
-                                <td>123</td>
-                                <td>123</td>
-                                <td><a href="#">View</a></td>
-                            </tr>
-                            <tr th:remove="all">
                                 <td>12333</td>
-                                <td>134</td>
+                                <td>Ttest</td>
                                 <td><a href="#">View</a></td>
+                                <td><a href="#">Update</a></td>
+                                <td><a href="#">Delete</a></td>
                             </tr>
-                            <tr th:each="fine : ${operator.fines}">
+                            <tr>
                                 <td th:text="${fine.id}">334</td>
-                                <td th:text="${fine.size}">3254325</td>
-                                <td th:text="${fine.description}">3254325</td>
-                                <td><a href="#" th:href="@{'/operator/'+${operator.id} +'/fines/' + ${fine.id}+'/show'}">View</a></td>
-                                <td><a href="#" th:href="@{'/operator/'+${operator.id} +'/fines/' + ${fine.id}+'/update'}">Update</a></td>
-                                <td><a href="#" th:href="@{'/operator/'+${operator.id} +'/fines/' + ${fine.id}+'/delete'}">Delete</a></td>
-                            </tr>
+                                <td th:text="${fine.size}">test</td>
+                                <td th:text="${fine.description}">test</td>
 
+                            </tr>
                         </table>
                     </div>
                 </div>
@@ -67,5 +57,6 @@
         </div>
     </div>
 </div>
+
 </body>
 </html>

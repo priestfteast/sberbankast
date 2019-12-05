@@ -40,6 +40,12 @@ public class Operator {
     @Enumerated(value = EnumType.STRING)
     private Shift shift;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "operator")
+    private Set<Fine> fines = new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "operator")
+    private Set<Bonus> bonuses = new HashSet<>();
+
 
 
 

@@ -37,6 +37,7 @@ public class OperatorToOperatorCommand implements Converter<Operator, OperatorCo
         operatorCommand.setLastName(operator.getLastName());
         operatorCommand.setEmployementDate(operator.getEmployementDate().toString());
         operatorCommand.setNumber(operator.getNumber());
+        operatorCommand.setShift(operator.getShift());
         operatorCommand.setNotes(notesToNotesCommand.convert(operator.getNotes()));
 
         if(operator!=null&&operator.getSpecialties().size()>0){

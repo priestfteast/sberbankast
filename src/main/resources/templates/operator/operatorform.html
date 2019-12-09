@@ -69,15 +69,21 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-md-3 control-label" >Shift:</label>
-                                <div class="col-md-3">
-                                    <select class="form-control">
+                        <div class="col-md-3 form-group">
+                            <label>Shift:</label>
+                            <select class="form-control" th:field="*{shift}">
+                                <option th:each="shiftValue : ${T(com.balakin.sberbankast.domain.Shift).values()}"
+                                        th:value="${shiftValue.name()}"
+                                        th:text="${shiftValue.name()}"
+                                >val</option>
+                            </select>
+
+                                    <select class="form-control" th:remove="all">
                                         <option>SEVEN_AM</option>
                                         <option>EIGHT_AM</option>
                                         <option>NINE_AM</option>
                                     </select>
-                                </div>
+
 
                             </div>
 

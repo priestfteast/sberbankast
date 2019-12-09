@@ -76,5 +76,14 @@ public class FineController {
         return "redirect:/operator/" + savedCommand.getOperatorId() + "/fines/" + savedCommand.getId() + "/show";
     }
 
+    @GetMapping
+    @RequestMapping("operator/{operatorId}/fines/{id}/delete")
+    public String deleteById(@PathVariable String operatorId, @PathVariable String id){
+        log.debug("Deleting fine id: "+id);
+
+
+        fineService.deleteById(Long.valueOf(operatorId), Long.valueOf(id));
+        return "redirect:/operator/"+operatorId+"/fines";
+    }
 
 }

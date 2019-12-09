@@ -5,6 +5,7 @@ import com.balakin.sberbankast.converters.BonusCommandToBonus;
 import com.balakin.sberbankast.converters.BonusToBonusCommand;
 import com.balakin.sberbankast.domain.Bonus;
 import com.balakin.sberbankast.domain.Operator;
+import com.balakin.sberbankast.repositories.BonusRepository;
 import com.balakin.sberbankast.repositories.OperatorRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,14 +19,16 @@ public class BonusServiceImpl implements BonusService {
     private final BonusToBonusCommand bonusToBonusCommand;
     private final BonusCommandToBonus bonusCommandToBonus;
     private final OperatorRepository operatorRepository;
+    private final BonusRepository bonusRepository;
 
 
 
 
-    public BonusServiceImpl(BonusToBonusCommand bonusToBonusCommand, BonusCommandToBonus bonusCommandToBonus, OperatorRepository operatorRepository) {
+    public BonusServiceImpl(BonusToBonusCommand bonusToBonusCommand, BonusCommandToBonus bonusCommandToBonus, OperatorRepository operatorRepository, BonusRepository bonusRepository) {
         this.bonusToBonusCommand = bonusToBonusCommand;
         this.bonusCommandToBonus = bonusCommandToBonus;
         this.operatorRepository = operatorRepository;
+        this.bonusRepository = bonusRepository;
     }
 
 
@@ -104,5 +107,20 @@ public class BonusServiceImpl implements BonusService {
 
 
         }
+    }
+
+
+    @Override
+    public void deleteById(Long operatorId, Long idToDelete) {
+
+        log.debug("Deleting bonus: " + operatorId + ":" + idToDelete);
+
+        if(bonusRepository.findById(idToDelete).isPresent()){
+                bonusRepository.deleteById(bonusRepository.findById(idToDelete).get().getId());
+
+        } else {
+            log.debug("Bonus Id Not found. Id:" + idToDelete);
+        }
+
     }
 }

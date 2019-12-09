@@ -1,12 +1,11 @@
 package com.balakin.sberbankast.services;
 
-import com.balakin.sberbankast.commands.BonusCommand;
 import com.balakin.sberbankast.commands.FineCommand;
 import com.balakin.sberbankast.converters.FineCommandToFine;
 import com.balakin.sberbankast.converters.FineToFineCommand;
-import com.balakin.sberbankast.domain.Bonus;
 import com.balakin.sberbankast.domain.Fine;
 import com.balakin.sberbankast.domain.Operator;
+import com.balakin.sberbankast.repositories.FineRepository;
 import com.balakin.sberbankast.repositories.OperatorRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,11 +19,13 @@ public class FineServiceImpl implements FineService {
     private final FineToFineCommand fineToFineCommand;
     private final FineCommandToFine fineCommandToFine;
     private final OperatorRepository operatorRepository;
+    private final FineRepository fineRepository;
 
-    public FineServiceImpl(FineToFineCommand fineToFineCommand, FineCommandToFine fineCommandToFine, OperatorRepository operatorRepository) {
+    public FineServiceImpl(FineToFineCommand fineToFineCommand, FineCommandToFine fineCommandToFine, OperatorRepository operatorRepository, FineRepository fineRepository) {
         this.fineToFineCommand = fineToFineCommand;
         this.fineCommandToFine = fineCommandToFine;
         this.operatorRepository = operatorRepository;
+        this.fineRepository = fineRepository;
     }
 
 
@@ -102,6 +103,18 @@ public class FineServiceImpl implements FineService {
             return fineToFineCommand.convert(savedOptionalFine.get());
 
 
+        }
+    }
+
+    @Override
+    public void deleteById(Long operatorId, Long idToDelete) {
+        log.debug("Deleting fine: " + operatorId + ":" + idToDelete);
+
+        if(fineRepository.findById(idToDelete).isPresent()){
+            fineRepository.deleteById(fineRepository.findById(idToDelete).get().getId());
+
+        } else {
+            log.debug("Fine Id Not found. Id:" + idToDelete);
         }
     }
 

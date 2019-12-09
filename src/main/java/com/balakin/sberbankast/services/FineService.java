@@ -13,4 +13,6 @@ public interface FineService {
     FineCommand findByOperatorIdAndFineId(Long operatorId, Long fineId);
 
     FineCommand saveFineCommand(FineCommand command);
+
+    void deleteById(Long operatorId, Long idToDelete);
 }

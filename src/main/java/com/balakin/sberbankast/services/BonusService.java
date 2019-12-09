@@ -6,4 +6,5 @@ public interface BonusService {
 
     BonusCommand findByOperatorIdAndBonusId(Long operatorId, Long bonusId);
     BonusCommand saveBonusCommand(BonusCommand command);
+    void deleteById(Long operatorId, Long idToDelete);
 }

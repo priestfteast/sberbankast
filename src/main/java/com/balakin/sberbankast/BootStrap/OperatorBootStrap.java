@@ -1,22 +1,20 @@
 package com.balakin.sberbankast.BootStrap;
 
 import com.balakin.sberbankast.domain.*;
+import com.balakin.sberbankast.repositories.BonusRepository;
 import com.balakin.sberbankast.repositories.OperatorRepository;
 import com.balakin.sberbankast.repositories.SpecialtyRepository;
-import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Slf4j
 @Component
@@ -25,9 +23,11 @@ public class OperatorBootStrap implements ApplicationListener<ContextRefreshedEv
     private final OperatorRepository operatorRepository;
     private final SpecialtyRepository specialtyRepository;
 
-    public OperatorBootStrap(OperatorRepository operatorRepository, SpecialtyRepository specialtyRepository) {
+
+    public OperatorBootStrap(OperatorRepository operatorRepository, SpecialtyRepository specialtyRepository, BonusRepository bonusRepository) {
         this.operatorRepository = operatorRepository;
         this.specialtyRepository = specialtyRepository;
+
     }
 
     private List<Operator> getOperators(){

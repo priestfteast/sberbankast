@@ -76,4 +76,14 @@ public class BonusController {
         return "redirect:/operator/" + savedCommand.getOperatorId() + "/bonuses/" + savedCommand.getId() + "/show";
     }
 
+    @GetMapping
+    @RequestMapping("operator/{operatorId}/bonuses/{id}/delete")
+    public String deleteById(@PathVariable String operatorId, @PathVariable String id){
+        log.debug("Deleting bonus id: "+id);
+
+
+        bonusService.deleteById(Long.valueOf(operatorId), Long.valueOf(id));
+        return "redirect:/operator/"+operatorId+"/bonuses";
+    }
+
 }

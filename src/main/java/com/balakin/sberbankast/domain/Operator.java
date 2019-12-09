@@ -43,7 +43,7 @@ public class Operator {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "operator")
     private Set<Fine> fines = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "operator")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "operator")
     private Set<Bonus> bonuses = new HashSet<>();
 
     public Operator addBonus(Bonus bonus){

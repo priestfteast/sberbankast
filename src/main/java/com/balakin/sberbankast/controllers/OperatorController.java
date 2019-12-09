@@ -17,36 +17,34 @@ public class OperatorController {
         this.operatorService = operatorService;
     }
 
-    @RequestMapping({"/operator/{id}/show"})
+    @GetMapping({"/operator/{id}/show"})
     public String showById(@PathVariable String id, Model model){
 
         model.addAttribute("operator", operatorService.findById(Long.valueOf(id)));
         return "operator/show";
     }
 
-    @RequestMapping({"/operator/new"})
+    @GetMapping({"/operator/new"})
     public String newOperator(Model model){
         model.addAttribute("operator", new OperatorCommand());
         return "/operator/operatorform";
     }
-    @GetMapping
-    @RequestMapping({"/operator/{id}/update"})
+    @GetMapping({"/operator/{id}/update"})
     public String updateOperator(@PathVariable String id, Model model){
 
         model.addAttribute("operator", operatorService.findCommandById(Long.valueOf(id)));
         return "operator/operatorform";
     }
 
-    @RequestMapping("operator/{id}/delete")
+    @GetMapping("operator/{id}/delete")
     public String deleteById(@PathVariable String id){
         log.debug("Deleting operator id: "+id);
         operatorService.deleteById(Long.valueOf(id));
         return "redirect:/";
     }
 
-    @PostMapping
-    @RequestMapping("operator")
-    public String saveOrUpdate (@ModelAttribute OperatorCommand operatorCommand, Model model){
+    @PostMapping("operator")
+    public String saveOrUpdate (@ModelAttribute OperatorCommand operatorCommand){
        OperatorCommand savedOperatorCommand = operatorService.saveOperatorCommand(operatorCommand);
 
         return "redirect:/operator/"+savedOperatorCommand.getId()+"/show";

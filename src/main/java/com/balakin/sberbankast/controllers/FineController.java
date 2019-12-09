@@ -21,8 +21,7 @@ public class FineController {
         this.fineService = fineService;
     }
 
-    @GetMapping
-    @RequestMapping({"operator/{operatorId}/fines"})
+    @GetMapping({"operator/{operatorId}/fines"})
     public String listFines(@PathVariable String operatorId, Model model){
         log.debug("listing fines for operator id: "+operatorId);
 
@@ -31,15 +30,13 @@ public class FineController {
         return "operator/fines/list";
     }
 
-    @GetMapping
-    @RequestMapping({"operator/{operatorId}/fines/{id}/show"})
+    @GetMapping({"operator/{operatorId}/fines/{id}/show"})
     public String showOperatorFine(@PathVariable String operatorId, @PathVariable String id, Model model){
         model.addAttribute("fine",fineService.findByOperatorIdAndFineId(Long.valueOf(operatorId),Long.valueOf(id)) );
         return "operator/fines/show";
     }
 
-    @GetMapping
-    @RequestMapping({"operator/{operatorId}/fine/new"})
+    @GetMapping({"operator/{operatorId}/fine/new"})
     public String newOperatorFine(@PathVariable String operatorId,Model model){
 
         //make sure we have a good id value
@@ -56,8 +53,7 @@ public class FineController {
         return "operator/fines/fineform";
     }
 
-    @GetMapping
-    @RequestMapping("operator/{operatorId}/fines/{id}/update")
+    @GetMapping("operator/{operatorId}/fines/{id}/update")
     public String updateOperatorFine(@PathVariable String operatorId,
                                       @PathVariable String id, Model model){
         model.addAttribute("fine", fineService.findByOperatorIdAndFineId(Long.valueOf(operatorId), Long.valueOf(id)));
@@ -65,8 +61,7 @@ public class FineController {
         return "operator/fines/fineform";
     }
 
-    @PostMapping
-    @RequestMapping("operator/{operatorId}/fine")
+    @PostMapping("operator/{operatorId}/fine")
     public String saveOrUpdate(@ModelAttribute FineCommand command){
         FineCommand savedCommand = fineService.saveFineCommand(command);
 
@@ -76,8 +71,7 @@ public class FineController {
         return "redirect:/operator/" + savedCommand.getOperatorId() + "/fines/" + savedCommand.getId() + "/show";
     }
 
-    @GetMapping
-    @RequestMapping("operator/{operatorId}/fines/{id}/delete")
+    @GetMapping("operator/{operatorId}/fines/{id}/delete")
     public String deleteById(@PathVariable String operatorId, @PathVariable String id){
         log.debug("Deleting fine id: "+id);
 

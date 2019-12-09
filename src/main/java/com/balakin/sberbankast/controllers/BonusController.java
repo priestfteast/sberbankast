@@ -21,8 +21,7 @@ public class BonusController {
         this.bonusService = bonusService;
     }
 
-    @GetMapping
-    @RequestMapping({"operator/{operatorId}/bonuses"})
+    @GetMapping({"operator/{operatorId}/bonuses"})
     public String listBonuses(@PathVariable String operatorId, Model model){
         log.debug("listing bonuses for operator id: "+operatorId);
 
@@ -31,15 +30,13 @@ public class BonusController {
         return "operator/bonuses/list";
     }
 
-    @GetMapping
-    @RequestMapping({"operator/{operatorId}/bonuses/{id}/show"})
+    @GetMapping({"operator/{operatorId}/bonuses/{id}/show"})
     public String showOperatorBonus(@PathVariable String operatorId, @PathVariable String id, Model model){
         model.addAttribute("bonus",bonusService.findByOperatorIdAndBonusId(Long.valueOf(operatorId),Long.valueOf(id)) );
         return "operator/bonuses/show";
     }
 
-    @GetMapping
-    @RequestMapping({"operator/{operatorId}/bonus/new"})
+    @GetMapping({"operator/{operatorId}/bonus/new"})
     public String newOperatorBonus(@PathVariable String operatorId,Model model){
 
 
@@ -56,8 +53,7 @@ public class BonusController {
         return "operator/bonuses/bonusform";
     }
 
-    @GetMapping
-    @RequestMapping("operator/{operatorId}/bonuses/{id}/update")
+    @GetMapping("operator/{operatorId}/bonuses/{id}/update")
     public String updateOperatorBonus(@PathVariable String operatorId,
                                          @PathVariable String id, Model model){
         model.addAttribute("bonus", bonusService.findByOperatorIdAndBonusId(Long.valueOf(operatorId), Long.valueOf(id)));
@@ -65,8 +61,7 @@ public class BonusController {
         return "operator/bonuses/bonusform";
     }
 
-    @PostMapping
-    @RequestMapping("operator/{operatorId}/bonus")
+    @PostMapping("operator/{operatorId}/bonus")
     public String saveOrUpdate(@ModelAttribute BonusCommand command){
         BonusCommand savedCommand = bonusService.saveBonusCommand(command);
 
@@ -76,8 +71,7 @@ public class BonusController {
         return "redirect:/operator/" + savedCommand.getOperatorId() + "/bonuses/" + savedCommand.getId() + "/show";
     }
 
-    @GetMapping
-    @RequestMapping("operator/{operatorId}/bonuses/{id}/delete")
+    @GetMapping("operator/{operatorId}/bonuses/{id}/delete")
     public String deleteById(@PathVariable String operatorId, @PathVariable String id){
         log.debug("Deleting bonus id: "+id);
 

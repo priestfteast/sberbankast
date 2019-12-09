@@ -5,4 +5,5 @@ import com.balakin.sberbankast.commands.BonusCommand;
 public interface BonusService {
 
     BonusCommand findByOperatorIdAndBonusId(Long operatorId, Long bonusId);
+    BonusCommand saveBonusCommand(BonusCommand command);
 }

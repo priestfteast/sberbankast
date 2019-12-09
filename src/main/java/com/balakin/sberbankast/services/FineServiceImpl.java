@@ -1,11 +1,16 @@
 package com.balakin.sberbankast.services;
 
+import com.balakin.sberbankast.commands.BonusCommand;
 import com.balakin.sberbankast.commands.FineCommand;
+import com.balakin.sberbankast.converters.FineCommandToFine;
 import com.balakin.sberbankast.converters.FineToFineCommand;
+import com.balakin.sberbankast.domain.Bonus;
+import com.balakin.sberbankast.domain.Fine;
 import com.balakin.sberbankast.domain.Operator;
 import com.balakin.sberbankast.repositories.OperatorRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -13,10 +18,12 @@ import java.util.Optional;
 @Service
 public class FineServiceImpl implements FineService {
     private final FineToFineCommand fineToFineCommand;
+    private final FineCommandToFine fineCommandToFine;
     private final OperatorRepository operatorRepository;
 
-    public FineServiceImpl(FineToFineCommand fineToFineCommand, OperatorRepository operatorRepository) {
+    public FineServiceImpl(FineToFineCommand fineToFineCommand, FineCommandToFine fineCommandToFine, OperatorRepository operatorRepository) {
         this.fineToFineCommand = fineToFineCommand;
+        this.fineCommandToFine = fineCommandToFine;
         this.operatorRepository = operatorRepository;
     }
 
@@ -43,6 +50,59 @@ public class FineServiceImpl implements FineService {
         }
 
         return fineCommandOptional.get();
+    }
+
+    @Override
+    @Transactional
+    public FineCommand saveFineCommand(FineCommand command) {
+
+        Optional<Operator> operatorOptional = operatorRepository.findById(command.getOperatorId());
+
+        if (!operatorOptional.isPresent()) {
+
+            //todo toss error if not found!
+            log.error("Operator not found for id: " + command.getOperatorId());
+            return new FineCommand();
+        } else {
+            Operator operator = operatorOptional.get();
+
+            Optional<Fine> fineOptional = operator
+                    .getFines()
+                    .stream()
+                    .filter(fine -> fine.getId().equals(command.getId()))
+                    .findFirst();
+
+            if (fineOptional.isPresent()) {
+                Fine fineFound = fineOptional.get();
+                fineFound.setDescription(command.getDescription());
+                fineFound.setSize(command.getSize());
+
+            } else {
+                //add new Bonus
+                Fine fine = fineCommandToFine.convert(command);
+                operator.addFine(fine);
+            }
+
+            Operator savedOperator = operatorRepository.save(operator);
+
+            Optional<Fine> savedOptionalFine = savedOperator.getFines().stream()
+                    .filter(operatorFine -> operatorFine.getId().equals(command.getId()))
+                    .findFirst();
+
+            //check by description
+            if (!savedOptionalFine.isPresent()) {
+                //not totally safe... But best guess
+                savedOptionalFine = savedOperator.getFines().stream()
+                        .filter(operatorFine -> operatorFine.getDescription().equals(command.getDescription()))
+                        .filter(operatorFine -> operatorFine.getSize().equals(command.getSize()))
+                        .findFirst();
+            }
+
+            //to do check for fail
+            return fineToFineCommand.convert(savedOptionalFine.get());
+
+
+        }
     }
 
 

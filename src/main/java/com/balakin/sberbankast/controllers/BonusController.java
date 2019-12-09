@@ -1,13 +1,12 @@
 package com.balakin.sberbankast.controllers;
 
+import com.balakin.sberbankast.commands.BonusCommand;
 import com.balakin.sberbankast.services.BonusService;
 import com.balakin.sberbankast.services.OperatorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @Slf4j
@@ -36,4 +35,25 @@ public class BonusController {
         model.addAttribute("bonus",bonusService.findByOperatorIdAndBonusId(Long.valueOf(operatorId),Long.valueOf(id)) );
         return "operator/bonuses/show";
     }
+
+    @GetMapping
+    @RequestMapping("operator/{operatorId}/bonuses/{id}/update")
+    public String updateOperatorBonus(@PathVariable String operatorId,
+                                         @PathVariable String id, Model model){
+        model.addAttribute("bonus", bonusService.findByOperatorIdAndBonusId(Long.valueOf(operatorId), Long.valueOf(id)));
+
+        return "operator/bonuses/bonusform";
+    }
+
+    @PostMapping
+    @RequestMapping("operator/{operatorId}/bonus")
+    public String saveOrUpdate(@ModelAttribute BonusCommand command){
+        BonusCommand savedCommand = bonusService.saveBonusCommand(command);
+
+        log.debug("saved operator id:" + savedCommand.getOperatorId());
+        log.debug("saved bonus id:" + savedCommand.getId());
+
+        return "redirect:/operator/" + savedCommand.getOperatorId() + "/bonuses/" + savedCommand.getId() + "/show";
+    }
+
 }

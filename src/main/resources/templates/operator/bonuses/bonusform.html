@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Bonus form</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
+
+    <script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<!--/*@thymesVar id="operator" type="com.balakin.sberbankast.domain.Operator"*/-->
+<!--/*@thymesVar id="operator" type="com.balakin.sberbankast.domain.Bonus"*/-->
+
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form th:object="${bonus}" th:action="@{'/operator/' + ${bonus.getOperatorId()} + '/bonus'}" method="post" class="form-horizontal">
+                <input type="hidden" th:field="*{id}">
+                <div class="pannel-group">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">New bonus form</h1>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="form-group">
+                                <label for="num" class="col-md-1 control-label">Size:</label>
+                                <div class="col-md-2">
+                                    <input type="number" step="50" class="form-control" id="num" placeholder="Size" th:field="*{size}">
+                                </div>
+                                <label for="dn" class="col-md-2 control-label">Description:</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" id="dn" placeholder="Description" th:field="*{description}">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+</body>

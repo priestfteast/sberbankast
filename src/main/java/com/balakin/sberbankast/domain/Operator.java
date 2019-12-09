@@ -46,7 +46,19 @@ public class Operator {
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "operator")
     private Set<Bonus> bonuses = new HashSet<>();
 
+    public Operator addBonus(Bonus bonus){
+        bonus.setOperator(this);
+        this.getBonuses().add(bonus);
+        return this;
 
+    }
+
+    public Operator addFine(Fine fine){
+        fine.setOperator(this);
+        this.getFines().add(fine);
+        return this;
+
+    }
 
 
 }

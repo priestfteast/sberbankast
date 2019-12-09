@@ -7,4 +7,5 @@ import java.util.Optional;
 public interface FineService {
 
     FineCommand findByOperatorIdAndFineId(Long operatorId, Long fineId);
+    FineCommand saveFineCommand(FineCommand command);
 }

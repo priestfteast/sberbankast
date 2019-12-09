@@ -1,13 +1,13 @@
 package com.balakin.sberbankast.controllers;
 
+import com.balakin.sberbankast.commands.BonusCommand;
+import com.balakin.sberbankast.commands.FineCommand;
 import com.balakin.sberbankast.services.FineService;
 import com.balakin.sberbankast.services.OperatorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @Slf4j
@@ -36,4 +36,26 @@ public class FineController {
         model.addAttribute("fine",fineService.findByOperatorIdAndFineId(Long.valueOf(operatorId),Long.valueOf(id)) );
         return "operator/fines/show";
     }
+
+    @GetMapping
+    @RequestMapping("operator/{operatorId}/fines/{id}/update")
+    public String updateOperatorFine(@PathVariable String operatorId,
+                                      @PathVariable String id, Model model){
+        model.addAttribute("fine", fineService.findByOperatorIdAndFineId(Long.valueOf(operatorId), Long.valueOf(id)));
+
+        return "operator/fines/fineform";
+    }
+
+    @PostMapping
+    @RequestMapping("operator/{operatorId}/fine")
+    public String saveOrUpdate(@ModelAttribute FineCommand command){
+        FineCommand savedCommand = fineService.saveFineCommand(command);
+
+        log.debug("saved operator id:" + savedCommand.getOperatorId());
+        log.debug("saved fine id:" + savedCommand.getId());
+
+        return "redirect:/operator/" + savedCommand.getOperatorId() + "/fines/" + savedCommand.getId() + "/show";
+    }
+
+
 }

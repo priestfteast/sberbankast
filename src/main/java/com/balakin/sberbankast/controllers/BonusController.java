@@ -1,6 +1,8 @@
 package com.balakin.sberbankast.controllers;
 
 import com.balakin.sberbankast.commands.BonusCommand;
+import com.balakin.sberbankast.commands.FineCommand;
+import com.balakin.sberbankast.commands.OperatorCommand;
 import com.balakin.sberbankast.services.BonusService;
 import com.balakin.sberbankast.services.OperatorService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +36,23 @@ public class BonusController {
     public String showOperatorBonus(@PathVariable String operatorId, @PathVariable String id, Model model){
         model.addAttribute("bonus",bonusService.findByOperatorIdAndBonusId(Long.valueOf(operatorId),Long.valueOf(id)) );
         return "operator/bonuses/show";
+    }
+
+    @GetMapping
+    @RequestMapping({"operator/{operatorId}/bonus/new"})
+    public String newOperatorBonus(@PathVariable String operatorId,Model model){
+
+        //make sure we have a good id value
+        OperatorCommand operatorCommand = operatorService.findCommandById(Long.valueOf(operatorId));
+        //todo raise exception if null
+
+        //need to return back parent id for hidden form property
+        BonusCommand bonusCommand = new BonusCommand();
+        bonusCommand.setOperatorId(Long.valueOf(operatorId));
+        model.addAttribute("bonus", bonusCommand);
+
+
+        return "operator/bonuses/bonusform";
     }
 
     @GetMapping

@@ -42,6 +42,7 @@ public class BonusController {
     @RequestMapping({"operator/{operatorId}/bonus/new"})
     public String newOperatorBonus(@PathVariable String operatorId,Model model){
 
+
         //make sure we have a good id value
         OperatorCommand operatorCommand = operatorService.findCommandById(Long.valueOf(operatorId));
         //todo raise exception if null

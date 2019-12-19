@@ -38,19 +38,20 @@ public class OperatorToOperatorCommand implements Converter<Operator, OperatorCo
         operatorCommand.setEmployementDate(operator.getEmployementDate().toString());
         operatorCommand.setNumber(operator.getNumber());
         operatorCommand.setShift(operator.getShift());
+        operatorCommand.setImage(operator.getImage());
         operatorCommand.setNotes(notesToNotesCommand.convert(operator.getNotes()));
 
-        if(operator!=null&&operator.getSpecialties().size()>0){
+        if(operator.getSpecialties()!=null&&operator.getSpecialties().size()>0){
             operator.getSpecialties().
                     forEach(specialty -> operatorCommand.getSpecialties().add(specialtyToSpecialtyCommand.convert(specialty)));
         }
 
-        if(operator!=null&&operator.getBonuses().size()>0){
+        if(operator.getBonuses()!=null&&operator.getBonuses().size()>0){
             operator.getBonuses().
                     forEach(bonus -> operatorCommand.getBonuses().add(bonusToBonusCommand.convert(bonus)));
         }
 
-        if(operator!=null&&operator.getFines().size()>0){
+        if(operator.getFines()!=null&&operator.getFines().size()>0){
             operator.getFines().
                     forEach(fine -> operatorCommand.getFines().add(fineToFineCommand.convert(fine)));
         }

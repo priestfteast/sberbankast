@@ -10,4 +10,9 @@ import lombok.Setter;
 public class SpecialtyCommand {
     private Long id;
     private String description;
+
+    @Override
+    public String toString() {
+        return id+"="+description;
+    }
 }

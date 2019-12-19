@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,6 +26,8 @@ public class OperatorCommand {
     private String employementDate;
 
     private NotesCommand notes;
+
+    private Byte[] image;
 
     private Set<SpecialtyCommand> specialties = new HashSet<>();
 

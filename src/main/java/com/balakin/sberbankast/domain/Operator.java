@@ -28,6 +28,9 @@ public class Operator {
 
     private LocalDate employementDate;
 
+    @Lob
+    private Byte[] image;
+
     @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;
 

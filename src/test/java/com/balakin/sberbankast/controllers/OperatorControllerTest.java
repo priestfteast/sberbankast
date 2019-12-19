@@ -2,6 +2,7 @@ package com.balakin.sberbankast.controllers;
 
 import com.balakin.sberbankast.domain.Operator;
 import com.balakin.sberbankast.services.OperatorServiceImpl;
+import com.balakin.sberbankast.services.SpecialtyService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -21,13 +22,16 @@ class OperatorControllerTest {
     @Mock
     OperatorServiceImpl operatorService;
 
+    @Mock
+    OperatorServiceImpl specialtyService;
+
    OperatorController controller;
 
     @BeforeEach
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        controller = new OperatorController(operatorService);
+        controller = new OperatorController(operatorService, (SpecialtyService) specialtyService);
     }
 
     @Test

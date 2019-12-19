@@ -25,8 +25,20 @@
                     <div class="panel-heading">
                         <!--/*@thymesVar id="operator" type="com.balakin.sberbankast.domain.Operator"*/-->
                         <h1 class="panel-title" th:text="${operator.firstName+' '+operator.lastName}">Operator's name here!</h1>
+
                     </div>
                     <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="../../static/images/guacamole400x400WithX.jpg"
+                                     th:src="@{'/operator/' + ${operator.id} + '/operatorimage'}"
+                                     width="200" height="200">
+                            </div>
+                            <div class="col-md-1">
+                                <a class="btn btn-default" href="#"
+                                   th:href="@{'/operator/' + ${operator.id} + '/image'}" role="button">Change Image</a>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-3">
                                 <p style="font-weight: bold">Last name:</p>

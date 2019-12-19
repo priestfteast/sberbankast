@@ -2,6 +2,7 @@ package com.balakin.sberbankast.controllers;
 
 import com.balakin.sberbankast.commands.OperatorCommand;
 import com.balakin.sberbankast.services.OperatorService;
+import com.balakin.sberbankast.services.SpecialtyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.*;
 public class OperatorController {
 
     private final OperatorService operatorService;
+    private final SpecialtyService specialtyService;
 
-    public OperatorController(OperatorService operatorService) {
+    public OperatorController(OperatorService operatorService, SpecialtyService specialtyService) {
         this.operatorService = operatorService;
+        this.specialtyService = specialtyService;
     }
 
     @GetMapping({"/operator/{id}/show"})
@@ -33,6 +36,8 @@ public class OperatorController {
     public String updateOperator(@PathVariable String id, Model model){
 
         model.addAttribute("operator", operatorService.findCommandById(Long.valueOf(id)));
+        model.addAttribute("specialtylist", specialtyService.listAllSpecialties());
+
         return "operator/operatorform";
     }
 

@@ -17,7 +17,7 @@
             crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<!--/*@thymesVar id="operator" type="com.balakin.sberbankast.domain.Operator"*/-->
+<!--/*@thymesVar id="operator" type="com.balakin.sberbankast.domain.OperatorCommand"*/-->
 
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
@@ -55,20 +55,19 @@
                                     <input id="doe" type="date" class="form-control"  th:field="*{employementDate}">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label  class="col-md-3 control-label">Specialties:</label>
-                                <div class="row" >
-                                    <label class="checkbox-inline">
-                                        <input  type="checkbox" value=""/>44-FZ
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input  type="checkbox" value=""/>223-FZ
-                                    </label>
-                                    <label class="checkbox-inline">
-                                    <input  type="checkbox" value=""/>Commercial
-                                    </label>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>Categories:</label>
+
+                                <ul>
+                                    <li th:each="item : ${specialtylist}">
+                                        <input type="checkbox" th:field="*{specialties}" th:value="${item}"/>
+                                        <label th:for="${#ids.prev('specialties')}" th:text="${item.description}"></label>
+                                    </li>
+                                </ul>
+
                             </div>
+                        </div>
                         <div class="col-md-3 form-group">
                             <label>Shift:</label>
                             <select class="form-control" th:field="*{shift}">

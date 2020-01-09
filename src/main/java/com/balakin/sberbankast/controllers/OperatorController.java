@@ -1,12 +1,14 @@
 package com.balakin.sberbankast.controllers;
 
 import com.balakin.sberbankast.commands.OperatorCommand;
+import com.balakin.sberbankast.exceptions.NotFoundException;
 import com.balakin.sberbankast.services.OperatorService;
 import com.balakin.sberbankast.services.SpecialtyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @Controller
@@ -53,5 +55,14 @@ public class OperatorController {
        OperatorCommand savedOperatorCommand = operatorService.saveOperatorCommand(operatorCommand);
 
         return "redirect:/operator/"+savedOperatorCommand.getId()+"/show";
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    ModelAndView handleNotFoundException(NotFoundException ex){
+        log.error("Handling not found exception");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("exception",ex.getMessage());
+        modelAndView.setViewName("404Error");
+        return modelAndView;
     }
 }

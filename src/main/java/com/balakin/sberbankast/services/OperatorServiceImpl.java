@@ -44,6 +44,7 @@ public class OperatorServiceImpl implements OperatorService {
         if(!operatorOptional.isPresent())
 //            throw new RuntimeException(String.format("There is no operator wit id %f",l));
             throw new NotFoundException(String.format("There is no operator with id %f",(double)l));
+
         return operatorOptional.get();
     }
 

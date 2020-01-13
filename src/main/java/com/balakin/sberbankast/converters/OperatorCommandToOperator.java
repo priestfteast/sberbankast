@@ -31,13 +31,13 @@ public class OperatorCommandToOperator implements Converter<OperatorCommand, Ope
         if(operatorCommand==null) {
             return null;
         }
-        LocalDate date = LocalDate.parse(operatorCommand.getEmployementDate());
+
 
         Operator operator = new Operator();
         operator.setId(operatorCommand.getId());
         operator.setFirstName(operatorCommand.getFirstName());
         operator.setLastName(operatorCommand.getLastName());
-        operator.setEmployementDate(date);
+        operator.setEmployementDate(operatorCommand.getEmployementDate());
         operator.setNumber(operatorCommand.getNumber());
         operator.setShift(operatorCommand.getShift());
         operator.setNotes(notesCommandToNotes.convert(operatorCommand.getNotes()));

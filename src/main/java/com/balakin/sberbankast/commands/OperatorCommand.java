@@ -3,11 +3,17 @@ package com.balakin.sberbankast.commands;
 import com.balakin.sberbankast.domain.Bonus;
 import com.balakin.sberbankast.domain.Fine;
 import com.balakin.sberbankast.domain.Shift;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import org.hibernate.validator.constraints.URL;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.*;
+
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,13 +23,20 @@ import java.util.Set;
 public class OperatorCommand {
     private Long id;
 
+    @NotBlank
+    @Size(min = 2, max = 20)
     private String firstName;
 
+    @NotBlank
+    @Size(min = 2, max = 20)
     private String lastName;
 
+    @Pattern(regexp = "^user[0-9]+$")
     private String number;
 
-    private String employementDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate employementDate;
+
 
     private NotesCommand notes;
 
@@ -36,4 +49,7 @@ public class OperatorCommand {
     private Set<BonusCommand> bonuses = new HashSet<>();
 
     private Shift shift;
+
+
+
 }

@@ -21,8 +21,14 @@
 
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
+
         <div class="col-md-6 col-md-offset-3">
             <form th:object="${operator}" th:action="@{/operator/}" method="post" class="form-horizontal">
+
+                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                    <p>Please Correct Errors Below</p>
+                </div>
+
                 <input type="hidden" th:field="*{id}">
             <div class="pannel-group">
                 <div class="panel panel-primary">
@@ -30,31 +36,81 @@
                         <h1 class="panel-title">New operator creation form</h1>
                     </div>
                     <div class="panel-body">
+                        <div class="row">
+                        <div class="col-md-12 form-group" th:class="${#fields.hasErrors('lastName')}
+                               ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
+                            <label for="ln" class="col-md-3 control-label">Last name:</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="ln" placeholder="Last name"
+                                       th:field="*{lastName}"
+                                       th:errorclass="has-error">
+                                <span class="help-block" th:if="${#fields.hasErrors('lastName')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('lastName')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                            </div>
+                        </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="ln" class="col-md-3 control-label">Last name:</label>
-                                <div class="col-md-3">
-                                    <input type="text" class="form-control" id="ln" placeholder="Last name" th:field="*{lastName}">
-                                </div>
-                            </div>
-                            <div class="form-group">
+
+                        <div class="row">
+                            <div class="col-md-12 form-group" th:class="${#fields.hasErrors('firstName')}
+                               ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
                                 <label for="fn" class="col-md-3 control-label">First name:</label>
-                                <div class="col-md-3">
-                                    <input type="text" class="form-control" id="fn" placeholder="First name" th:field="*{firstName}">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="fn" placeholder="First name"
+                                           th:field="*{firstName}"
+                                           th:errorclass="has-error">
+                                    <span class="help-block" th:if="${#fields.hasErrors('firstName')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('firstName')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
                                 </div>
                             </div>
-                            <div class="form-group">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 form-group" th:class="${#fields.hasErrors('number')}
+                               ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
                                 <label for="num" class="col-md-3 control-label">Number:</label>
-                                <div class="col-md-3">
-                                    <input type="text" class="form-control" id="num" placeholder="Number" th:field="*{number}">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="num" placeholder="Number"
+                                           th:field="*{number}"
+                                           th:errorclass="has-error">
+                                    <span class="help-block" th:if="${#fields.hasErrors('number')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('number')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="doe" class="col-md-4 control-label">Date of employement:</label>
-                                <div class="col-md-3">
-                                    <input id="doe" type="date" class="form-control"  th:field="*{employementDate}">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 form-group" th:class="${#fields.hasErrors('employementDate')}
+                               ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
+                                <label for="doe" class="col-md-3 control-label">Date of employement:</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="doe" placeholder="Date of employement"
+                                           th:field="*{employementDate}"
+                                           th:errorclass="has-error">
+                                    <span class="help-block" th:if="${#fields.hasErrors('employementDate')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('employementDate')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
                                 </div>
                             </div>
+                        </div>
+
+
+
                         <div class="row">
                             <div class="col-md-6 form-group">
                                 <label>Categories:</label>

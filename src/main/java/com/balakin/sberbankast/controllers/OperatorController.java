@@ -7,12 +7,17 @@ import com.balakin.sberbankast.services.SpecialtyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 @Slf4j
 @Controller
 public class OperatorController {
+
+    private final String OPERATOR_OPERATOR_FORM_URL = "operator/operatorform";
 
     private final OperatorService operatorService;
     private final SpecialtyService specialtyService;
@@ -51,9 +56,16 @@ public class OperatorController {
     }
 
     @PostMapping("operator")
-    public String saveOrUpdate (@ModelAttribute OperatorCommand operatorCommand){
-       OperatorCommand savedOperatorCommand = operatorService.saveOperatorCommand(operatorCommand);
+    public String saveOrUpdate (@Valid @ModelAttribute("operator") OperatorCommand operatorCommand, BindingResult bindingResult){
 
+       if(bindingResult.hasErrors()){
+          bindingResult.getAllErrors().forEach(objectError -> {
+              log.debug(objectError.toString());
+          });
+          return OPERATOR_OPERATOR_FORM_URL;
+       }
+
+        OperatorCommand savedOperatorCommand = operatorService.saveOperatorCommand(operatorCommand);
         return "redirect:/operator/"+savedOperatorCommand.getId()+"/show";
     }
 

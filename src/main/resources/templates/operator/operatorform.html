@@ -26,7 +26,7 @@
             <form th:object="${operator}" th:action="@{/operator/}" method="post" class="form-horizontal">
 
                 <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
-                    <p>Please Correct Errors Below</p>
+                    <p th:text="#{operator.error}">Please Correct Errors Below</p>
                 </div>
 
                 <input type="hidden" th:field="*{id}">

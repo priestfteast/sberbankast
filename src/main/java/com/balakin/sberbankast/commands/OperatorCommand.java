@@ -35,6 +35,7 @@ public class OperatorCommand {
     private String number;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @PastOrPresent
     private LocalDate employementDate;
 
 

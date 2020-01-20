@@ -21,4 +21,16 @@ public class ControllerExceptionHandler {
         modelAndView.setViewName("400Error");
         return modelAndView;
     }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(IllegalStateException.class)
+    ModelAndView illegalStateHadler(Exception ex){
+
+        log.error("Handling illegal state exception");
+        log.error(ex.getMessage());
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("exception",ex);
+        modelAndView.setViewName("500Error");
+        return modelAndView;
+    }
 }

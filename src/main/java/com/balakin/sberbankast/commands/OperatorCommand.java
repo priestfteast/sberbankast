@@ -41,6 +41,7 @@ public class OperatorCommand {
 
     private NotesCommand notes;
 
+
     private Byte[] image;
 
     private Set<SpecialtyCommand> specialties = new HashSet<>();

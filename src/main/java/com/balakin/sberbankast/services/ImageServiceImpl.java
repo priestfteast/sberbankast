@@ -22,6 +22,18 @@ public class ImageServiceImpl implements ImageService{
     @Override
     public void saveImageFile(Long operatorId, MultipartFile file) {
         log.debug("Received a file");
+        System.out.println(file.getSize());
+        if(file.getSize()>5000000) {
+
+            throw new IllegalStateException("Размер изображения превышает 5 мб");
+        }
+
+        if(!file.getOriginalFilename().endsWith(".jpg")) {
+
+            throw new IllegalStateException("Формат изображения должен быть .jpg");
+
+
+        }
 
         try{
             Operator operator = operatorRepository.findById(operatorId).get();

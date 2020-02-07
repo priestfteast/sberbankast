@@ -33,6 +33,9 @@ public class OperatorBootStrap implements ApplicationListener<ContextRefreshedEv
     private List<Operator> getOperators(){
         List<Operator> operators = new ArrayList<>(2);
 
+        if(operatorRepository.findAll().iterator().hasNext())
+            return operators;
+
         //get Specialties Optionals
         Optional<Specialty> gosOptional = specialtyRepository.findByDescription("GOS(44-FZ)");
 

@@ -33,7 +33,7 @@
                                 <form  action="http:\\localhost" method="post" enctype="multipart/form-data"
                                        th:action="@{'/operator/' + ${operator.getId()} + '/image'}">
                                     <label class="control-label">Select File</label>
-                                    <input id="imagefile" name="imagefile" type="file" class="file">
+                                    <input id="imagefile" name="imagefile" type="file" class="file"  accept=".jpg, .jpeg, .png">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
                             </div>

@@ -4,6 +4,8 @@ import com.balakin.sberbankast.domain.Bonus;
 import com.balakin.sberbankast.domain.Fine;
 import com.balakin.sberbankast.domain.Shift;
 
+import com.balakin.sberbankast.validators.OperatorImageConstraint;
+import com.balakin.sberbankast.validators.OperatorLastNameConstraint;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,6 +31,7 @@ public class OperatorCommand {
 
     @NotBlank
     @Size(min = 2, max = 20)
+    @OperatorLastNameConstraint
     private String lastName;
 
     @Pattern(regexp = "^user[0-9]+$")
@@ -41,7 +44,7 @@ public class OperatorCommand {
 
     private NotesCommand notes;
 
-
+    @OperatorImageConstraint
     private Byte[] image;
 
     private Set<SpecialtyCommand> specialties = new HashSet<>();

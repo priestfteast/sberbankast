@@ -8,4 +8,8 @@ import org.springframework.stereotype.Repository;
 public interface OperatorRepository extends CrudRepository<Operator,Long> {
 
     Operator findByLastName(String lastName);
+
+    Iterable<Operator> findAllByOrderByLastName();
+
+
 }

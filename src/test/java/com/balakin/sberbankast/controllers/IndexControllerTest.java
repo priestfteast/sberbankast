@@ -12,7 +12,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -51,7 +53,7 @@ class IndexControllerTest {
     public void getIndexPage() throws Exception {
 
         //given
-        Set<Operator> operators = new HashSet<>();
+        List<Operator> operators = new ArrayList<>();
         operators.add(new Operator());
 
         Operator operator = new Operator();

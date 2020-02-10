@@ -37,6 +37,7 @@ public class OperatorController {
     @GetMapping({"/operator/new"})
     public String newOperator(Model model){
         model.addAttribute("operator", new OperatorCommand());
+        model.addAttribute("specialtylist", specialtyService.listAllSpecialties());
         return "/operator/operatorform";
     }
     @GetMapping({"/operator/{id}/update"})
@@ -60,7 +61,9 @@ public class OperatorController {
 
        if(bindingResult.hasErrors()){
           bindingResult.getAllErrors().forEach(objectError -> {
+              System.out.println(objectError.toString());
               log.debug(objectError.toString());
+
           });
           return OPERATOR_OPERATOR_FORM_URL;
        }

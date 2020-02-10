@@ -31,7 +31,7 @@ public class OperatorCommand {
 
     @NotBlank
     @Size(min = 2, max = 20)
-    @OperatorLastNameConstraint
+//    @OperatorLastNameConstraint
     private String lastName;
 
     @Pattern(regexp = "^user[0-9]+$")
@@ -44,7 +44,7 @@ public class OperatorCommand {
 
     private NotesCommand notes;
 
-    @OperatorImageConstraint
+//    @OperatorImageConstraint
     private Byte[] image;
 
     private Set<SpecialtyCommand> specialties = new HashSet<>();

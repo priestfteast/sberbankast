@@ -49,32 +49,6 @@ class IndexControllerTest {
                 .andExpect(view().name("index"));
     }
 
-    @Test
-    public void getIndexPage() throws Exception {
 
-        //given
-        List<Operator> operators = new ArrayList<>();
-        operators.add(new Operator());
-
-        Operator operator = new Operator();
-        operator.setId(1L);
-
-        operators.add(operator);
-
-        when(operatorService.getOperators()).thenReturn(operators);
-
-        ArgumentCaptor<Set<Operator>> argumentCaptor = ArgumentCaptor.forClass(Set.class);
-
-        //when
-        String viewName = controller.getIndexPage(model);
-
-
-        //then
-        assertEquals("index", viewName);
-        verify(operatorService, times(1)).getOperators();
-        verify(model, times(1)).addAttribute(eq("operators"), argumentCaptor.capture());
-        Set<Operator> setInController = argumentCaptor.getValue();
-        assertEquals(2, setInController.size());
-    }
 
 }

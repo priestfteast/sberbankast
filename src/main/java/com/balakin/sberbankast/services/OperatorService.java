@@ -8,9 +8,11 @@ import java.util.List;
 
 public interface OperatorService {
 
-    List<Operator> getOperators();
+    List<Operator> getOperatorsByName();
+    List<Operator> getOperatorsBySpecialties();
     Operator findById(Long l);
     OperatorCommand findCommandById(Long l);
     OperatorCommand saveOperatorCommand(OperatorCommand operatorCommand);
     void deleteById(Long idToDelete);
+
 }

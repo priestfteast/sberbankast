@@ -27,10 +27,28 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
     @Override
-    public List<Operator> getOperators() {
+    public List<Operator> getOperatorsByName() {
         log.debug("we are in service");
         List<Operator> operators = new ArrayList<>();
         operatorRepository.findAllByOrderByLastName().forEach(operators::add);
+
+        return operators;
+    }
+
+    @Override
+    public List<Operator> getOperatorsBySpecialties() {
+        log.debug("we are in service");
+        List<Operator> operators = new ArrayList<>();
+        operatorRepository.findAll().forEach(operators::add);
+        operators.sort(new Comparator<Operator>() {
+            @Override
+            public int compare(Operator o1, Operator o2) {
+                if(o1.getSpecialties().size()>o2.getSpecialties().size())
+                return -1;
+                else
+                    return 1;
+            }
+        });
 
         return operators;
     }

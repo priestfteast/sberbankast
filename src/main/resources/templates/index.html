@@ -36,13 +36,42 @@
                     </div>
 
                 </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-10">
+                        <form th:action="@{/sort/}" th:method="post">
+                            <p><b>Sort by:</b></p>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                                       value="name" th:checked="${data.contains('name')}" >
+                                <label class="form-check-label" for="exampleRadios1">
+                                    name
+                                </label>
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                       value="specialties" th:checked="${data.contains('specialties')}">
+                                <label class="form-check-label" for="exampleRadios2">
+                                    specialties
+                                </label>
+                                <div class="form-group col-md-offset-12">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+
+
+                        </form>
+
+                    </div>
+                </div>
                 <div class="panel-body">
                     <div class="table-responsive" th:if="${not #lists.isEmpty(operators)}">
                         <table class="table table-hover">
                             <thead class="thead-inverse">
                             <tr>
                                 <th>№</th>
-<!--                                <th>ID</th>-->
+                                <!--                                <th>ID</th>-->
                                 <th>Name</th>
                                 <th>Date of employement</th>
                                 <th>Specialties</th>
@@ -53,7 +82,7 @@
                             </thead>
                             <tr th:remove="all">
                                 <td>123</td>
-<!--                                <td>123</td>-->
+                                <!--                                <td>123</td>-->
                                 <td>Tasty Goodnees 1</td>
                                 <td>Tasty Goodnees 1</td>
                                 <td>Tasty Goodnees 1</td>
@@ -62,7 +91,7 @@
                             </tr>
                             <tr th:remove="all">
                                 <td>123</td>
-<!--                                <td>12333</td>-->
+                                <!--                                <td>12333</td>-->
                                 <td>Tasty Goodnees 1</td>
                                 <td>Tasty Goodnees 1</td>
                                 <td>Tasty Goodnees 2</td>
@@ -72,7 +101,7 @@
                             <tr th:each="operator : ${operators}">
                                 <!--/*@thymesVar id="operator" type="com.balakin.sberbankast.domain.Operator"*/-->
                                 <td>123</td>
-<!--                                <td th:text="${operator.id}">idd</td>-->
+                                <!--                                <td th:text="${operator.id}">idd</td>-->
                                 <td th:text="${operator.lastName+' '+operator.firstName}">Tasty Goodnees 3</td>
                                 <td th:text="${operator.employementDate}">Tasty Goodnees 3</td>
                                 <td th:text="${operator.specialties.size()}">Tasty Goodnees 3</td>
@@ -89,9 +118,9 @@
 </div>
 
 <script>
-    $('.table tbody tr').each(function(i) {
+    $('.table tbody tr').each(function (i) {
         var number = i + 1;
-        $(this).find('td:first').text(number+".");
+        $(this).find('td:first').text(number + ".");
     });
 </script>
 

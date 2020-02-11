@@ -27,10 +27,10 @@
 
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-md-11 ">
+                        <div class="col-md-10 ">
                             <h1 class="panel-title">Operators</h1>
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-2">
                             <a class="btn btn-default" href="#" th:href="@{'/operator/new'}" role="button">New</a>
                         </div>
                     </div>
@@ -41,9 +41,11 @@
                         <table class="table table-hover">
                             <thead class="thead-inverse">
                             <tr>
-                                <th>num</th>
+                                <th>№</th>
 <!--                                <th>ID</th>-->
                                 <th>Name</th>
+                                <th>Date of employement</th>
+                                <th>Specialties</th>
                                 <th>View</th>
                                 <th>Update</th>
                                 <th>Delete</th>
@@ -53,12 +55,16 @@
                                 <td>123</td>
 <!--                                <td>123</td>-->
                                 <td>Tasty Goodnees 1</td>
+                                <td>Tasty Goodnees 1</td>
+                                <td>Tasty Goodnees 1</td>
                                 <td><a href="#">View</a></td>
                                 <td><a href="#">Update</a></td>
                             </tr>
                             <tr th:remove="all">
                                 <td>123</td>
 <!--                                <td>12333</td>-->
+                                <td>Tasty Goodnees 1</td>
+                                <td>Tasty Goodnees 1</td>
                                 <td>Tasty Goodnees 2</td>
                                 <td><a href="#">View</a></td>
                                 <td><a href="#">Update</a></td>
@@ -68,6 +74,8 @@
                                 <td>123</td>
 <!--                                <td th:text="${operator.id}">idd</td>-->
                                 <td th:text="${operator.lastName+' '+operator.firstName}">Tasty Goodnees 3</td>
+                                <td th:text="${operator.employementDate}">Tasty Goodnees 3</td>
+                                <td th:text="${operator.specialties.size()}">Tasty Goodnees 3</td>
                                 <td><a href="#" th:href="@{'/operator/' + ${operator.id}+'/show'}">View</a></td>
                                 <td><a href="#" th:href="@{'/operator/' + ${operator.id}+'/update'}">Update</a></td>
                                 <td><a href="#" th:href="@{'/operator/' + ${operator.id}+'/delete'}">Delete</a></td>

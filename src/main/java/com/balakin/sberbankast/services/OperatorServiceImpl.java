@@ -36,6 +36,15 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
     @Override
+    public List<Operator> getOperatorsByEmployementDate() {
+        log.debug("we are in service");
+        List<Operator> operators = new ArrayList<>();
+        operatorRepository.findAllByOrderByEmployementDate().forEach(operators::add);
+
+        return operators;
+    }
+
+    @Override
     public List<Operator> getOperatorsBySpecialties() {
         log.debug("we are in service");
         List<Operator> operators = new ArrayList<>();
@@ -52,6 +61,8 @@ public class OperatorServiceImpl implements OperatorService {
 
         return operators;
     }
+
+
 
     @Override
     public Operator findById(Long l) {

@@ -30,6 +30,8 @@ public class IndexController {
             model.addAttribute("operators",operatorService.getOperatorsByName());
         if(data.contains("specialties"))
             model.addAttribute("operators",operatorService.getOperatorsBySpecialties());
+        if(data.contains("date of employment"))
+            model.addAttribute("operators",operatorService.getOperatorsByEmployementDate());
         return "index";
     }
 

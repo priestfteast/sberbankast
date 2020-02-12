@@ -9,6 +9,7 @@ import java.util.List;
 public interface OperatorService {
 
     List<Operator> getOperatorsByName();
+    List<Operator> getOperatorsByEmployementDate();
     List<Operator> getOperatorsBySpecialties();
     Operator findById(Long l);
     OperatorCommand findCommandById(Long l);

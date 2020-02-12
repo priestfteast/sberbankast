@@ -6,7 +6,9 @@ import com.balakin.sberbankast.domain.Specialty;
 import com.balakin.sberbankast.repositories.SpecialtyRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -22,15 +24,15 @@ public class SpecialtyServiceimpl implements SpecialtyService {
 
 
     @Override
-    public Set<SpecialtyCommand> listAllSpecialties() {
-        HashSet<SpecialtyCommand> set = new HashSet<>();
+    public List<SpecialtyCommand> listAllSpecialties() {
+        List<SpecialtyCommand> list = new ArrayList<>();
 
 
 
         for (Specialty spec:specialtyRepository.findAll()
              ) {
-            set.add(specialtyToSpecialtyCommand.convert(spec));
+            list.add(specialtyToSpecialtyCommand.convert(spec));
         }
-        return set;
+        return list;
     }
 }

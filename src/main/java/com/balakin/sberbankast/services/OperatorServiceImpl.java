@@ -5,6 +5,7 @@ import com.balakin.sberbankast.commands.OperatorCommand;
 import com.balakin.sberbankast.converters.OperatorCommandToOperator;
 import com.balakin.sberbankast.converters.OperatorToOperatorCommand;
 import com.balakin.sberbankast.domain.Operator;
+import com.balakin.sberbankast.domain.Specialty;
 import com.balakin.sberbankast.exceptions.NotFoundException;
 import com.balakin.sberbankast.repositories.OperatorRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -27,22 +29,40 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
     @Override
-    public List<Operator> getOperatorsByName() {
+    public List<Operator> getOperators(String request){
         log.debug("we are in service");
         List<Operator> operators = new ArrayList<>();
-        operatorRepository.findAllByOrderByLastName().forEach(operators::add);
+        System.out.println(operators.size());
+        System.out.println(parseRequest(request)[0]+"!");
+        switch (parseRequest(request)[0]){
+            case "name": operatorRepository.findAllByOrderByLastName().forEach(operators::add);
+                break;
+            case "dateofemployment" : operatorRepository.findAllByOrderByEmployementDate().forEach(operators::add);
+                break;
+            case "specialties" : operators.addAll(getOperatorsBySpecialties());
+                break;
+        }
+
+        System.out.println(operators.size());
+
+        if(request.contains("specialty")) {
+            String specsRequest = parseRequest(request)[1];
+            List<Operator> filteredList = new ArrayList<>();
+            filteredList.addAll(operators);
+            for (Operator op:operators
+            ) {
+                System.out.println(parseSpecs(op.getSpecialties()));
+                System.out.println(specsRequest);
+                if(!parseSpecs(op.getSpecialties()).contains(specsRequest))
+                    filteredList.remove(op);
+            }
+            return filteredList;
+
+        }
 
         return operators;
     }
 
-    @Override
-    public List<Operator> getOperatorsByEmployementDate() {
-        log.debug("we are in service");
-        List<Operator> operators = new ArrayList<>();
-        operatorRepository.findAllByOrderByEmployementDate().forEach(operators::add);
-
-        return operators;
-    }
 
     @Override
     public List<Operator> getOperatorsBySpecialties() {
@@ -92,5 +112,36 @@ public class OperatorServiceImpl implements OperatorService {
     @Override
     public void deleteById(Long idToDelete) {
         operatorRepository.deleteById(idToDelete);
+    }
+
+    public String parseSpecs(List<Specialty> specs){
+        String result ="";
+        for (Specialty spec: specs
+             ) {
+            result+=spec.getDescription();
+        }
+        return result.replaceAll("\\s","");
+    }
+
+    public String[] parseRequest(String request){
+       request=request.replaceAll("\\d{1}=","");
+        String [] massive = request.split("]");
+        for (int i = 0; i < massive.length; i++) {
+            massive[i]=massive[i].replaceAll("\\[|}|.+=|,|\\s","");
+        }
+        return massive;
+    }
+
+    public static void main(String[] args) {
+        String a = "{sort by=[name], specialty=[1=GOS(44-FZ), 2=Corporate(223-FZ), 3=Bankruptsy & Privatization, 5=Other]}";
+        a= a.replaceAll("\\d{1}=","");
+        System.out.println(a);
+
+
+        String [] massive = a.split("]");
+        for (int i = 0; i < massive.length; i++) {
+            massive[i]=massive[i].replaceAll("\\[|}|.+=|,|\\s","");
+            System.out.println(massive[i]);
+        }
     }
 }

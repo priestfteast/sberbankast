@@ -30,27 +30,27 @@
                         <form th:action="@{/sort/}" th:method="post">
 
                             <label  class="col-md-4 control-label">Sort by:</label>
-                            <label  class="col-md-4 control-label">Specialties filter:</label>
-                            <label  class="col-md-4 control-label">Years in company:</label>
+                            <label  class="col-md-6 control-label">Specialties filter:</label>
+                            <label  class="col-md-2 control-label">Years in company:</label>
                             <div class="row">
                                 <div class="col-md-12 form-group" >
                                     <div class="col-md-4 form-group" >
                                     <div class="form-check">
-                                        <input class="form-check-input-md-offset-2" type="radio" name="exampleRadios" id="exampleRadios1"
+                                        <input class="form-check-input-md-offset-2" type="radio" name="sort by" id="exampleRadios1"
                                                value="name" th:checked="${data.contains('name')}" >
                                         <label class="form-check-label" for="exampleRadios1">
                                             name
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                        <input class="form-check-input" type="radio" name="sort by" id="exampleRadios2"
                                                value="specialties" th:checked="${data.contains('specialties')}">
                                         <label class="form-check-label" for="exampleRadios1">
                                             specialties
                                         </label>
                                     </div>
                                         <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3"
+                                        <input class="form-check-input" type="radio" name="sort by" id="exampleRadios3"
                                                value="date of employment" th:checked="${data.contains('date of employment')}">
                                         <label class="form-check-label" for="exampleRadios1">
                                             date of employment
@@ -59,30 +59,17 @@
 
                                     </div>
 
-<!--                                    <div class="col-md-4 form-group" >-->
-<!--                                        <div class="form-check">-->
-<!--                                            <input class="form-check-input-md-offset-2" type="radio" name="exampleRadios" id="exampleRadios1"-->
-<!--                                                   value="name" th:checked="${data.contains('name')}" >-->
-<!--                                            <label class="form-check-label" for="exampleRadios1">-->
-<!--                                                name-->
-<!--                                            </label>-->
-<!--                                        </div>-->
-<!--                                        <div class="form-check">-->
-<!--                                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"-->
-<!--                                                   value="specialties" th:checked="${data.contains('specialties')}">-->
-<!--                                            <label class="form-check-label" for="exampleRadios1">-->
-<!--                                                specialties-->
-<!--                                            </label>-->
-<!--                                        </div>-->
-<!--                                        <div class="form-check">-->
-<!--                                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3"-->
-<!--                                                   value="date of employment" th:checked="${data.contains('date of employment')}">-->
-<!--                                            <label class="form-check-label" for="exampleRadios1">-->
-<!--                                                date of employment-->
-<!--                                            </label>-->
-<!--                                        </div>-->
+                                    <div class="col-md-6 form-group" >
+                                        <ul>
+                                            <li th:each="item : ${specialtylist}">
+                                                <input type="checkbox" name="specialty" th:value="${item}" th:checked="${data.contains(item.description)}"/>
+                                                <label  th:text="${item.description}"></label>
+                                            </li>
+                                        </ul>
 
-<!--                                    </div>-->
+                                    </div>
+
+
 
 <!--                                    <div class="col-md-4 form-group" >-->
 <!--                                        <div class="form-check">-->

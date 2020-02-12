@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -63,5 +64,9 @@ public class Operator {
 
     }
 
+    public  int getYears() {
+        Period period = Period.between(this.getEmployementDate(),LocalDate.now());
+        return period.getYears();
 
+    }
 }

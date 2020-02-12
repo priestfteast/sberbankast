@@ -141,7 +141,7 @@
                                 <th>№</th>
                                 <!--                                <th>ID</th>-->
                                 <th>Name</th>
-                                <th>Date of employement</th>
+                                <th>Date of employement (years)</th>
                                 <th>Specialties</th>
                                 <th>View</th>
                                 <th>Update</th>
@@ -171,7 +171,7 @@
                                 <td>123</td>
                                 <!--                                <td th:text="${operator.id}">idd</td>-->
                                 <td th:text="${operator.lastName+' '+operator.firstName}">Tasty Goodnees 3</td>
-                                <td th:text="${operator.employementDate}">Tasty Goodnees 3</td>
+                                <td th:text="${operator.employementDate+' ('+operator.getYears()+')'}">Tasty Goodnees 3</td>
                                 <td th:text="${operator.specialties.size()}">Tasty Goodnees 3</td>
                                 <td><a href="#" th:href="@{'/operator/' + ${operator.id}+'/show'}">View</a></td>
                                 <td><a href="#" th:href="@{'/operator/' + ${operator.id}+'/update'}">Update</a></td>

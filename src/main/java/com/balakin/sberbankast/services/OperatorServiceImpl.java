@@ -90,7 +90,8 @@ public class OperatorServiceImpl implements OperatorService {
                         filteredList.remove(op);
                 }
 
-
+                if(parsedRequest[2].equals("all"))
+                    return filteredList;
 
 
                 for (Operator op : operators
@@ -173,8 +174,8 @@ public class OperatorServiceImpl implements OperatorService {
        request=request.replaceAll("\\d{1}=","").replaceAll("}","");
         String [] massive = request.split("]");
         for (int i = 0; i < massive.length; i++) {
-            massive[i]=massive[i].replaceAll("\\[|}|.+=|,|\\s","").replaceAll("year","");
-//            System.out.println(massive[i]);
+            massive[i]=massive[i].replaceAll("\\[|}|.+=|,|\\s","").replaceAll("year","").replaceAll("everyspecialty","");
+            System.out.println(massive[i]);
         }
         return massive;
     }
@@ -184,7 +185,7 @@ public class OperatorServiceImpl implements OperatorService {
         request=request.replaceAll("\\d{1}=","").replaceAll("}","");
         String [] massive = request.split("]");
         for (int i = 0; i < massive.length; i++) {
-            massive[i]=massive[i].replaceAll("\\[|}|.+=|,|\\s","").replaceAll("year","");
+            massive[i]=massive[i].replaceAll("\\[|}|.+=|,|\\s","").replaceAll("year","").replaceAll("allcategories","");
             System.out.println("! "+massive[i]);
         }
     }

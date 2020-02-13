@@ -37,9 +37,9 @@
                     <div class="col-md-10">
                         <form th:action="@{/sort/}" th:method="post">
 
-                            <label  class="col-md-4 control-label">Sort by:</label>
-                            <label  class="col-md-5 control-label">Specialties filter:</label>
-                            <label  class="col-md-3 control-label">Experience filter:</label>
+                            <label  class="col-md-4 control-label" style="text-decoration: underline">Sort by:</label>
+                            <label  class="col-md-5 control-label" style="text-decoration: underline">Specialties filter:</label>
+                            <label  class="col-md-3 control-label" style="text-decoration: underline">Experience filter:</label>
                             <div class="row">
                                 <div class="col-md-12 form-group" >
                                     <div class="col-md-4 form-group" >
@@ -68,25 +68,42 @@
                                     </div>
 
                                     <div class="col-md-5 form-group" >
-                                        <ul>
-                                            <li th:each="item : ${specialtylist}">
-                                                <input type="checkbox" name="specialty" th:value="${item}" th:checked="${data.contains(item.description)}"/>
-                                                <label  th:text="${item.description}"></label>
-                                            </li>
-                                        </ul>
+
+                                            <p id="controls">
+
+                                                <input type="checkbox" name="specialty" value="GOS(44-FZ)"
+                                                       th:checked="${data.contains('GOS(44-FZ)')}"><b>GOS(44-FZ)</b><br>
+                                                <input type="checkbox" name="specialty" value="Corporate(223-FZ)"
+                                                       th:checked="${data.contains('Corporate(223-FZ)')}"><b>Corporate(223-FZ)</b><br>
+                                                <input type="checkbox" name="specialty" value="Bankruptsy & Privatization"
+                                                       th:checked="${data.contains('Bankruptsy & Privatization')}"><b>Bankruptsy & Privatization</b><br>
+                                                <input type="checkbox" name="specialty" value="Commercial"
+                                                       th:checked="${data.contains('Commercial')}"><b>Commercial</b><br>
+                                                <input type="checkbox" name="specialty" value="Other"
+                                                       th:checked="${data.contains('Other')}"><b>Other</b><br>
+                                                <input type="checkbox" id="checkbox" name="specialty" value="everyspecialty" th:checked="${data.contains('everyspecialty')}"/><b>All specialties</b>
+                                        </p>
+
+
+
+
 
                                     </div>
+
+
+
 
                                     <div class="col-md-3 form-group" >
 
                                             <div class="group">
-                                                <input type="checkbox" name="experience" value="all" th:checked="${data.contains('all')}"><b>all</b><br>
                                                 <input type="checkbox" name="experience" value="0 year" th:checked="${data.contains('0 year')}"><b>0 years</b><br>
                                                 <input type="checkbox" name="experience" value="1 year" th:checked="${data.contains('1 year')}"><b>1 year</b><br>
                                                 <input type="checkbox" name="experience" value="2 year" th:checked="${data.contains('2 year')}"><b>2 years</b><br>
                                                 <input type="checkbox" name="experience" value="3 year" th:checked="${data.contains('3 year')}"><b>3 years</b><br>
-                                                <input type="checkbox" name="experience" value="4 year" th:checked="${data.contains('4 year')}"> <b>4+ years</b>
+                                                <input type="checkbox" name="experience" value="4 year" th:checked="${data.contains('4 year')}"> <b>4+ years</b><br>
+                                                <input type="checkbox" name="experience" value="all" th:checked="${data.contains('all')}"><b>all</b>
                                             </div>
+
 
                                     </div>
 
@@ -180,6 +197,16 @@
 
     });
 
+</script>
+
+<script>
+    $('#checkbox').click(function(){
+        if ($(this).is(':checked')){
+            $('#controls input:checkbox').prop('checked', true);
+        } else {
+            $('#controls input:checkbox').prop('checked', false);
+        }
+    });
 </script>
 
 </body>

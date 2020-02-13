@@ -22,7 +22,7 @@ public class IndexController {
         this.specialtyService = specialtyService;
     }
 
-    private String data ="name";
+    private String data ="name] experience = all";
 
     @RequestMapping({"/","/index","/index.html"})
     public String getIndexPage(Model model){

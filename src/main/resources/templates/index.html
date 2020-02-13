@@ -15,7 +15,15 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
-
+    <style>
+        li {
+            list-style-type: none; /* Убираем маркеры */
+        }
+        ul {
+            margin-left: 0; /* Отступ слева в браузере IE и Opera */
+            padding-left: 0; /* Отступ слева в браузере Firefox, Safari, Chrome */
+        }
+    </style>
 
 </head>
 <body>
@@ -30,8 +38,8 @@
                         <form th:action="@{/sort/}" th:method="post">
 
                             <label  class="col-md-4 control-label">Sort by:</label>
-                            <label  class="col-md-6 control-label">Specialties filter:</label>
-                            <label  class="col-md-2 control-label">Years in company:</label>
+                            <label  class="col-md-5 control-label">Specialties filter:</label>
+                            <label  class="col-md-3 control-label">Experience filter:</label>
                             <div class="row">
                                 <div class="col-md-12 form-group" >
                                     <div class="col-md-4 form-group" >
@@ -59,7 +67,7 @@
 
                                     </div>
 
-                                    <div class="col-md-6 form-group" >
+                                    <div class="col-md-5 form-group" >
                                         <ul>
                                             <li th:each="item : ${specialtylist}">
                                                 <input type="checkbox" name="specialty" th:value="${item}" th:checked="${data.contains(item.description)}"/>
@@ -69,46 +77,30 @@
 
                                     </div>
 
+                                    <div class="col-md-3 form-group" >
 
+                                            <div class="group">
+                                                <input type="checkbox" name="experience" value="all" th:checked="${data.contains('all')}"><b>all</b><br>
+                                                <input type="checkbox" name="experience" value="0 year" th:checked="${data.contains('0 year')}"><b>0 years</b><br>
+                                                <input type="checkbox" name="experience" value="1 year" th:checked="${data.contains('1 year')}"><b>1 year</b><br>
+                                                <input type="checkbox" name="experience" value="2 year" th:checked="${data.contains('2 year')}"><b>2 years</b><br>
+                                                <input type="checkbox" name="experience" value="3 year" th:checked="${data.contains('3 year')}"><b>3 years</b><br>
+                                                <input type="checkbox" name="experience" value="4 year" th:checked="${data.contains('4 year')}"> <b>4+ years</b>
+                                            </div>
 
-<!--                                    <div class="col-md-4 form-group" >-->
-<!--                                        <div class="form-check">-->
-<!--                                            <input class="form-check-input-md-offset-2" type="radio" name="exampleRadios" id="exampleRadios1"-->
-<!--                                                   value="name" th:checked="${data.contains('name')}" >-->
-<!--                                            <label class="form-check-label" for="exampleRadios1">-->
-<!--                                                name-->
-<!--                                            </label>-->
-<!--                                        </div>-->
-<!--                                        <div class="form-check">-->
-<!--                                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"-->
-<!--                                                   value="specialties" th:checked="${data.contains('specialties')}">-->
-<!--                                            <label class="form-check-label" for="exampleRadios1">-->
-<!--                                                specialties-->
-<!--                                            </label>-->
-<!--                                        </div>-->
-<!--                                        <div class="form-check">-->
-<!--                                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3"-->
-<!--                                                   value="date of employment" th:checked="${data.contains('date of employment')}">-->
-<!--                                            <label class="form-check-label" for="exampleRadios1">-->
-<!--                                                date of employment-->
-<!--                                            </label>-->
-<!--                                        </div>-->
-
-<!--                                    </div>-->
-
+                                    </div>
 
                                 </div>
                                 </div>
 
-
-                            <div class="form-group col-md-offset-12">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                            <div class="form-group col-md-2">
+                                <button type="submit" class="btn btn-primary">Filter</button>
                             </div>
-
                         </form>
-
                     </div>
                 </div>
+                <br>
+                <br>
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-md-10 ">
@@ -177,6 +169,17 @@
         var number = i + 1;
         $(this).find('td:first').text(number + ".");
     });
+</script>
+
+<script>
+
+    $(".group input").on("click", function() {
+
+        $(".group input").removeAttr("checked"); // Снимаем чекбокс со всей группы
+        $(this).prop("checked", true); // Оставляем выбранный чекбокс
+
+    });
+
 </script>
 
 </body>

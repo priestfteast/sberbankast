@@ -33,7 +33,22 @@
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-primary">
 
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-2 ">
+                            <p class="panel-title">Operators</p>
+                        </div>
+
+                        <div class="col-md-2 col-md-offset-7">
+                            <a class="btn btn-default" href="#" th:href="@{'/operator/new'}" role="button">Add operator</a>
+                        </div>
+                    </div>
+
+
+                </div>
+
                 <div class="row">
+                    <br>
                     <div class="col-md-10">
                         <form th:action="@{/sort/}" th:method="post">
 
@@ -120,60 +135,51 @@
                 <br>
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-md-10 ">
-                            <h1 class="panel-title">Operators</h1>
+                        <div class="col-md-2 ">
+                            <p class="panel-title">Search</p>
                         </div>
-                        <div class="col-md-2">
-                            <a class="btn btn-default" href="#" th:href="@{'/operator/new'}" role="button">New</a>
+                        <div class="col-md-10" >
+                            <input class="form-control mb-4" id="tableSearch" type="text"
+                                   placeholder="Type something to search operators">
                         </div>
+
                     </div>
 
+
                 </div>
+
                 <div class="panel-body">
-                    <div class="table-responsive" th:if="${not #lists.isEmpty(operators)}">
-                        <table class="table table-hover">
-                            <thead class="thead-inverse">
-                            <tr>
-                                <th>№</th>
-                                <!--                                <th>ID</th>-->
-                                <th>Name</th>
-                                <th>Date of employement (years)</th>
-                                <th>Specialties</th>
-                                <th>View</th>
-                                <th>Update</th>
-                                <th>Delete</th>
-                            </tr>
-                            </thead>
-                            <tr th:remove="all">
-                                <td>123</td>
-                                <!--                                <td>123</td>-->
-                                <td>Tasty Goodnees 1</td>
-                                <td>Tasty Goodnees 1</td>
-                                <td>Tasty Goodnees 1</td>
-                                <td><a href="#">View</a></td>
-                                <td><a href="#">Update</a></td>
-                            </tr>
-                            <tr th:remove="all">
-                                <td>123</td>
-                                <!--                                <td>12333</td>-->
-                                <td>Tasty Goodnees 1</td>
-                                <td>Tasty Goodnees 1</td>
-                                <td>Tasty Goodnees 2</td>
-                                <td><a href="#">View</a></td>
-                                <td><a href="#">Update</a></td>
-                            </tr>
-                            <tr th:each="operator : ${operators}">
-                                <!--/*@thymesVar id="operator" type="com.balakin.sberbankast.domain.Operator"*/-->
-                                <td>123</td>
-                                <!--                                <td th:text="${operator.id}">idd</td>-->
-                                <td th:text="${operator.lastName+' '+operator.firstName}">Tasty Goodnees 3</td>
-                                <td th:text="${operator.employementDate+' ('+operator.getYears()+')'}">Tasty Goodnees 3</td>
-                                <td th:text="${operator.specialties.size()}">Tasty Goodnees 3</td>
-                                <td><a href="#" th:href="@{'/operator/' + ${operator.id}+'/show'}">View</a></td>
-                                <td><a href="#" th:href="@{'/operator/' + ${operator.id}+'/update'}">Update</a></td>
-                                <td><a href="#" th:href="@{'/operator/' + ${operator.id}+'/delete'}">Delete</a></td>
-                            </tr>
-                        </table>
+
+                        <div class="table-responsive" th:if="${not #lists.isEmpty(operators)}">
+                            <table class="table table-hover">
+                                <thead class="thead-inverse">
+                                <tr>
+                                    <th>№</th>
+                                    <!--                                <th>ID</th>-->
+                                    <th>Name</th>
+                                    <th>Number</th>
+                                    <th>Employed (years)</th>
+                                    <th>Specialties</th>
+                                    <th>View</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody id="myTable">
+                                <tr th:each="operator : ${operators}" >
+                                    <!--/*@thymesVar id="operator" type="com.balakin.sberbankast.domain.Operator"*/-->
+                                    <td>123</td>
+                                    <!--                                <td th:text="${operator.id}">idd</td>-->
+                                    <td th:text="${operator.lastName+' '+operator.firstName}">Tasty Goodnees 3</td>
+                                    <td th:text="${operator.number}">Tasty Goodnees 3</td>
+                                    <td th:text="${operator.employementDate+' ('+operator.getYears()+')'}">Tasty Goodnees 3</td>
+                                    <td th:text="${operator.specialties.size()}">Tasty Goodnees 3</td>
+                                    <td><a href="#" th:href="@{'/operator/' + ${operator.id}+'/show'}">View</a></td>
+                                    <td><a href="#" th:href="@{'/operator/' + ${operator.id}+'/update'}">Update</a></td>
+                                    <td><a href="#" th:href="@{'/operator/' + ${operator.id}+'/delete'}">Delete</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
                     </div>
                 </div>
             </div>
@@ -209,5 +215,16 @@
     });
 </script>
 
+<!--Filter table-->
+<script>
+$(document).ready(function(){
+$("#tableSearch").on("keyup", function() {
+var value = $(this).val().toLowerCase();
+$("#myTable tr").filter(function() {
+$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+});
+});
+});
+</script>
 </body>
 </html>

@@ -49,65 +49,26 @@ public class OperatorServiceImpl implements OperatorService {
 
         List<Operator> filteredList = new ArrayList<>();
         filteredList.addAll(operators);
-        if (parsedRequest.length == 2) {
-            if (request.contains("specialty")) {
-                String specsRequest = parsedRequest[1];
-
-
-                for (Operator op : operators
-                ) {
-
-                    if (!parseSpecs(op.getSpecialties()).contains(specsRequest))
-                        filteredList.remove(op);
-                }
-
-            }
-
-                if (request.contains("experience")) {
-
-                    if(parsedRequest[1].equals("all"))
-                        return  filteredList;
-
-                    for (Operator op : operators
-                    ) {
-//                        System.out.println(parsedRequest[1]+"  "+op.getYears());
-                        if (!parsedRequest[1].equals(String.valueOf(op.getYears())))
-                            filteredList.remove(op);
-                    }
-
-                }
-
-            return filteredList;
-
-            }
 
         if (parsedRequest.length == 3) {
+            filteredList=filterByExperience(filteredList,parsedRequest);
+           filteredList=filterByIncoming(filteredList,parsedRequest);
+            }
+
+        if (parsedRequest.length == 4) {
+
+            filteredList=filterByExperience(filteredList,parsedRequest);
+
+            filteredList=filterByIncoming(filteredList,parsedRequest);
 
                 for (Operator op : operators
                 ) {
-
-                    if (!parseSpecs(op.getSpecialties()).contains(parsedRequest[1]))
+                    if (!parseSpecs(op.getSpecialties()).contains(parsedRequest[3]))
                         filteredList.remove(op);
                 }
-
-                if(parsedRequest[2].equals("all"))
-                    return filteredList;
-
-
-                for (Operator op : operators
-                ) {
-//                    System.out.println(parsedRequest[1]+"  "+op.getYears());
-                    if (Integer.valueOf(parsedRequest[2])!=op.getYears())
-                        filteredList.remove(op);
-                }
-
-
-
-            return filteredList;
-
         }
 
-        return operators;
+        return filteredList;
     }
 
 
@@ -180,13 +141,48 @@ public class OperatorServiceImpl implements OperatorService {
         return massive;
     }
 
-    public static void main(String[] args) {
-        String request = "{sort by=[name], experience=[1 year]}";
-        request=request.replaceAll("\\d{1}=","").replaceAll("}","");
-        String [] massive = request.split("]");
-        for (int i = 0; i < massive.length; i++) {
-            massive[i]=massive[i].replaceAll("\\[|}|.+=|,|\\s","").replaceAll("year","").replaceAll("allcategories","");
-            System.out.println("! "+massive[i]);
+    public List<Operator> filterByIncoming(List<Operator> operators, String[] data){
+
+        List<Operator> filteredList = new ArrayList<>();
+        filteredList.addAll(operators);
+
+        for (Operator op : operators
+        ) {
+            if(data[2].equals("every"))
+                break;
+            if(!op.isIncoming()&&!op.isOutgoing())
+                filteredList.remove(op);
+            if (data[2].equals("inc")&&!(op.isIncoming())||data[2].equals("incom")&&op.isOutgoing())
+                filteredList.remove(op);
+            if (data[2].equals("outg")&&!(op.isOutgoing())||data[2].equals("outg")&&op.isIncoming())
+                filteredList.remove(op);
+            if(data[2].equals("inc&out")&&!(op.isIncoming())|| data[2].equals("inc&out")&&!(op.isOutgoing())) {
+                System.out.println(op.getLastName()+" "+ data[2]+" outgoing - "+op.isOutgoing()+" incoming - "+op.isIncoming());
+                filteredList.remove(op);
+            }
         }
+        return filteredList;
     }
+
+    public List<Operator> filterByExperience(List<Operator> operators, String[] data){
+
+        List<Operator> filteredList = new ArrayList<>();
+        filteredList.addAll(operators);
+
+        if(data[1].equals("all")&&data[2].equals("every"))
+            return  filteredList;
+
+        for (Operator op : operators
+        ) {
+            if(data[1].equals("all"))
+                break;
+//                        System.out.println(parsedRequest[1]+"  "+op.getYears());
+            if (!data[1].equals(String.valueOf(op.getYears())))
+                filteredList.remove(op);
+        }
+
+        return filteredList;
+    }
+
+
 }

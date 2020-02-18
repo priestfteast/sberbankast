@@ -52,12 +52,13 @@
                     <div class="col-md-10">
                         <form th:action="@{/sort/}" th:method="post">
 
-                            <label  class="col-md-4 control-label" style="text-decoration: underline">Sort by:</label>
-                            <label  class="col-md-5 control-label" style="text-decoration: underline">Specialties filter:</label>
+                            <label  class="col-md-3 control-label" style="text-decoration: underline">Sort by:</label>
                             <label  class="col-md-3 control-label" style="text-decoration: underline">Experience filter:</label>
+                            <label  class="col-md-3 control-label" style="text-decoration: underline">Outgoing filter:</label>
+                            <label  class="col-md-3 control-label" style="text-decoration: underline">Specialties filter:</label>
                             <div class="row">
                                 <div class="col-md-12 form-group" >
-                                    <div class="col-md-4 form-group" >
+                                    <div class="col-md-3 form-group" >
                                     <div class="form-check">
                                         <input class="form-check-input-md-offset-2" type="radio" name="sort by" id="exampleRadios1"
                                                value="name" th:checked="${data.contains('name')}" >
@@ -76,48 +77,58 @@
                                         <input class="form-check-input" type="radio" name="sort by" id="exampleRadios3"
                                                value="date of employment" th:checked="${data.contains('date of employment')}">
                                         <label class="form-check-label" for="exampleRadios1">
-                                            date of employment
+                                            experience
                                         </label>
                                         </div>
 
                                     </div>
 
-                                    <div class="col-md-5 form-group" >
-
-                                            <p id="controls">
-
-                                                <input type="checkbox" name="specialty" value="GOS(44-FZ)"
-                                                       th:checked="${data.contains('GOS(44-FZ)')}"><b>GOS(44-FZ)</b><br>
-                                                <input type="checkbox" name="specialty" value="Corporate(223-FZ)"
-                                                       th:checked="${data.contains('Corporate(223-FZ)')}"><b>Corporate(223-FZ)</b><br>
-                                                <input type="checkbox" name="specialty" value="Bankruptsy & Privatization"
-                                                       th:checked="${data.contains('Bankruptsy & Privatization')}"><b>Bankruptsy & Privatization</b><br>
-                                                <input type="checkbox" name="specialty" value="Commercial"
-                                                       th:checked="${data.contains('Commercial')}"><b>Commercial</b><br>
-                                                <input type="checkbox" name="specialty" value="Other"
-                                                       th:checked="${data.contains('Other')}"><b>Other</b><br>
-                                                <input type="checkbox" id="checkbox" name="specialty" value="everyspecialty" th:checked="${data.contains('everyspecialty')}"/><b>All specialties</b>
-                                        </p>
-
-
-
-
-
-                                    </div>
-
-
-
 
                                     <div class="col-md-3 form-group" >
 
                                             <div class="group">
-                                                <input type="checkbox" name="experience" value="0 year" th:checked="${data.contains('0 year')}"><b>0 years</b><br>
-                                                <input type="checkbox" name="experience" value="1 year" th:checked="${data.contains('1 year')}"><b>1 year</b><br>
-                                                <input type="checkbox" name="experience" value="2 year" th:checked="${data.contains('2 year')}"><b>2 years</b><br>
-                                                <input type="checkbox" name="experience" value="3 year" th:checked="${data.contains('3 year')}"><b>3 years</b><br>
-                                                <input type="checkbox" name="experience" value="4 year" th:checked="${data.contains('4 year')}"> <b>4+ years</b><br>
-                                                <input type="checkbox" name="experience" value="all" th:checked="${data.contains('all')}"><b>all</b>
+                                                <input type="checkbox" name="experience" value="0 year" th:checked="${data.contains('experience=[0 year')}"><b>0 years</b><br>
+                                                <input type="checkbox" name="experience" value="1 year" th:checked="${data.contains('experience=[1 year')}"><b>1 year</b><br>
+                                                <input type="checkbox" name="experience" value="2 year" th:checked="${data.contains('experience=[2 year')}"><b>2 years</b><br>
+                                                <input type="checkbox" name="experience" value="3 year" th:checked="${data.contains('experience=[3 year')}"><b>3 years</b><br>
+                                                <input type="checkbox" name="experience" value="4 year" th:checked="${data.contains('experience=[4 year')}"> <b>4+ years</b><br>
+                                                <input type="checkbox" name="experience" value="all" th:checked="${data.contains('experience=[all')}"><b>all</b>
                                             </div>
+
+
+                                    </div>
+
+                                    <div class="col-md-3 form-group" >
+
+                                        <div class="group2">
+                                            <input type="checkbox" name="callout" value="incom" th:checked="${data.contains('callout=[incom')}"><b>incoming only</b><br>
+                                            <input type="checkbox" name="callout" value="outg" th:checked="${data.contains('callout=[outg]')}"><b>outgoing only</b><br>
+                                            <input type="checkbox" name="callout" value="inc&out" th:checked="${data.contains('callout=[inc&out')}"><b>inc. & outg.</b><br>
+                                            <input type="checkbox" name="callout" value="every" th:checked="${data.contains('callout=[every')}"><b>all</b>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="col-md-3 form-group" >
+
+                                        <p id="controls">
+
+                                            <input type="checkbox" name="specialty" value="GOS(44-FZ)"
+                                                   th:checked="${data.contains('GOS(44-FZ)')}"><b>GOS(44-FZ)</b><br>
+                                            <input type="checkbox" name="specialty" value="Corporate(223-FZ)"
+                                                   th:checked="${data.contains('Corporate(223-FZ)')}"><b>Corporate(223-FZ)</b><br>
+                                            <input type="checkbox" name="specialty" value="Bankruptsy & Privatization"
+                                                   th:checked="${data.contains('Bankruptsy & Privatization')}"><b>Bankruptsy & Privatization</b><br>
+                                            <input type="checkbox" name="specialty" value="Commercial"
+                                                   th:checked="${data.contains('Commercial')}"><b>Commercial</b><br>
+                                            <input type="checkbox" name="specialty" value="Other"
+                                                   th:checked="${data.contains('Other')}"><b>Other</b><br>
+                                            <input type="checkbox" id="checkbox" name="specialty" value="everyspecialty" th:checked="${data.contains('everyspecialty')}"/><b>All specialties</b>
+                                        </p>
+
+
+
 
 
                                     </div>
@@ -201,6 +212,13 @@
     $(".group input").on("click", function() {
 
         $(".group input").removeAttr("checked"); // Снимаем чекбокс со всей группы
+        $(this).prop("checked", true); // Оставляем выбранный чекбокс
+
+    });
+
+    $(".group2 input").on("click", function() {
+
+        $(".group2 input").removeAttr("checked"); // Снимаем чекбокс со всей группы
         $(this).prop("checked", true); // Оставляем выбранный чекбокс
 
     });

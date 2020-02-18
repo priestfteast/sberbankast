@@ -34,7 +34,7 @@ public class OperatorCommand {
 //    @OperatorLastNameConstraint
     private String lastName;
 
-    @Pattern(regexp = "^user[0-9]+$")
+    @Pattern(regexp = "^[0-9]{3}$")
     private String number;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)

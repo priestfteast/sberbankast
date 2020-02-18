@@ -33,7 +33,7 @@
             <div class="pannel-group">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h1 class="panel-title">New operator creation form</h1>
+                        <h1 class="panel-title">Operator creation form</h1>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -126,12 +126,9 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6 form-group">
-                                <label>Incoming/ Outgoing:</label><br>
-
-
-                                <input type="checkbox" th:name="incoming" th:value="true" th:checked="${operator.isIncoming()}">Incoming
-                                <input type="checkbox" th:name="outgoing" th:value="true" th:checked="${operator.isOutgoing()}">Outgoing
+                            <div class="col-md-3">
+                                <input type="checkbox" th:name="incoming" th:value="true" th:checked="${operator.isIncoming()}" ><label>  Incoming</label> <br>
+                                <input type="checkbox" th:name="outgoing" th:value="true" th:checked="${operator.isOutgoing()}" ><label>  Outgoing</label>
 
                             </div>
                         </div>
@@ -182,7 +179,7 @@
                                 <h1 class="panel-title">Fines</h1>
                             </div>
                             <div class="col-md-1">
-                                <a class="btn btn-default" href="#" th:href="@{'/operator/' + ${operator.id} + '/fines'}" role="button">Edit</a>
+                                <a class="btn btn-default" href="#" th:href="@{'/operator/' + ${operator.id} + '/fines'}" th:disabled="${operator.id==null}" role="button">Edit</a>
                             </div>
                         </div>
                     </div>
@@ -207,7 +204,7 @@
                                 <h1 class="panel-title">Bonuses</h1>
                             </div>
                             <div class="col-md-1">
-                                <a class="btn btn-default" href="#" th:href="@{'/operator/' + ${operator.id} + '/bonuses'}" role="button">Edit</a>
+                                <a class="btn btn-default" href="#" th:href="@{'/operator/' + ${operator.id} + '/bonuses'}" role="button" th:disabled="${operator.id==null}">Edit</a>
                             </div>
                         </div>
                     </div>

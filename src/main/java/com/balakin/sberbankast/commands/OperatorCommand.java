@@ -41,6 +41,10 @@ public class OperatorCommand {
     @PastOrPresent
     private LocalDate employementDate;
 
+    private boolean incoming;
+
+    private boolean outgoing;
+
 
     private NotesCommand notes;
 

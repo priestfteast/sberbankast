@@ -111,6 +111,8 @@ public class OperatorBootStrap implements ApplicationListener<ContextRefreshedEv
 
         ivanov.setNotes(ivanovNotes);
         ivanovNotes.setOperator(ivanov);
+        ivanov.setOutgoing(true);
+        ivanov.setIncoming(true);
 
         ivanov.getSpecialties().add(gos);
         ivanov.getSpecialties().add(bankPriv);
@@ -157,6 +159,8 @@ public class OperatorBootStrap implements ApplicationListener<ContextRefreshedEv
         fineMaria2.setOperator(maria);
         maria.getFines().add(fineMaria2);
 
+        maria.setOutgoing(true);
+        maria.setIncoming(true);
         maria.setNotes(mariaNotes);
         mariaNotes.setOperator(maria);
 

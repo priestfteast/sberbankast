@@ -82,6 +82,16 @@
                         </div>
                         <div class="row">
                             <div class="col-md-3">
+                                <label>Incoming/ Outgoing:</label><br>
+
+
+                                <input type="checkbox" th:name="incoming" th:value="true" th:checked="${operator.isIncoming()}" th:disabled="disabled">Incoming
+                                <input type="checkbox" th:name="outgoing" th:value="true" th:checked="${operator.isOutgoing()}" th:disabled="disabled">Outgoing
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
                                 <p style="font-weight: bold">Specialties:</p>
                             </div>
                             <div class="col-md-9">

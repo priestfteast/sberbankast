@@ -124,6 +124,18 @@
 
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>Incoming/ Outgoing:</label><br>
+
+
+                                <input type="checkbox" th:name="incoming" th:value="true" th:checked="${operator.isIncoming()}">Incoming
+                                <input type="checkbox" th:name="outgoing" th:value="true" th:checked="${operator.isOutgoing()}">Outgoing
+
+                            </div>
+                        </div>
+
                         <div class="col-md-3 form-group">
                             <label>Shift:</label>
                             <select class="form-control" th:field="*{shift}">

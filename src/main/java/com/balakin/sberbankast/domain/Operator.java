@@ -33,6 +33,11 @@ public class Operator {
 
     private LocalDate employementDate;
 
+    private boolean incoming;
+
+    private boolean outgoing;
+
+
     @Lob
     private Byte[] image;
 

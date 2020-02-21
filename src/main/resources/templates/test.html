@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CanvasJS Chart in Spring MVC - Thymeleaf</title>
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head>
+<body>
+<div id="chartContainer" style="width:100%; height: 400px"></div>
+<script th:inline="javascript">
+    var chart = new CanvasJS.Chart("chartContainer", {
+        theme: "light2",
+        title: {
+            text: "CanvasJS Charts in Thymeleaf"
+        },
+        data:[{
+            dataPoints: [
+                { x: 10, y: 71 },
+                { x: 20, y: 55 },
+                { x: 30, y: 50 },
+                { x: 40, y: 65 },
+                { x: 50, y: 71 },
+                { x: 60, y: 68 },
+                { x: 70, y: 38 },
+                { x: 80, y: 92, indexLabel: "Highest" },
+                { x: 90, y: 54 },
+                { x: 100, y: 60 },
+                { x: 110, y: 21 },
+                { x: 120, y: 49 },
+                { x: 130, y: 36 }
+            ]
+        }]
+    });
+    chart.render();
+
+
+    /*
+     To get data from Service and to update chart, perform a AJAX request to get data, update the chart with received data and re-render the chart
+     Please refer the following links for more info on accessing data / rest-service
+     https://www.thymeleaf.org/doc/articles/springmvcaccessdata.html
+     https://spring.io/guides/gs/rest-service/
+     */
+    /*<![CDATA[*/
+    /*$.get( "/dataPoints", function( data ) {*/
+    /* Update dataPoints from AJAX and render the chart*/
+    /*[+
+        //chart.options.data[0].dataPoints = JSON.parse([[${session.dataPoints}]]);
+        //chart.render();
+     +]*/
+    /*});*/
+    /*]]>*/
+</script>
+</body>
+</html>

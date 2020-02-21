@@ -63,10 +63,13 @@ public class OperatorServiceImpl implements OperatorService {
 
                 for (Operator op : operators
                 ) {
-                    if (!parseSpecs(op.getSpecialties()).contains(parsedRequest[3]))
+//                    System.out.println(parseSpecs(op.getSpecialties()));
+                    if (!checkSpecs(parsedRequest[3],parseSpecs(op.getSpecialties())))
                         filteredList.remove(op);
                 }
         }
+//        GOS(44-FZ)Corporate(223-FZ)Bankruptsy&PrivatizationCommercialOther
+//        GOS(44-FZ)Corporate(223-FZ)CommercialBankruptsy&PrivatizationOther
 
         return filteredList;
     }
@@ -77,14 +80,11 @@ public class OperatorServiceImpl implements OperatorService {
         log.debug("we are in service");
         List<Operator> operators = new ArrayList<>();
         operatorRepository.findAll().forEach(operators::add);
-        operators.sort(new Comparator<Operator>() {
-            @Override
-            public int compare(Operator o1, Operator o2) {
-                if(o1.getSpecialties().size()>o2.getSpecialties().size())
-                return -1;
-                else
-                    return 1;
-            }
+        operators.sort((o1, o2) -> {
+            if(o1.getSpecialties().size()>o2.getSpecialties().size())
+            return -1;
+            else
+                return 1;
         });
 
         return operators;
@@ -135,8 +135,14 @@ public class OperatorServiceImpl implements OperatorService {
        request=request.replaceAll("\\d{1}=","").replaceAll("}","");
         String [] massive = request.split("]");
         for (int i = 0; i < massive.length; i++) {
-            massive[i]=massive[i].replaceAll("\\[|}|.+=|,|\\s","").replaceAll("year","").replaceAll("everyspecialty","");
-            System.out.println(massive[i]);
+            if(i<3) {
+                massive[i] = massive[i].replaceAll("\\[|}|.+=|,|\\s", "").replaceAll("year", "").replaceAll("everyspecialty", "");
+                System.out.println(massive[i]);
+            }
+            if(i==3) {
+                massive[i] = massive[i].replaceAll("\\[|}|.+=|,", "").replaceAll("year", "").replaceAll("everyspecialty", "");
+                System.out.println(massive[i]);
+            }
         }
         return massive;
     }
@@ -177,11 +183,28 @@ public class OperatorServiceImpl implements OperatorService {
             if(data[1].equals("all"))
                 break;
 //                        System.out.println(parsedRequest[1]+"  "+op.getYears());
-            if (!data[1].equals(String.valueOf(op.getYears())))
+            if (!data[1].equals(String.valueOf(op.getYears()))&&!data[1].equals("4"))
+                filteredList.remove(op);
+
+            if (data[1].equals("4")&&op.getYears()<4)
                 filteredList.remove(op);
         }
 
         return filteredList;
+    }
+
+    public boolean checkSpecs(String request, String specs){
+
+        String[] parsedRequest = request.split(" ");
+
+        for (String  spec : parsedRequest){
+
+            if(!specs.contains(spec)) {
+                System.out.println("!!!!!"+ specs+" doesnt contain "+spec);
+                return false;
+            }
+        }
+        return true;
     }
 
 

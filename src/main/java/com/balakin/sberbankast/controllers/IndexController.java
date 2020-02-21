@@ -1,5 +1,6 @@
 package com.balakin.sberbankast.controllers;
 
+import com.balakin.sberbankast.domain.Ponto;
 import com.balakin.sberbankast.services.OperatorService;
 import com.balakin.sberbankast.services.SpecialtyService;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Slf4j
@@ -28,6 +31,26 @@ public class IndexController {
     public String getIndexPage(Model model){
 
         log.debug("getting index page");
+
+        List<Ponto> pontos = new ArrayList<>();
+
+        Ponto ponto = new Ponto();
+        ponto.setX(15);
+        ponto.setY(15);
+        pontos.add(ponto);
+
+        ponto = new Ponto();
+        ponto.setX(20);
+        ponto.setY(21);
+        pontos.add(ponto);
+
+        ponto = new Ponto();
+        ponto.setX(30);
+        ponto.setY(8);
+        pontos.add(ponto);
+
+        model.addAttribute("pontos",pontos);
+
         model.addAttribute("data",data);
         model.addAttribute("specialtylist", specialtyService.listAllSpecialties());
         model.addAttribute("operators",operatorService.getOperators(data));

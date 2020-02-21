@@ -6,6 +6,7 @@ import com.balakin.sberbankast.domain.Shift;
 
 import com.balakin.sberbankast.validators.OperatorImageConstraint;
 import com.balakin.sberbankast.validators.OperatorLastNameConstraint;
+import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,9 +38,11 @@ public class OperatorCommand {
     @Pattern(regexp = "^[0-9]{3}$")
     private String number;
 
+@javax.validation.constraints.NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @PastOrPresent
     private LocalDate employementDate;
+
 
     private boolean incoming;
 
@@ -51,6 +54,7 @@ public class OperatorCommand {
 //    @OperatorImageConstraint
     private Byte[] image;
 
+    @NotNull
     private Set<SpecialtyCommand> specialties = new HashSet<>();
 
     private Set<FineCommand> fines = new HashSet<>();

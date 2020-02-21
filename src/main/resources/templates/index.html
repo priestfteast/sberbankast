@@ -28,6 +28,46 @@
 </head>
 <body>
 
+<script th:inline="javascript">
+    window.onload = function() {
+        /*<![CDATA[*/
+
+        var pontos = /*[[${pontos}]]*/ 'default';
+
+        pontos.forEach(myFunction);
+        function myFunction(value, index, array) {
+            console.log(value);
+        }
+
+        var chart = new CanvasJS.Chart("chartContainer", {
+            animationEnabled: true,
+            theme: "light2",
+            title:{
+                text: "Line Sample"
+            },
+            axisY:{
+                includeZero: false
+            },
+            data: [{
+                type: "line",
+                dataPoints: []
+            }]
+        });
+        chart.render();
+
+        /*<![CDATA[*/
+        /* Update dataPoints from AJAX and render the chart*/
+        chart.options.data[0].dataPoints = pontos;
+        chart.render();
+        /*]]>*/
+
+    }
+</script>
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -118,8 +158,8 @@
                                                    th:checked="${data.contains('GOS(44-FZ)')}"><b>GOS(44-FZ)</b><br>
                                             <input type="checkbox" name="specialty" value="Corporate(223-FZ)"
                                                    th:checked="${data.contains('Corporate(223-FZ)')}"><b>Corporate(223-FZ)</b><br>
-                                            <input type="checkbox" name="specialty" value="Bankruptsy & Privatization"
-                                                   th:checked="${data.contains('Bankruptsy & Privatization')}"><b>Bankruptsy & Privatization</b><br>
+                                            <input type="checkbox" name="specialty" value="Bankruptsy&Privatization"
+                                                   th:checked="${data.contains('Bankruptsy&Privatization')}"><b>Bankruptsy & Privatization</b><br>
                                             <input type="checkbox" name="specialty" value="Commercial"
                                                    th:checked="${data.contains('Commercial')}"><b>Commercial</b><br>
                                             <input type="checkbox" name="specialty" value="Other"
@@ -171,7 +211,7 @@
                                     <th>Number</th>
                                     <th>Experience(years)</th>
                                     <th>Incom./Outg.</th>
-                                    <th>Specialties</th>
+                                    <th>Specs.</th>
                                     <th>View</th>
                                     <th>Update</th>
                                     <th>Delete</th>

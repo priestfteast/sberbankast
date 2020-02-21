@@ -57,7 +57,7 @@ public class OperatorController {
     }
 
     @PostMapping("operator")
-    public String saveOrUpdate (@Valid @ModelAttribute("operator") OperatorCommand operatorCommand, BindingResult bindingResult){
+    public String saveOrUpdate (@Valid @ModelAttribute("operator") OperatorCommand operatorCommand, BindingResult bindingResult,Model model){
 
        if(bindingResult.hasErrors()){
           bindingResult.getAllErrors().forEach(objectError -> {
@@ -65,6 +65,7 @@ public class OperatorController {
               log.debug(objectError.toString());
 
           });
+           model.addAttribute("specialtylist", specialtyService.listAllSpecialties());
           return OPERATOR_OPERATOR_FORM_URL;
        }
 

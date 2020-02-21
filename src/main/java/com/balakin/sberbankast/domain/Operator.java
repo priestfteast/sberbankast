@@ -67,6 +67,9 @@ public class Operator {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "operator")
     private Set<Bonus> bonuses = new HashSet<>();
 
+    @OneToMany
+    private List<DailyStats> dailyStats = new ArrayList<>();
+
     public Operator addBonus(Bonus bonus){
         bonus.setOperator(this);
         this.getBonuses().add(bonus);

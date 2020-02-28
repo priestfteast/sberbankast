@@ -9,6 +9,8 @@ public interface OperatorRepository extends CrudRepository<Operator,Long> {
 
     Operator findByLastName(String lastName);
 
+    Operator findByNumber(String number);
+
     Iterable<Operator> findAllByOrderByLastName();
 
     Iterable<Operator> findAllByOrderByEmployementDate();

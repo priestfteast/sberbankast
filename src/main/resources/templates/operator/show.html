@@ -139,7 +139,7 @@
                                 <ul>
                                     <li th:remove="all">cat one</li>
                                     <li th:remove="all">cat two</li>
-                                    <li th:each="fine : ${operator.fines}" th:text="${fine.getSize()+'  rub. -  '+ fine.getDescription()}">1000  fine example</li>
+                                    <li th:each="fine : ${operator.fines}" th:text="${fine.getDate()+'  '+ fine.getSize()+'  rub. -  '+ fine.getDescription()}">1000  fine example</li>
                                 </ul>
                             </div>
                         </div>
@@ -162,7 +162,7 @@
                                 <ul>
                                     <li th:remove="all">cat one</li>
                                     <li th:remove="all">cat two</li>
-                                    <li th:each="bonus : ${operator.bonuses}" th:text="${bonus.getSize()+'  rub. -  '+ bonus.getDescription()}">1000  bonus example</li>
+                                    <li th:each="bonus : ${operator.bonuses}" th:text="${bonus.getDate()+'  '+ bonus.getSize()+'  rub. -  '+ bonus.getDescription()}">1000  bonus example</li>
                                 </ul>
                             </div>
                         </div>

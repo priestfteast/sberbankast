@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -18,6 +20,8 @@ public class Fine {
 
     @Lob
     private String description;
+
+    private LocalDate date;
 
     private Long size;
 

@@ -25,6 +25,7 @@ public class FineToFineCommand implements Converter<Fine, FineCommand> {
         }
         fineCommand.setSize(fine.getSize());
         fineCommand.setDescription(fine.getDescription());
+        fineCommand.setDate(fine.getDate());
         return fineCommand;
     }
 }

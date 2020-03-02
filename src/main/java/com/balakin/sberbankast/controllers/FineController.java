@@ -8,11 +8,17 @@ import com.balakin.sberbankast.services.OperatorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @Slf4j
 public class FineController {
+
+    private final String OPERATOR_FINE_FORM_URL = "operator/fines/fineform";
+
     private final OperatorService operatorService;
     private final FineService fineService;
 
@@ -62,7 +68,17 @@ public class FineController {
     }
 
     @PostMapping("operator/{operatorId}/fine")
-    public String saveOrUpdate(@ModelAttribute FineCommand command){
+    public String saveOrUpdate(@Valid @ModelAttribute("fine") FineCommand command, BindingResult bindingResult, Model model){
+
+        if(bindingResult.hasErrors()){
+            bindingResult.getAllErrors().forEach(objectError -> {
+                System.out.println(objectError.toString());
+                log.debug(objectError.toString());
+
+            });
+
+            return OPERATOR_FINE_FORM_URL;
+        }
         FineCommand savedCommand = fineService.saveFineCommand(command);
 
         log.debug("saved operator id:" + savedCommand.getOperatorId());

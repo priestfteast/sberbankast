@@ -20,6 +20,7 @@ public class BonusCommandToBonus implements Converter<BonusCommand, Bonus> {
         final Bonus bonus = new Bonus();
         bonus.setId(bonusCommand.getId());
         bonus.setSize(bonusCommand.getSize());
+        bonus.setDate(bonusCommand.getDate());
         bonus.setDescription(bonusCommand.getDescription());
 
         return bonus;

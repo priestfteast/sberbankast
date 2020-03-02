@@ -25,23 +25,55 @@
         <div class="col-md-6 col-md-offset-3">
             <form th:object="${bonus}" th:action="@{'/operator/' + ${bonus.getOperatorId()} + '/bonus'}" method="post" class="form-horizontal">
                 <input type="hidden" th:field="*{id}">
+                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                    <p th:text="#{operator.error}">Please Correct Errors Below</p>
+                </div>
                 <div class="pannel-group">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h1 class="panel-title">New bonus form</h1>
                         </div>
                         <div class="panel-body">
-
-                            <div class="form-group">
+                            <div class="row">
+                            <label for="date" class="col-md-1 control-label">Date:</label>
+                            <div class="col-md-3 form-group" th:class="${#fields.hasErrors('date')}
+                               ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
+                                <input type="date" id="date" class="form-control" placeholder="Date" th:field="*{date}">
+                                <span class="help-block" th:if="${#fields.hasErrors('date')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('date')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                            </div>
+                            </div>
+                            <div class="row">
                                 <label for="num" class="col-md-1 control-label">Size:</label>
-                                <div class="col-md-2">
+                                <div class="col-md-2 form-group" th:class="${#fields.hasErrors('size')}
+                               ? 'col-md-2 form-group has-error' : 'col-md-2 form-group'">
                                     <input type="number" step="50" class="form-control" id="num" placeholder="Size" th:field="*{size}">
-                                </div>
-                                <label for="dn" class="col-md-2 control-label">Description:</label>
-                                <div class="col-md-7">
-                                    <input type="text" class="form-control" id="dn" placeholder="Description" th:field="*{description}">
+                                    <span class="help-block" th:if="${#fields.hasErrors('size')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('size')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
                                 </div>
                             </div>
+                            <div class="row">
+                                <label for="dn" class="col-md-2 control-label">Decription:</label>
+                                <div class="col-md-6 form-group" th:class="${#fields.hasErrors('description')}
+                               ? 'col-md-6 form-group has-error' : 'col-md-6 form-group'">
+                                    <input type="text" class="form-control" id="dn" placeholder="Description" th:field="*{description}">
+                                    <span class="help-block" th:if="${#fields.hasErrors('description')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('description')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
 
                         </div>
                     </div>

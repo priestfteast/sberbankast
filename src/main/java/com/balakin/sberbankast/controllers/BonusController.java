@@ -1,18 +1,24 @@
 package com.balakin.sberbankast.controllers;
 
 import com.balakin.sberbankast.commands.BonusCommand;
-import com.balakin.sberbankast.commands.FineCommand;
+
 import com.balakin.sberbankast.commands.OperatorCommand;
 import com.balakin.sberbankast.services.BonusService;
 import com.balakin.sberbankast.services.OperatorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @Slf4j
 public class BonusController {
+
+    private final String OPERATOR_BONUS_FORM_URL = "operator/bonuses/bonusform";
+
     private final OperatorService operatorService;
     private final BonusService bonusService;
 
@@ -62,7 +68,19 @@ public class BonusController {
     }
 
     @PostMapping("operator/{operatorId}/bonus")
-    public String saveOrUpdate(@ModelAttribute BonusCommand command){
+    public String saveOrUpdate(@Valid @ModelAttribute("bonus") BonusCommand command, BindingResult bindingResult, Model model){
+
+        if(bindingResult.hasErrors()){
+            bindingResult.getAllErrors().forEach(objectError -> {
+                System.out.println(objectError.toString());
+                log.debug(objectError.toString());
+
+            });
+
+            return OPERATOR_BONUS_FORM_URL;
+        }
+
+
         BonusCommand savedCommand = bonusService.saveBonusCommand(command);
 
         log.debug("saved operator id:" + savedCommand.getOperatorId());

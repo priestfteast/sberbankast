@@ -26,6 +26,7 @@ public class BonusToBonusCommand implements Converter<Bonus, BonusCommand> {
             bonusCommand.setOperatorId(bonus.getOperator().getId());
         }
         bonusCommand.setDescription(bonus.getDescription());
+        bonusCommand.setDate(bonus.getDate());
         bonusCommand.setSize(bonus.getSize());
         return bonusCommand;
     }

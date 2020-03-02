@@ -1,6 +1,7 @@
 package com.balakin.sberbankast.services;
 
 import com.balakin.sberbankast.domain.DailyStats;
+import com.balakin.sberbankast.domain.Operator;
 import com.balakin.sberbankast.repositories.DailyStatsRepository;
 import com.balakin.sberbankast.repositories.OperatorRepository;
 import org.apache.poi.ss.usermodel.*;
@@ -71,7 +72,11 @@ public class ParseXlsServiceImpl implements ParseXlsService {
                         case 0:
                             System.out.print(cell_data+"  ");
                             dStats.setNumber(cell_data.replaceAll("Комсистемс",""));
-                            dStats.setOperator(operatorRepository.findByNumber(cell_data.replaceAll("Комсистемс","")));
+                            if (operatorRepository.findByNumber(cell_data.replaceAll("Комсистемс", "")) != null) {
+                                dStats.setOperator(operatorRepository.findByNumber(cell_data.replaceAll("Комсистемс", "")));
+                            } else {
+                                dStats.setOperator(operatorRepository.findByAdditionalNumber(cell_data.replaceAll("Комсистемс", "")));
+                            }
                             break;
                         case 1:
                             System.out.print(cell_data+"  ");
@@ -217,6 +222,8 @@ public class ParseXlsServiceImpl implements ParseXlsService {
         Date result = new Date( date1.getTime());
         return result;
     }
+
+
 
     public static void main(String[] args) throws Exception {
 //        ParseXlsService parseXlsService = new ParseXlsServiceImpl();

@@ -31,6 +31,8 @@ public class Operator {
 
     private String number;
 
+    private String additionalNumber;
+
     private LocalDate employementDate;
 
     private boolean incoming;

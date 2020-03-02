@@ -82,6 +82,14 @@
                         </div>
                         <div class="row">
                             <div class="col-md-3">
+                                <p style="font-weight: bold">Additional number:</p>
+                            </div>
+                            <div class="col-md-3">
+                                <p th:text="${operator.additionalNumber}">user223</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
                                 <input type="checkbox" th:name="incoming" th:value="true" th:checked="${operator.isIncoming()}" th:disabled="disabled"><label>  Incoming</label> <br>
                                 <input type="checkbox" th:name="outgoing" th:value="true" th:checked="${operator.isOutgoing()}" th:disabled="disabled"><label>  Outgoing</label>
 

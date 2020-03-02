@@ -223,7 +223,7 @@
                                     <td>123</td>
                                     <!--                                <td th:text="${operator.id}">idd</td>-->
                                     <td th:text="${operator.lastName+' '+operator.firstName}">Tasty Goodnees 3</td>
-                                    <td th:text="${operator.number}">Tasty Goodnees 3</td>
+                                    <td th:text="${operator.number}+' '+${operator.additionalNumber}">Tasty Goodnees 3</td>
                                     <td th:text="${operator.getYears()+' years ('+operator.employementDate+')'}">Tasty Goodnees 3</td>
                                     <td th:text="${operator.isIncoming()+'/ '+operator.isOutgoing()}">Tasty Goodnees 3</td>
                                     <td th:text="${operator.specialties.size()}">Tasty Goodnees 3</td>

@@ -38,6 +38,9 @@ public class OperatorCommand {
     @Pattern(regexp = "^[0-9]{3}$")
     private String number;
 
+    @Pattern(regexp = "(^[0-9]{3}$)|(^$)")
+    private String additionalNumber;
+
 @javax.validation.constraints.NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @PastOrPresent

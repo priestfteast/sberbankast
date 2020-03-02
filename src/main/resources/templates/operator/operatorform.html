@@ -92,6 +92,24 @@
                         </div>
 
                         <div class="row">
+                            <div class="col-md-12 form-group" th:class="${#fields.hasErrors('additionalNumber')}
+                               ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
+                                <label for="num" class="col-md-3 control-label">Additional Number:</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="adnum" placeholder="AdditionalNumber"
+                                           th:field="*{additionalNumber}"
+                                           th:errorclass="has-error">
+                                    <span class="help-block" th:if="${#fields.hasErrors('additionalNumber')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('additionalNumber')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-md-12 form-group" th:class="${#fields.hasErrors('employementDate')}
                                ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
                                 <label for="doe" class="col-md-3 control-label">Date of employement:</label>

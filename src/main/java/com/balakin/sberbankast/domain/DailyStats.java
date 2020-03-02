@@ -26,6 +26,8 @@ public class DailyStats {
 
     private Long lost;
 
+    private Long lost406;
+
     private Long outgoingTotal;
 
     private Long outgoingExternal;
@@ -42,6 +44,8 @@ public class DailyStats {
 
     private Long totalAfterCallTime;
 
+    private Long afterCallTimeAvrg;
+
     private Long totalTalkingTime;
 
     private Long totalIncomingTime;
@@ -51,6 +55,8 @@ public class DailyStats {
     private Long totalExternalOutGoingTime;
 
     private Long totalHoldTime;
+
+    private Long holdTimeAvrg;
 
     @ManyToOne
     private Operator operator;

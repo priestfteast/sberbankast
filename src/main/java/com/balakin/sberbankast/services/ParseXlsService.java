@@ -10,7 +10,8 @@ import java.io.IOException;
 import java.util.List;
 
 public interface ParseXlsService {
-    List<DailyStats> parseXml(String path, OperatorRepository operatorRepository, DailyStatsRepository dailyStatsRepository) throws Exception;
+    List<DailyStats> parseStatsXml(String path, OperatorRepository operatorRepository, DailyStatsRepository dailyStatsRepository) throws Exception;
+    List<DailyStats> parseLostXml(String path, List<DailyStats> dailyStats) throws Exception;
     long parseTime(String time);
     int checkXlsOrXlsx(String fileName);
     void closeReadBooks(Workbook readbookXls, XSSFWorkbook readbookXlsx) throws Exception;

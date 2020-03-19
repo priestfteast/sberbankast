@@ -9,6 +9,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,7 +25,7 @@ public class ParseXlsServiceImpl implements ParseXlsService {
 
 
     @Override
-    public List<DailyStats> parseXml(String path,OperatorRepository operatorRepository,DailyStatsRepository dailyStatsRepository) throws Exception {
+    public List<DailyStats> parseStatsXml(String path,OperatorRepository operatorRepository,DailyStatsRepository dailyStatsRepository) throws Exception {
 
         List<DailyStats> dailyStats = new ArrayList<>();
 
@@ -63,6 +65,12 @@ public class ParseXlsServiceImpl implements ParseXlsService {
                 System.out.println(date);
             }
             if(firstRowCell.matches("^Комсистемс[0-9]{3}$"))   {
+                if(row.getLastCellNum()<10){
+                    closeReadBooks(readbookXls,readbookXlsx);
+                    Files.deleteIfExists(file.toPath());
+                    throw new Exception("\n"+"Загруженный файл не является файлом статистики!"+"\n"+"Загрузите корректный файл"+"\n");
+
+                }
                 DailyStats dStats = new DailyStats();
                 dStats.setDate(getDate(date));
                 for (int i = 0; i < row.getLastCellNum(); i++) {
@@ -88,6 +96,7 @@ public class ParseXlsServiceImpl implements ParseXlsService {
                         case 3:
                             System.out.print(cell_data+"  ");
                             dStats.setLost(Long.valueOf( cell_data));
+                            dStats.setLost406(0L);
                             break;
                         case 4:
                             System.out.print(cell_data+"  ");
@@ -117,7 +126,7 @@ public class ParseXlsServiceImpl implements ParseXlsService {
                         case 10:
                             System.out.print(cell_data+"  ");
                             dStats.setTotalAfterCallTime(parseTime( cell_data));
-                            dStats.setAfterCallTimeAvrg(dStats.getTotalAfterCallTime()/dStats.getIncoming());
+                            dStats.setAfterCallTimeAvrg(dStats.getTotalAfterCallTime()/(dStats.getIncoming()+dStats.getOutgoingTotal()));
                             break;
                         case 11:
                             System.out.print(cell_data+"  ");
@@ -138,7 +147,10 @@ public class ParseXlsServiceImpl implements ParseXlsService {
                         case 15:
                             System.out.print(cell_data+"  ");
                             dStats.setTotalHoldTime(parseTime( cell_data));
-                            dStats.setHoldTimeAvrg(dStats.getTotalHoldTime()/dStats.getHolded());
+                            if(dStats.getHolded()==0L)
+                                dStats.setHoldTimeAvrg(0L);
+                            else
+                                dStats.setHoldTimeAvrg(dStats.getTotalHoldTime()/dStats.getHolded());
                             break;
                         case 16:
                             System.out.print(cell_data+"  ");
@@ -153,6 +165,72 @@ public class ParseXlsServiceImpl implements ParseXlsService {
         closeReadBooks(readbookXls,readbookXlsx);
 
         System.out.println(dailyStats.size());
+        return dailyStats;
+    }
+
+    @Override
+    public List<DailyStats> parseLostXml(String path,List<DailyStats> dailyStats) throws Exception {
+
+
+
+        String date = "";
+
+        File file = new File(path);
+
+        // Creating a Workbook from an Excel file (.xls or .xlsx)
+        Workbook readbookXls = null;
+        XSSFWorkbook readbookXlsx = null;
+
+        switch (checkXlsOrXlsx(path)){
+            case 1: readbookXls = WorkbookFactory.create(file);
+                break;
+            case 2:  readbookXlsx = new XSSFWorkbook(new FileInputStream(file));
+                break;
+            case 3: throw new Exception("Указанный файл не является таблицей Excel. Перезагрузите файл.");
+        }
+// Getting the Sheet at index zero
+        Sheet readsheet = null;
+        if (readbookXls != null)
+            readsheet = readbookXls.getSheetAt(0);
+        else
+            readsheet = readbookXlsx.getSheetAt(0);
+
+        // Create a DataFormatter to format and get each cell's value as String
+        DataFormatter dataFormatter = new DataFormatter();
+
+        for (Row row : readsheet) {
+            System.out.println();
+
+            String firstRowCell = dataFormatter.formatCellValue( row.getCell(0));
+            if(firstRowCell.equals("Начало периода")){
+                String dateCell = dataFormatter.formatCellValue( row.getCell(1));
+                date=dateCell.substring(0,dateCell.indexOf(" "));
+                Date period = getDate(date);
+                System.out.println(date);
+                if(!(dailyStats.get(0).getDate().equals(period))) {
+                    closeReadBooks(readbookXls,readbookXlsx);
+                    Files.deleteIfExists(Paths.get(path));
+                    throw new Exception("Different periods in stats file & lostCalls file");
+                }
+            }
+            if(firstRowCell.matches("^Комсистемс[0-9]{3}$"))   {
+                if(row.getLastCellNum()>5){
+                    closeReadBooks(readbookXls,readbookXlsx);
+                    Files.deleteIfExists(file.toPath());
+                    throw new Exception("\n"+"Загруженный файл не является файлом с пропущенными!"+"\n"+"Загрузите корректный файл"+"\n");
+                }
+               String number = dataFormatter.formatCellValue(row.getCell(1));
+                Long lost406 = Long.valueOf(dataFormatter.formatCellValue(row.getCell(3)));
+                for (DailyStats stats: dailyStats
+                     ) {
+                    if(stats.getNumber().equals(number))
+                        stats.setLost406(lost406);
+                }
+            }
+        }
+        closeReadBooks(readbookXls,readbookXlsx);
+
+
         return dailyStats;
     }
 

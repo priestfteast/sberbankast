@@ -83,8 +83,10 @@ public class OperatorServiceImpl implements OperatorService {
         operators.sort((o1, o2) -> {
             if(o1.getSpecialties().size()>o2.getSpecialties().size())
             return -1;
-            else
+            else if(o1.getSpecialties().size()<o2.getSpecialties().size())
                 return 1;
+            else
+                return 0;
         });
 
         return operators;

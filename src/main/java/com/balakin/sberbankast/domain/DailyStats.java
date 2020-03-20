@@ -13,6 +13,13 @@ import java.sql.Date;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"operator"})
 public class DailyStats {
+    public DailyStats(String number, Long incoming, Long lost406, Long totalWorkTime) {
+        this.number = number;
+        this.incoming = incoming;
+        this.lost406 = lost406;
+        this.totalWorkTime = totalWorkTime;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

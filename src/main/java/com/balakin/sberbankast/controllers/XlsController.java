@@ -40,6 +40,9 @@ public class XlsController {
 
     @GetMapping("upload/dailystats")
     public String showUploadForm( Model model){
+        for (File myFile : new File("C:\\Users\\Jeremy\\sberbankast\\src\\main\\resources\\dailystats").listFiles())
+            if (myFile.isFile()) myFile.delete();
+
         List<DailyStats> nullStats = new ArrayList<>();
         if(dailyStats.size()>0) {
             for (DailyStats ds : dailyStats

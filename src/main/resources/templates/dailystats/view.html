@@ -31,7 +31,7 @@
 </head>
 <body>
 <!--/*@thymesVar id="dailyStats" type="com.balakin.sberbankast.domain.DailyStats"*/-->
-<div class="container-fluid col-md-8 offset-2" style="margin-top: 20px">
+<div class="container-fluid col-md-10 offset-1" style="margin-top: 20px">
     <br>
     <br>
     <form  action="http:\\localhost" method="post" class="form-horizontal" th:action="@{'/viewstats'}">
@@ -89,11 +89,16 @@
                         <thead class="thead-inverse">
                         <tr>
                             <th>№</th>
-                            <th>Days</th>
-                            <th>Operators</th>
-                            <th>Incoming</th>
-                            <th>Total time</th>
-                            <th>Lost406</th>
+                            <th>Дни</th>
+                            <th>Операторов</th>
+                            <th>Входящие</th>
+                            <th>Ср. время входящих</th>
+                            <th>Исходящие внеш.</th>
+                            <th>В сети</th>
+                            <th>Не готов</th>
+                            <th>Ср. работа после звонка</th>
+                            <th>Ср. удержание</th>
+                            <th>Потеряные (406)</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -102,8 +107,14 @@
                             <td th:text="${dstats.id}">Tasty Goodnees 3</td>
                             <td th:text="${dstats.number}">Tasty Goodnees </td>
                             <td th:text="${dstats.incoming}">Tasty Goodnees 3</td>
+                            <td th:text="${dstats.getTime(dstats.incomingAvrg)}">Tasty Goodnees 3</td>
+                            <td th:text="${dstats.outgoingExternal}">Tasty Goodnees 3</td>
                             <td th:text="${dstats.getTime(dstats.getTotalWorkTime())}">Tasty Goodnees 3</td>
-                            <td th:text="${dstats.lost406}">Tasty Goodnees 3</td>
+                            <td th:text="${dstats.getTime(dstats.totalNotReadyTime)}">Tasty Goodnees 3</td>
+                            <td th:text="${dstats.getTime(dstats.afterCallTimeAvrg)}">Tasty Goodnees 3</td>
+                            <td th:text="${dstats.getTime(dstats.holdTimeAvrg)}">Tasty Goodnees 3</td>
+                            <td th:text="${dstats.getLost406()+'('+ dstats.lost406*100/dstats.incoming+'%)'}">Tasty Goodnees 3</td>
+
                         </tr>
                         </tbody>
                     </table>
@@ -120,26 +131,34 @@
                     <tr>
                         <th>№</th>
                         <!--                                <th>ID</th>-->
-                        <th>Date</th>
-                        <th>Operator</th>
-                        <th>Number</th>
-                        <th>Incoming</th>
-                        <th>Total time</th>
-                        <th>Lost406</th>
+                        <th>дата</th>
+                        <th>Оператор</th>
+                        <th>Доб.</th>
+                        <th>Входящие</th>
+                        <th>Ср. время входящих</th>
+                        <th>Исходящие внеш.</th>
+                        <th>В сети</th>
+                        <th>Не готов</th>
+                        <th>Ср. работа после звонка</th>
+                        <th>Ср. удержание</th>
+                        <th>Потеряные (406)</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="dailyStats : ${stats}">
+                    <tr th:each="dailyStats : ${stats}" >
                         <td>123</td>
                         <!--                                <td th:text="${operator.id}">idd</td>-->
                         <td th:text="${dailyStats.date}">Tasty Goodnees 3</td>
-                        <td th:text="${dailyStats.operator.lastName}+' '+${dailyStats.operator.firstName}">Tasty
-                            Goodnees 3
-                        </td>
+                        <td th:text="${dailyStats.operator.lastName}+' '+${dailyStats.operator.firstName}">Tasty Goodnees 3</td>
                         <td th:text="${dailyStats.number}">Tasty Goodnees 3</td>
                         <td th:text="${dailyStats.incoming}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.getTime(dailyStats.incomingAvrg)}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.outgoingExternal}">Tasty Goodnees 3</td>
                         <td th:text="${dailyStats.getTime(dailyStats.totalWorkTime)}">Tasty Goodnees 3</td>
-                        <td th:text="${dailyStats.lost406}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.getTime(dailyStats.totalNotReadyTime)}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.getTime(dailyStats.afterCallTimeAvrg)}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.getTime(dailyStats.holdTimeAvrg)}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.incoming==0} ? ${0+'(0%)'} : ${dailyStats.lost406+' ('+dailyStats.lost406*100/dailyStats.incoming+'%)'}">Tasty Goodnees 3</td>
                     </tr>
                     </tbody>
                 </table>

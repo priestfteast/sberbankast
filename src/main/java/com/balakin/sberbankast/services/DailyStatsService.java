@@ -1,13 +1,17 @@
 package com.balakin.sberbankast.services;
 
 import com.balakin.sberbankast.domain.DailyStats;
+import com.balakin.sberbankast.domain.Operator;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface DailyStatsService {
-    List<DailyStats> getDailyStats(String request);
 
-    DailyStats findById(Long l);
+    DailyStats getTotalStats(List<DailyStats> stats);
 
-    void deleteById(Long idToDelete);
+    List<DailyStats> getAllStats(Date start, Date end);
+
+    List<DailyStats> getOperatorStats(Date start, Date end, String number);
+
 }

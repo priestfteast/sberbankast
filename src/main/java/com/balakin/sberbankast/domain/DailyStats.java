@@ -13,11 +13,23 @@ import java.sql.Date;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"operator"})
 public class DailyStats {
-    public DailyStats(String number, Long incoming, Long lost406, Long totalWorkTime) {
+    public DailyStats(String number, Long incoming, Long lost406, Long outgoingExternal, Long holded, Long incomingAvrg,
+                      Long totalWorkTime, Long totalNotReadyTime, Long totalAfterCallTime, Long afterCallTimeAvrg,
+                      Long totalExternalOutGoingTime, Long totalHoldTime, Long holdTimeAvrg, Long outgoingTotal) {
         this.number = number;
         this.incoming = incoming;
         this.lost406 = lost406;
+        this.outgoingExternal = outgoingExternal;
+        this.holded = holded;
+        this.incomingAvrg = incomingAvrg;
         this.totalWorkTime = totalWorkTime;
+        this.totalNotReadyTime = totalNotReadyTime;
+        this.totalAfterCallTime = totalAfterCallTime;
+        this.afterCallTimeAvrg = afterCallTimeAvrg;
+        this.outgoingTotal=outgoingTotal;
+        this.totalExternalOutGoingTime = totalExternalOutGoingTime;
+        this.totalHoldTime = totalHoldTime;
+        this.holdTimeAvrg = holdTimeAvrg;
     }
 
     @Id

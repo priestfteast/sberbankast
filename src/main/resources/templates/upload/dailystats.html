@@ -20,7 +20,7 @@
 </head>
 <body>
 <!--/*@thymesVar id="dailyStats" type="com.balakin.sberbankast.domain.DailyStats"*/-->
-<div class="container-fluid col-md-8 offset-2"style="margin-top: 20px">
+<div class="container-fluid col-md-10 offset-1"style="margin-top: 20px">
     <br>
     <br>
     <div class="row">
@@ -128,12 +128,17 @@
                     <tr>
                         <th>№</th>
                         <!--                                <th>ID</th>-->
-                        <th>Date</th>
-                        <th>Operator</th>
-                        <th>Number</th>
-                        <th>Incoming</th>
-                        <th>Total time</th>
-                        <th>Lost406</th>
+                        <th>Дата</th>
+                        <th>Оператор</th>
+                        <th>Доб.</th>
+                        <th>Входящие</th>
+                        <th>Ср. время входящих</th>
+                        <th>Исходящие внеш.</th>
+                        <th>Время работы</th>
+                        <th>Не готов</th>
+                        <th>Ср. работа после звонка</th>
+                        <th>Ср. удержание</th>
+                        <th>Потеряные (406)</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -144,8 +149,13 @@
                         <td th:text="${dailyStats.operator.lastName}+' '+${dailyStats.operator.firstName}">Tasty Goodnees 3</td>
                         <td th:text="${dailyStats.number}">Tasty Goodnees 3</td>
                         <td th:text="${dailyStats.incoming}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.getTime(dailyStats.incomingAvrg)}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.outgoingExternal}">Tasty Goodnees 3</td>
                         <td th:text="${dailyStats.getTime(dailyStats.totalWorkTime)}">Tasty Goodnees 3</td>
-                        <td th:text="${dailyStats.lost406}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.getTime(dailyStats.totalNotReadyTime)}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.getTime(dailyStats.afterCallTimeAvrg)}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.getTime(dailyStats.holdTimeAvrg)}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.incoming==0} ? ${0+'(0%)'} : ${dailyStats.lost406+' ('+dailyStats.lost406*100/dailyStats.incoming+'%)'}">Tasty Goodnees 3</td>
                     </tr>
                     </tbody>
                 </table>

@@ -284,17 +284,7 @@ public class ParseXlsServiceImpl implements ParseXlsService {
 
     }
 
-    public String getTime(Long time) {
 
-         int seconds   = Math.toIntExact(time);
-        int finalHours =  (seconds/3600);
-        int secondsLeft = seconds%3600;
-        int minutesFinal = secondsLeft/60;
-        int secondsFinal = secondsLeft%60;
-        String result = String.valueOf(finalHours)+":"+String.valueOf(minutesFinal)+":"+secondsFinal;
-
-        return result;
-    }
 
     public Date getDate(String date) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yy");

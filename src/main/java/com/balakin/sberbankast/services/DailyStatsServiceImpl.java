@@ -22,8 +22,9 @@ public class DailyStatsServiceImpl implements DailyStatsService {
 
     @Override
     public DailyStats getTotalStats(List<DailyStats> stats) {
-        DailyStats dstats = new DailyStats("",0L,0L,0L,0L,0L,0L,0L,
-                0L,0L,0L,0L,0L,0L);
+        DailyStats dstats = new DailyStats(null,"",0L,0L,0L,0L,0L,0L,0L,
+                0L,0L,0L,0L,0L,0L,0L,0L,
+                0L,0L,0L,null);
 
 
             List<String> days = new ArrayList<>();
@@ -33,6 +34,11 @@ public class DailyStatsServiceImpl implements DailyStatsService {
 
             for (DailyStats ds: stats
             ) {
+                dstats.setDate(ds.getDate());
+                dstats.setOperator(ds.getOperator());
+                if(!dstats.getNumber().contains(ds.getNumber())) {
+                    dstats.setNumber(ds.getNumber() + " " + dstats.getNumber());
+                }
                 dstats.setIncoming(ds.getIncoming() + dstats.getIncoming());
                 dstats.setTotalWorkTime(ds.getTotalWorkTime() + dstats.getTotalWorkTime());
                 dstats.setTotalAfterCallTime(ds.getTotalAfterCallTime()+ds.getTotalAfterCallTime());
@@ -46,6 +52,7 @@ public class DailyStatsServiceImpl implements DailyStatsService {
                 dstats.setTotalHoldTime(ds.getTotalHoldTime()+dstats.getTotalHoldTime());
                 if (!(operators.contains(ds.getOperator())))
                     operators.add(ds.getOperator());
+
                 if (!(days.contains(ds.getDate().toString())))
                     days.add(ds.getDate().toString());
 
@@ -56,11 +63,11 @@ public class DailyStatsServiceImpl implements DailyStatsService {
         if(dstats.getTotalAfterCallTime()>0L) {
             dstats.setAfterCallTimeAvrg(dstats.getTotalAfterCallTime() / (dstats.getIncoming() + dstats.getOutgoingTotal()));
         }
-        dstats.setNumber(String.valueOf(operators.size()));
+        dstats.setLost((long) operators.size());
         if(dstats.getTotalHoldTime()>0L) {
             dstats.setHoldTimeAvrg(dstats.getTotalHoldTime() / dstats.getHolded());
         }
-        dstats.setId((long) days.size());
+        dstats.setOutgoingInternal((long) days.size());
 
 
 
@@ -83,6 +90,7 @@ public class DailyStatsServiceImpl implements DailyStatsService {
             List<DailyStats> operatorStats = dailyStatsRepository.getAllByDateBetweenAndOperator(start,end, op);
 
             resultList.add(getTotalStats(operatorStats));
+            System.out.println(resultList.size());
 
         }
         return resultList;

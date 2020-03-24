@@ -41,7 +41,7 @@
             <div class="card">
                 <div class="form-group">
                     <h5 class="card-title">Start date</h5>
-                    <input name="startdate" type="date" required="required" pattern="{1,20}" class="form-control">
+                    <input name="startdate" type="date" th:value="${request.get(0)}" required="required" pattern="{1,20}" class="form-control">
                 </div>
             </div>
         </div>
@@ -49,15 +49,15 @@
             <div class="card">
                 <div class="form-group">
                     <h5 class="card-title">End date</h5>
-                    <input name="enddate" type="date" required="required" pattern="{1,20}" class="form-control">
+                    <input name="enddate" type="date" required="required" th:value="${request.get(1)}" pattern="{1,20}" class="form-control">
                 </div>
             </div>
         </div>
         <div class="input-group-prepend">
                 <select name="operator">
-                <option   class="dropdown-item" text="all" value="all">All operators</option>
+                <option   class="dropdown-item" text="all" value="all" th:selected="${request.get(2).equals('all')}">All operators</option>
                 <option   class="dropdown-item" th:each="operator : ${operators}" th:text="${operator.lastName+' '+operator.number}"
-                   th:value="${operator.number}">Name</option>
+                   th:value="${operator.number}" th:selected="${request.get(2).equals(operator.number)}">Name</option>
                 </select>
         </div>
 
@@ -89,7 +89,7 @@
                         <thead class="thead-inverse">
                         <tr>
                             <th>№</th>
-                            <th>Дни</th>
+                            <th>Период</th>
                             <th>Операторов</th>
                             <th>Входящие</th>
                             <th>Ср. время входящих</th>
@@ -104,8 +104,8 @@
                         <tbody>
                         <tr >
                             <td>123</td>
-                            <td th:text="${dstats.id}">Tasty Goodnees 3</td>
-                            <td th:text="${dstats.number}">Tasty Goodnees </td>
+                            <td th:text="${request.get(0)+' - '+request.get(1)}">Tasty Goodnees 3</td>
+                            <td th:text="${dstats.lost}">Tasty Goodnees </td>
                             <td th:text="${dstats.incoming}">Tasty Goodnees 3</td>
                             <td th:text="${dstats.getTime(dstats.incomingAvrg)}">Tasty Goodnees 3</td>
                             <td th:text="${dstats.outgoingExternal}">Tasty Goodnees 3</td>
@@ -113,7 +113,7 @@
                             <td th:text="${dstats.getTime(dstats.totalNotReadyTime)}">Tasty Goodnees 3</td>
                             <td th:text="${dstats.getTime(dstats.afterCallTimeAvrg)}">Tasty Goodnees 3</td>
                             <td th:text="${dstats.getTime(dstats.holdTimeAvrg)}">Tasty Goodnees 3</td>
-                            <td th:text="${dstats.getLost406()+'('+ dstats.lost406*100/dstats.incoming+'%)'}">Tasty Goodnees 3</td>
+                            <td th:text="${dstats.getLost406()+'('+ dstats.lost406*100.0/dstats.incoming+'%)'}">Tasty Goodnees 3</td>
 
                         </tr>
                         </tbody>
@@ -131,7 +131,7 @@
                     <tr>
                         <th>№</th>
                         <!--                                <th>ID</th>-->
-                        <th>дата</th>
+                        <th>Период</th>
                         <th>Оператор</th>
                         <th>Доб.</th>
                         <th>Входящие</th>
@@ -148,7 +148,8 @@
                     <tr th:each="dailyStats : ${stats}" >
                         <td>123</td>
                         <!--                                <td th:text="${operator.id}">idd</td>-->
-                        <td th:text="${dailyStats.date}">Tasty Goodnees 3</td>
+                        <td th:text="${request.get(2).equals('all')} ? ${dailyStats.outgoingInternal+' дней'} :
+                         ${dailyStats.date}" >Tasty Goodnees 3</td>
                         <td th:text="${dailyStats.operator.lastName}+' '+${dailyStats.operator.firstName}">Tasty Goodnees 3</td>
                         <td th:text="${dailyStats.number}">Tasty Goodnees 3</td>
                         <td th:text="${dailyStats.incoming}">Tasty Goodnees 3</td>
@@ -158,7 +159,7 @@
                         <td th:text="${dailyStats.getTime(dailyStats.totalNotReadyTime)}">Tasty Goodnees 3</td>
                         <td th:text="${dailyStats.getTime(dailyStats.afterCallTimeAvrg)}">Tasty Goodnees 3</td>
                         <td th:text="${dailyStats.getTime(dailyStats.holdTimeAvrg)}">Tasty Goodnees 3</td>
-                        <td th:text="${dailyStats.incoming==0} ? ${0+'(0%)'} : ${dailyStats.lost406+' ('+dailyStats.lost406*100/dailyStats.incoming+'%)'}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.incoming==0} ? ${0+'(0%)'} : ${dailyStats.lost406+' ('+dailyStats.lost406*100.0/dailyStats.incoming+'%)'}">Tasty Goodnees 3</td>
                     </tr>
                     </tbody>
                 </table>

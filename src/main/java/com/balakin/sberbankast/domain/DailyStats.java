@@ -13,23 +13,31 @@ import java.sql.Date;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"operator"})
 public class DailyStats {
-    public DailyStats(String number, Long incoming, Long lost406, Long outgoingExternal, Long holded, Long incomingAvrg,
-                      Long totalWorkTime, Long totalNotReadyTime, Long totalAfterCallTime, Long afterCallTimeAvrg,
-                      Long totalExternalOutGoingTime, Long totalHoldTime, Long holdTimeAvrg, Long outgoingTotal) {
+    public DailyStats(Date date, String number, Long incoming, Long lost, Long lost406, Long outgoingTotal, Long outgoingExternal,
+                      Long outgoingInternal, Long holded, Long incomingAvrg, Long totalWorkTime, Long totalNotReadyTime,
+                      Long totalAfterCallTime, Long afterCallTimeAvrg, Long totalTalkingTime, Long totalIncomingTime,
+                      Long totalOutGoingTime, Long totalExternalOutGoingTime, Long totalHoldTime, Long holdTimeAvrg, Operator operator) {
+        this.date = date;
         this.number = number;
         this.incoming = incoming;
+        this.lost = lost;
         this.lost406 = lost406;
+        this.outgoingTotal = outgoingTotal;
         this.outgoingExternal = outgoingExternal;
+        this.outgoingInternal = outgoingInternal;
         this.holded = holded;
         this.incomingAvrg = incomingAvrg;
         this.totalWorkTime = totalWorkTime;
         this.totalNotReadyTime = totalNotReadyTime;
         this.totalAfterCallTime = totalAfterCallTime;
         this.afterCallTimeAvrg = afterCallTimeAvrg;
-        this.outgoingTotal=outgoingTotal;
+        this.totalTalkingTime = totalTalkingTime;
+        this.totalIncomingTime = totalIncomingTime;
+        this.totalOutGoingTime = totalOutGoingTime;
         this.totalExternalOutGoingTime = totalExternalOutGoingTime;
         this.totalHoldTime = totalHoldTime;
         this.holdTimeAvrg = holdTimeAvrg;
+        this.operator = operator;
     }
 
     @Id
@@ -80,14 +88,22 @@ public class DailyStats {
     @ManyToOne
     private Operator operator;
 
-    public static String getTime(Long time) {
+    public String getTime(Long time) {
 
         int seconds   = Math.toIntExact(time);
-        int finalHours =  (seconds/3600);
+//        int finalHours =  (seconds/3600);
+        String finalHours = String.valueOf(seconds/3600);
         int secondsLeft = seconds%3600;
-        int minutesFinal = secondsLeft/60;
-        int secondsFinal = secondsLeft%60;
-        String result = String.valueOf(finalHours)+":"+String.valueOf(minutesFinal)+":"+secondsFinal;
+        String finalMinutes = String.valueOf(secondsLeft/60);
+        if(finalMinutes.length()==1)
+            finalMinutes="0"+finalMinutes;
+//        int minutesFinal = secondsLeft/60;
+//        int secondsFinal = secondsLeft%60;
+        String finalSeconds = String.valueOf(secondsLeft%60);
+        if(finalSeconds.length()==1)
+            finalSeconds="0"+finalSeconds;
+        String result = finalHours+":"+finalMinutes+":"+finalSeconds;
+
 
         return result;
     }

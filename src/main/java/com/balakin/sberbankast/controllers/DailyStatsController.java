@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,6 +31,7 @@ public class DailyStatsController {
 
     private List<DailyStats> dailyStats = new ArrayList<>();
     private DailyStats dstats = new DailyStats();
+    private List<String> request = new ArrayList<>();
 
     public DailyStatsController(DailyStatsRepository dailyStatsRepository, OperatorRepository operatorRepository, DailyStatsService dailyStatsService) {
         this.dailyStatsRepository = dailyStatsRepository;
@@ -44,6 +46,12 @@ public class DailyStatsController {
 //            DailyStats ds = dailyStatsRepository.findTopByOrderByIdDesc();
 //            dailyStats=dailyStatsRepository.getAllByDate(ds.getDate());
 //        }
+        if(request.size()==0){
+            System.out.println(LocalDate.now().toString());
+            request.add(LocalDate.now().toString().substring(0,8)+"01");
+            request.add(LocalDate.now().toString());
+            request.add("all");
+        }
         ArrayList<Operator> operators = (ArrayList<Operator>) operatorRepository.findAll();
         Collections.sort(operators, new Comparator<Operator>() {
             @Override
@@ -55,6 +63,7 @@ public class DailyStatsController {
         model.addAttribute("operators", operators);
         model.addAttribute("stats", dailyStats);
         model.addAttribute("dstats", dstats);
+        model.addAttribute("request", request);
 
         return "dailystats/view";
     }
@@ -64,12 +73,11 @@ public class DailyStatsController {
     public String viewStats(@RequestParam MultiValueMap<String, String> formData) throws Exception {
 
         dailyStats = new ArrayList<>();
-        dstats = new DailyStats("",0L,0L,0L,0L,0L,0L,0L,
-                0L,0L,0L,0L,0L,0L);
+        dstats = new DailyStats();
 
-        String startdate = formData.getFirst("startdate");
-        String enddate = formData.getFirst("enddate");
-        String operator = formData.getFirst("operator");
+        String startdate = formData.getFirst("startdate"); request.set(0,startdate);
+        String enddate = formData.getFirst("enddate");request.set(1,enddate);
+        String operator = formData.getFirst("operator");request.set(2,operator);
 
 
         if (operator.equals("all")) {

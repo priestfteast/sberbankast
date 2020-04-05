@@ -4,6 +4,7 @@ import com.balakin.sberbankast.domain.DailyStats;
 import com.balakin.sberbankast.domain.Operator;
 import com.balakin.sberbankast.repositories.DailyStatsRepository;
 import com.balakin.sberbankast.repositories.OperatorRepository;
+import com.balakin.sberbankast.repositories.OutgoingRepository;
 import com.balakin.sberbankast.services.DailyStatsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -28,15 +29,17 @@ public class DailyStatsController {
     private final DailyStatsRepository dailyStatsRepository;
     private final OperatorRepository operatorRepository;
     private final DailyStatsService dailyStatsService;
+    private final OutgoingRepository outgoingRepository;
 
     private List<DailyStats> dailyStats = new ArrayList<>();
     private DailyStats dstats = new DailyStats();
     private List<String> request = new ArrayList<>();
 
-    public DailyStatsController(DailyStatsRepository dailyStatsRepository, OperatorRepository operatorRepository, DailyStatsService dailyStatsService) {
+    public DailyStatsController(DailyStatsRepository dailyStatsRepository, OperatorRepository operatorRepository, DailyStatsService dailyStatsService, OutgoingRepository outgoingRepository) {
         this.dailyStatsRepository = dailyStatsRepository;
         this.operatorRepository = operatorRepository;
         this.dailyStatsService = dailyStatsService;
+        this.outgoingRepository = outgoingRepository;
     }
 
 
@@ -64,6 +67,8 @@ public class DailyStatsController {
         model.addAttribute("stats", dailyStats);
         model.addAttribute("dstats", dstats);
         model.addAttribute("request", request);
+        model.addAttribute("outgoinglist",outgoingRepository.findAll());
+        model.addAttribute("outgoingstring",outgoingRepository.findAll().toString());
 
         return "dailystats/view";
     }
@@ -82,10 +87,11 @@ public class DailyStatsController {
 
         if (operator.equals("all")) {
             dailyStats = dailyStatsService.getAllStats(Date.valueOf(startdate), Date.valueOf(enddate));
-        } else
+            dstats = dailyStatsService.getTotalStats(dailyStats);
+        } else {
             dailyStats = dailyStatsService.getOperatorStats(Date.valueOf(startdate), Date.valueOf(enddate), operator);
-
-       dstats = dailyStatsService.getTotalStats(dailyStats);
+            dstats = dailyStatsService.getTotalOperatorStats(dailyStats);
+        }
 
 
 

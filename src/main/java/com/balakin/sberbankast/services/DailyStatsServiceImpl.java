@@ -9,6 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.temporal.TemporalUnit;
 import java.util.*;
 
 @Slf4j
@@ -141,6 +144,7 @@ public class DailyStatsServiceImpl implements DailyStatsService {
             dstats.setIncomingAvrg(dstats.getIncomingAvrg() / incOperatorCounter);
         }
         if(dstats.getTotalAfterCallTime()>0L) {
+            if(dstats.getIncoming()+dstats.getOutgoingTotal()!=0l)
             dstats.setAfterCallTimeAvrg(dstats.getTotalAfterCallTime() / (dstats.getIncoming() + dstats.getOutgoingTotal()));
         }
         dstats.setLost((long) operators.size());
@@ -286,11 +290,11 @@ public class DailyStatsServiceImpl implements DailyStatsService {
         }
 
         List<Map.Entry<DailyStats, Integer[]>> ratingList = new ArrayList<>(rating.entrySet());
-        for (Map.Entry<DailyStats, Integer[]> entry: ratingList
-        ) {
-            System.out.println(entry.getKey().getOperator().getLastName()+" : "+Arrays.toString(entry.getValue()));
-        }
-        System.out.println();
+//        for (Map.Entry<DailyStats, Integer[]> entry: ratingList
+//        ) {
+//            System.out.println(entry.getKey().getOperator().getLastName()+" : "+Arrays.toString(entry.getValue()));
+//        }
+//        System.out.println();
        Collections.sort(ratingList, new Comparator<Map.Entry<DailyStats, Integer[]>>() {
            @Override
            public int compare(Map.Entry<DailyStats, Integer[]> o1, Map.Entry<DailyStats, Integer[]> o2) {
@@ -304,10 +308,10 @@ public class DailyStatsServiceImpl implements DailyStatsService {
         List<Map.Entry<DailyStats, Integer[]>> result = new ArrayList<>();
         result.addAll(0, ratingList);
 
-        for (Map.Entry<DailyStats, Integer[]> entry: result
-             ) {
-            System.out.println(entry.getKey().getOperator().getLastName()+" : "+Arrays.toString(entry.getValue()));
-        }
+//        for (Map.Entry<DailyStats, Integer[]> entry: result
+//             ) {
+//            System.out.println(entry.getKey().getOperator().getLastName()+" : "+Arrays.toString(entry.getValue()));
+//        }
 
        return result;
 
@@ -446,10 +450,152 @@ public class DailyStatsServiceImpl implements DailyStatsService {
             }
 
         }
-        System.out.println(Arrays.toString(value)+"!");
 
         return value;
     }
+
+    public String[] getChartDays(String start, String end,String operator) {
+
+        LocalDate startDate = LocalDate.parse(start);
+        LocalDate endDate = LocalDate.parse(end);
+        List<LocalDate> totalDates = new ArrayList<>();
+        while (!startDate.isAfter(endDate)) {
+            totalDates.add(startDate);
+            startDate = startDate.plusDays(1);
+        }
+
+        List<String> dates = new ArrayList<>();
+
+        if(operator.equals("all")) {
+            for (LocalDate date : totalDates
+            ) {
+                if (dailyStatsRepository.getFirstByDate(Date.valueOf(date)) != null)
+                    dates.add(date.toString());
+            }
+        }
+        else {
+            for (LocalDate date : totalDates
+            ) {
+                if (dailyStatsRepository.getFirstByDateAndNumber(Date.valueOf(date),operator) != null)
+                    dates.add(date.toString());
+            }
+        }
+
+        String[] days = new String[dates.size()];
+
+       days =dates.toArray(days);
+
+        return days;
+    }
+
+    public List <Long[]> getChartsData(String start, String end,String operator){
+
+//        Creating list for all data necessary for charts
+        List<Long[]> result = new ArrayList<>();
+
+//        Creating of all dates from request
+        LocalDate startDate = LocalDate.parse(start);
+        LocalDate endDate = LocalDate.parse(end);
+        List<LocalDate> totalDates = new ArrayList<>();
+        while (!startDate.isAfter(endDate)) {
+            totalDates.add(startDate);
+            startDate = startDate.plusDays(1);
+        }
+
+//        getting all stats necessary for charts
+        List<DailyStats> stats = new ArrayList<>();
+        List<Long> operatorsPerDay=new ArrayList<>();
+        List<DailyStats> allStats = new ArrayList<>();
+
+
+        if(operator.equals("all")){
+            allStats = getAllStats(Date.valueOf(start),Date.valueOf(end));
+            for (LocalDate date: totalDates
+                 ) {
+                List<DailyStats> dayStats = dailyStatsRepository.getAllByDate(Date.valueOf(date));
+                if(dayStats.size()>0){
+                    operatorsPerDay.add(countOperators(dayStats));
+                    stats.add(getTotalStats(dayStats));
+                }
+            }
+        }
+        else {
+            allStats = getOperatorStats(Date.valueOf(start),Date.valueOf(end),operator);
+            for (LocalDate date: totalDates
+            ) {
+                List<DailyStats> dayStats = dailyStatsRepository.getAllByDateBetweenAndNumber(Date.valueOf(date),Date.valueOf(date),operator);
+                if(dayStats.size()>0){
+                    operatorsPerDay.add(countOperators(dayStats));
+                    stats.add(getTotalStats(dayStats));
+                }
+            }
+        }
+        DailyStats totalStats =new DailyStats();
+        if(operator.equals("all")) {
+            totalStats = getTotalStats(allStats);
+        }
+        else
+            totalStats =getTotalOperatorStats(allStats);
+
+        //        Creating data for total work time chart (0)
+
+        Long[] totalWorkTime = new Long[stats.size()];
+        Long[] totalIncoming = new Long[stats.size()];
+        Long[] outgoingExternal = new Long[stats.size()];
+        Long[] talkTimeAvg = new Long[stats.size()];
+        Long[] holdTimeAvg = new Long[stats.size()];
+        Long[] afterCallAvg = new Long[stats.size()];
+        Long[] lost406 = new Long[stats.size()];
+        for (int i = 0; i < stats.size(); i++) {
+            totalIncoming[i]= stats.get(i).getIncoming();
+            outgoingExternal[i]= stats.get(i).getOutgoingExternal();
+            totalWorkTime[i]= stats.get(i).getTotalWorkTime();
+            talkTimeAvg[i]= stats.get(i).getIncomingAvrg();
+            holdTimeAvg[i]= stats.get(i).getHoldTimeAvrg();
+            afterCallAvg[i]= stats.get(i).getAfterCallTimeAvrg();
+            lost406[i]= stats.get(i).getLost406();
+        }
+
+        List<DailyStats> stats1 = (List<DailyStats>) dailyStatsRepository.findAll();
+        Long time = 0L;
+        for (DailyStats ds:stats1
+             ) {
+            time+=ds.getTotalWorkTime();
+        }
+
+        result.add(totalIncoming);
+        result.add(outgoingExternal);
+        result.add(totalWorkTime);
+        result.add(talkTimeAvg);
+        result.add(holdTimeAvg);
+        result.add(afterCallAvg);
+        result.add(lost406);
+        result.add(operatorsPerDay.toArray(new Long[operatorsPerDay.size()]));
+        Long[] operatorsQuantity = {countOperators(allStats)};
+        result.add(operatorsQuantity);
+        Long[] totalTime = {totalStats.getTotalWorkTime(),time};
+        result.add(totalTime);
+        Long[]calls ={totalStats.getIncoming(),totalStats.getOutgoingExternal(),totalStats.getLost406()};
+        result.add(calls);
+        Long[]callsAvg ={totalStats.getIncomingAvrg(),totalStats.getHoldTimeAvrg(),totalStats.getAfterCallTimeAvrg()};
+        result.add(callsAvg);
+        return result;
+    }
+
+    public Long countOperators(List<DailyStats> dayStats ){
+        System.out.println(dayStats.size()+"!!");
+        List<Operator> operators = new ArrayList<>();
+
+        for (DailyStats ds: dayStats
+             ) {
+            if(!operators.contains(ds.getOperator()))
+                operators.add(ds.getOperator());
+
+        }
+        return Long.valueOf(operators.size());
+    }
+
+
 
 
 }

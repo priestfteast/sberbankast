@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Labour days</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+<!--/*@thymesVar id="position" type="com.balakin.sberbankast.commands.PositionCommand"*/-->
+<div class="container-fluid col-md-8 offset-2" style="margin-top: 20px">
+    <div class="col-md-8 offset-2">
+    <form action="http:\\localhost" method="post" id="MyForm" class="form-horizontal" th:action="@{'/changeyear'}">
+        <div class="row">
+            <label class="col-md-2 control-label" style="font-weight: bold">Labour days</label>
+            <div class="input-group-prepend">
+                <select type="submit" name="year" onchange="document.getElementById('MyForm').submit()">
+                    <option class="dropdown-item" text="year" value="2020" th:selected="${position.year.equals('2020')}">
+                        2020
+                    </option>
+                    <option class="dropdown-item" text="year" value="2021" th:selected="${position.year.equals('2021')}">
+                        2021
+                    </option>
+                    <option class="dropdown-item" text="year" value="2022" th:selected="${position.year.equals('2022')}">
+                        2022
+                    </option>
+                    <option class="dropdown-item" text="year" value="2023" th:selected="${position.year.equals('2023')}">
+                        2023
+                    </option>
+                    <option class="dropdown-item" text="year" value="2024" th:selected="${position.year.equals('2024')}">
+                        2024
+                    </option>
+                    <option class="dropdown-item" text="year" value="2025" th:selected="${position.year.equals('2025')}">
+                        2025
+                    </option>
+                </select>
+            </div>
+        </div>
+    </form>
+    </div>
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                <br>
+                    <form th:object="${position}" th:action="@{'/change/'}" method="post" class="form-horizontal">
+                        <input type="hidden" th:field="*{id}">
+                        <input type="hidden" th:field="*{year}">
+                        <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                            <p th:text="#{operator.error}">Please Correct Errors Below</p>
+                        </div>
+                        <div class="pannel-group">
+                            <div class="panel panel-primary">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <label for="january" class="col-md-2 control-label">January:</label>
+                                        <div class="col-md-2 form-group" th:class="${#fields.hasErrors('january')}
+                               ? 'col-md-2 form-group has-error' : 'col-md-2 form-group'">
+                                            <input type="text" class="col-md-8 form-control" id="january"
+                                                   th:field="*{january}"  th:errorclass="has-error">
+                                            <span class=" col-md-2 help-block" th:if="${#fields.hasErrors('january')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('january')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                        </div>
+                                        <label for="february" class="col-md-2 control-label">February:</label>
+                                        <div class="col-md-2 form-group" th:class="${#fields.hasErrors('february')}
+                               ? 'col-md-2 form-group has-error' : 'col-md-2 form-group'">
+                                            <input type="text" class="col-md-8 form-control" id="february" th:placeholder="${position.february}" th:field="*{february}">
+                                            <span class=" col-md-2 help-block" th:if="${#fields.hasErrors('january')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('february')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                        </div>
+                                        <label for="march" class="col-md-2 control-label">March:</label>
+                                        <div class="col-md-2 form-group" th:class="${#fields.hasErrors('march')}
+                               ? 'col-md-2 form-group has-error' : 'col-md-2 form-group'">
+                                            <input type="text" class="col-md-8 form-control" id="march" th:placeholder="${position.march}" th:field="*{march}">
+                                            <span class=" col-md-2 help-block" th:if="${#fields.hasErrors('march')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('march')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                    <label for="april" class="col-md-2 control-label">April:</label>
+                                    <div class="col-md-2 form-group" th:class="${#fields.hasErrors('april')}
+                               ? 'col-md-2 form-group has-error' : 'col-md-2 form-group'">
+                                        <input type="text" class="col-md-8 form-control" id="april" th:placeholder="${position.april}" th:field="*{april}">
+                                        <span class=" col-md-2 help-block" th:if="${#fields.hasErrors('april')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('april')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                    </div>
+                                    <label for="may" class="col-md-2 control-label">May:</label>
+                                    <div class="col-md-2 form-group" th:class="${#fields.hasErrors('may')}
+                               ? 'col-md-2 form-group has-error' : 'col-md-2 form-group'">
+                                        <input type="text" class="col-md-8 form-control" id="may" th:placeholder="${position.may}" th:field="*{may}">
+                                        <span class=" col-md-2 help-block" th:if="${#fields.hasErrors('may')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('may')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                    </div>
+                                    <label for="june" class="col-md-2 control-label">June:</label>
+                                    <div class="col-md-2 form-group" th:class="${#fields.hasErrors('june')}
+                               ? 'col-md-2 form-group has-error' : 'col-md-2 form-group'">
+                                        <input type="text" class="col-md-8 form-control" id="june" th:placeholder="${position.june}" th:field="*{june}">
+                                        <span class=" col-md-2 help-block" th:if="${#fields.hasErrors('june')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('june')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                    </div>
+                                </div>
+                                    <div class="row">
+                                        <label for="july" class="col-md-2 control-label">July:</label>
+                                        <div class="col-md-2 form-group" th:class="${#fields.hasErrors('july')}
+                               ? 'col-md-2 form-group has-error' : 'col-md-2 form-group'">
+                                            <input type="text" class="col-md-8 form-control" id="july" th:placeholder="${position.july}" th:field="*{july}">
+                                            <span class=" col-md-2 help-block" th:if="${#fields.hasErrors('july')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('july')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                        </div>
+                                        <label for="august" class="col-md-2 control-label">August:</label>
+                                        <div class="col-md-2 form-group" th:class="${#fields.hasErrors('august')}
+                               ? 'col-md-2 form-group has-error' : 'col-md-2 form-group'">
+                                            <input type="text" class="col-md-8 form-control" id="august" th:placeholder="${position.august}" th:field="*{august}">
+                                            <span class=" col-md-2 help-block" th:if="${#fields.hasErrors('august')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('august')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                        </div>
+                                        <label for="september" class="col-md-2 control-label">September:</label>
+                                        <div class="col-md-2 form-group" th:class="${#fields.hasErrors('september')}
+                               ? 'col-md-2 form-group has-error' : 'col-md-2 form-group'">
+                                            <input type="text" class="col-md-8 form-control" id="september" th:placeholder="${position.september}" th:field="*{september}">
+                                            <span class=" col-md-2 help-block" th:if="${#fields.hasErrors('june')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('september')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label for="october" class="col-md-2 control-label">October:</label>
+                                        <div class="col-md-2 form-group" th:class="${#fields.hasErrors('october')}
+                               ? 'col-md-2 form-group has-error' : 'col-md-2 form-group'">
+                                            <input type="text" class="col-md-8 form-control" id="october" th:placeholder="${position.october}" th:field="*{october}">
+                                            <span class=" col-md-2 help-block" th:if="${#fields.hasErrors('october')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('october')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                        </div>
+                                        <label for="november" class="col-md-2 control-label">November:</label>
+                                        <div class="col-md-2 form-group" th:class="${#fields.hasErrors('november')}
+                               ? 'col-md-2 form-group has-error' : 'col-md-2 form-group'">
+                                            <input type="text" class="col-md-8 form-control" id="november" th:placeholder="${position.november}" th:field="*{november}">
+                                            <span class=" col-md-2 help-block" th:if="${#fields.hasErrors('november')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('november')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                        </div>
+                                        <label for="december" class="col-md-2 control-label">December:</label>
+                                        <div class="col-md-2 form-group" th:class="${#fields.hasErrors('december')}
+                               ? 'col-md-2 form-group has-error' : 'col-md-2 form-group'">
+                                            <input type="text" class="col-md-8 form-control" id="december" th:placeholder="${position.december}" th:field="*{december}">
+                                            <span class=" col-md-2 help-block" th:if="${#fields.hasErrors('december')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('december')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

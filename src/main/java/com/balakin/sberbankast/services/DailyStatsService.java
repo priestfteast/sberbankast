@@ -21,4 +21,8 @@ public interface DailyStatsService {
 
     List<Map.Entry<DailyStats, Integer[]>> getRating(List<DailyStats> stats);
 
+    List<Long[]> getChartsData(String start, String end, String operator);
+
+    String[] getChartDays(String start, String end,String operator);
+
 }

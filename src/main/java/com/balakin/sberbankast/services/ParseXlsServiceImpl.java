@@ -126,7 +126,11 @@ public class ParseXlsServiceImpl implements ParseXlsService {
                         case 10:
                             System.out.print(cell_data+"  ");
                             dStats.setTotalAfterCallTime(parseTime( cell_data));
-                            dStats.setAfterCallTimeAvrg(dStats.getTotalAfterCallTime()/(dStats.getIncoming()+dStats.getOutgoingTotal()));
+                            if(dStats.getIncoming()+dStats.getOutgoingTotal()>0) {
+                                dStats.setAfterCallTimeAvrg(dStats.getTotalAfterCallTime() / (dStats.getIncoming() + dStats.getOutgoingTotal()));
+                            }
+                            else
+                                dStats.setAfterCallTimeAvrg(0L);
                             break;
                         case 11:
                             System.out.print(cell_data+"  ");

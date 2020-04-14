@@ -11,6 +11,7 @@ import java.util.List;
 public interface DailyStatsRepository extends CrudRepository<DailyStats,Long> {
 
     DailyStats getFirstByDate(Date date);
+    DailyStats getFirstByDateAndNumber(Date date, String number);
     void deleteAllByDate(Date date);
     List<DailyStats> getAllByDateBetween(Date startDate, Date endDate);
     List<DailyStats> getAllByDateBetweenAndNumber(Date startDate, Date endDate, String number);

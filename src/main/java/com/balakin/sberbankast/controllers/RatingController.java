@@ -34,6 +34,10 @@ public class RatingController {
         this.outgoingRepository = outgoingRepository;
     }
 
+    @GetMapping("dailystats/test")
+    public String showTest(Model model) {
+        return "dailystats/test";
+    }
 
     @GetMapping("dailystats/rating")
     public String showDailyStats(Model model) {

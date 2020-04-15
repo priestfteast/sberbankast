@@ -40,6 +40,7 @@ public class OperatorToOperatorCommand implements Converter<Operator, OperatorCo
         operatorCommand.setAdditionalNumber(operator.getAdditionalNumber());
         operatorCommand.setIncoming(operator.isIncoming());
         operatorCommand.setOutgoing(operator.isOutgoing());
+        operatorCommand.setStake(operator.isStake());
         operatorCommand.setShift(operator.getShift());
         operatorCommand.setImage(operator.getImage());
         operatorCommand.setNotes(notesToNotesCommand.convert(operator.getNotes()));

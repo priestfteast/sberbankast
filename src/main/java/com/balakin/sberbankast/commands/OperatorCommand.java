@@ -51,6 +51,8 @@ public class OperatorCommand {
 
     private boolean outgoing;
 
+    private boolean stake;
+
 
     private NotesCommand notes;
 

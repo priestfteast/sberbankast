@@ -92,7 +92,11 @@
                             <div class="col-md-3">
                                 <input type="checkbox" th:name="incoming" th:value="true" th:checked="${operator.isIncoming()}" th:disabled="disabled"><label>  Incoming</label> <br>
                                 <input type="checkbox" th:name="outgoing" th:value="true" th:checked="${operator.isOutgoing()}" th:disabled="disabled"><label>  Outgoing</label>
-
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="checkbox" th:name="stake" th:value="true" th:checked="${operator.isStake()}" th:disabled="disabled"><label>  Stake</label> <br>
                             </div>
                         </div>
                         <div class="row">

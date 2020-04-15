@@ -50,6 +50,7 @@ public class OperatorCommandToOperator implements Converter<OperatorCommand, Ope
         operator.setShift(operatorCommand.getShift());
         operator.setIncoming(operatorCommand.isIncoming());
         operator.setOutgoing(operatorCommand.isOutgoing());
+        operator.setStake(operatorCommand.isStake());
         operator.setNotes(notesCommandToNotes.convert(operatorCommand.getNotes()));
 
         if(operatorCommand.getSpecialties()!=null && operatorCommand.getSpecialties().size()>0){

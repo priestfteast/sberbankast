@@ -39,6 +39,8 @@ public class Operator {
 
     private boolean outgoing;
 
+    private boolean stake;
+
 
     @Lob
     private Byte[] image;

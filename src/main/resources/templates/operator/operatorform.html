@@ -151,6 +151,12 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="checkbox" th:name="stake" th:value="true" th:checked="${operator.isStake()}" ><label>  Stake</label> <br>
+                            </div>
+                        </div>
+
                         <div class="col-md-3 form-group">
                             <label>Shift:</label>
                             <select class="form-control" th:field="*{shift}">

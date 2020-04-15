@@ -5,20 +5,26 @@
     <title>SB-AST Home</title>
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"
-          th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
-
-    <script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
-
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet"
+          th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}">
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+
     <style>
         li {
             list-style-type: none; /* Убираем маркеры */
         }
+
         ul {
             margin-left: 0; /* Отступ слева в браузере IE и Opera */
             padding-left: 0; /* Отступ слева в браузере Firefox, Safari, Chrome */
@@ -27,215 +33,168 @@
 
 </head>
 <body>
-
-<script th:inline="javascript">
-    window.onload = function() {
-        /*<![CDATA[*/
-
-        var pontos = /*[[${pontos}]]*/ 'default';
-
-        pontos.forEach(myFunction);
-        function myFunction(value, index, array) {
-            console.log(value);
-        }
-
-        var chart = new CanvasJS.Chart("chartContainer", {
-            animationEnabled: true,
-            theme: "light2",
-            title:{
-                text: "Line Sample"
-            },
-            axisY:{
-                includeZero: false
-            },
-            data: [{
-                type: "line",
-                dataPoints: []
-            }]
-        });
-        chart.render();
-
-        /*<![CDATA[*/
-        /* Update dataPoints from AJAX and render the chart*/
-        chart.options.data[0].dataPoints = pontos;
-        chart.render();
-        /*]]>*/
-
-    }
-</script>
-<div id="chartContainer" style="height: 370px; width: 100%;"></div>
-
-<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
-<div class="container-fluid" style="margin-top: 20px">
+<div class="container-fluid col-md-10 offset-1" style="margin-top: 20px">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="panel panel-primary">
 
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-md-2 ">
-                            <p class="panel-title">Operators</p>
-                        </div>
-
-                        <div class="col-md-2 col-md-offset-7">
-                            <a class="btn btn-default" href="#" th:href="@{'/operator/new'}" role="button">Add operator</a>
-                        </div>
-                    </div>
-
-
-                </div>
-
+        <div class="col-md-10">
+            <form th:action="@{/sort/}" th:method="post">
                 <div class="row">
-                    <br>
-                    <div class="col-md-10">
-                        <form th:action="@{/sort/}" th:method="post">
-
-                            <label  class="col-md-3 control-label" style="text-decoration: underline">Sort by:</label>
-                            <label  class="col-md-3 control-label" style="text-decoration: underline">Experience filter:</label>
-                            <label  class="col-md-3 control-label" style="text-decoration: underline">Outgoing filter:</label>
-                            <label  class="col-md-3 control-label" style="text-decoration: underline">Specialties filter:</label>
-                            <div class="row">
-                                <div class="col-md-12 form-group" >
-                                    <div class="col-md-3 form-group" >
-                                    <div class="form-check">
-                                        <input class="form-check-input-md-offset-2" type="radio" name="sort by" id="exampleRadios1"
-                                               value="name" th:checked="${data.contains('name')}" >
-                                        <label class="form-check-label" for="exampleRadios1">
-                                            name
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="sort by" id="exampleRadios2"
-                                               value="specialties" th:checked="${data.contains('specialties')}">
-                                        <label class="form-check-label" for="exampleRadios1">
-                                            specialties
-                                        </label>
-                                    </div>
-                                        <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="sort by" id="exampleRadios3"
-                                               value="date of employment" th:checked="${data.contains('date of employment')}">
-                                        <label class="form-check-label" for="exampleRadios1">
-                                            experience
-                                        </label>
-                                        </div>
-
-                                    </div>
-
-
-                                    <div class="col-md-3 form-group" >
-
-                                            <div class="group">
-                                                <input type="checkbox" name="experience" value="0 year" th:checked="${data.contains('experience=[0 year')}"><b>0 years</b><br>
-                                                <input type="checkbox" name="experience" value="1 year" th:checked="${data.contains('experience=[1 year')}"><b>1 year</b><br>
-                                                <input type="checkbox" name="experience" value="2 year" th:checked="${data.contains('experience=[2 year')}"><b>2 years</b><br>
-                                                <input type="checkbox" name="experience" value="3 year" th:checked="${data.contains('experience=[3 year')}"><b>3 years</b><br>
-                                                <input type="checkbox" name="experience" value="4 year" th:checked="${data.contains('experience=[4 year')}"> <b>4+ years</b><br>
-                                                <input type="checkbox" name="experience" value="all" th:checked="${data.contains('experience=[all')}"><b>all</b>
-                                            </div>
-
-
-                                    </div>
-
-                                    <div class="col-md-3 form-group" >
-
-                                        <div class="group2">
-                                            <input type="checkbox" name="callout" value="incom" th:checked="${data.contains('callout=[incom')}"><b>incoming only</b><br>
-                                            <input type="checkbox" name="callout" value="outg" th:checked="${data.contains('callout=[outg]')}"><b>outgoing only</b><br>
-                                            <input type="checkbox" name="callout" value="inc&out" th:checked="${data.contains('callout=[inc&out')}"><b>inc. & outg.</b><br>
-                                            <input type="checkbox" name="callout" value="every" th:checked="${data.contains('callout=[every')}"><b>all</b>
-                                        </div>
-
-
-                                    </div>
-
-                                    <div class="col-md-3 form-group" >
-
-                                        <p id="controls">
-
-                                            <input type="checkbox" name="specialty" value="GOS(44-FZ)"
-                                                   th:checked="${data.contains('GOS(44-FZ)')}"><b>GOS(44-FZ)</b><br>
-                                            <input type="checkbox" name="specialty" value="Corporate(223-FZ)"
-                                                   th:checked="${data.contains('Corporate(223-FZ)')}"><b>Corporate(223-FZ)</b><br>
-                                            <input type="checkbox" name="specialty" value="Bankruptsy&Privatization"
-                                                   th:checked="${data.contains('Bankruptsy&Privatization')}"><b>Bankruptsy & Privatization</b><br>
-                                            <input type="checkbox" name="specialty" value="Commercial"
-                                                   th:checked="${data.contains('Commercial')}"><b>Commercial</b><br>
-                                            <input type="checkbox" name="specialty" value="Other"
-                                                   th:checked="${data.contains('Other')}"><b>Other</b><br>
-                                            <input type="checkbox" id="checkbox" name="specialty" value="everyspecialty" th:checked="${data.contains('everyspecialty')}"/><b>All specialties</b>
-                                        </p>
-
-
-
-
-
-                                    </div>
-
-                                </div>
-                                </div>
-
-                            <div class="form-group col-md-2">
-                                <button type="submit" class="btn btn-primary">Filter</button>
-                            </div>
-                        </form>
-                    </div>
+                    <label class="col-md-2 control-label"
+                           style="text-decoration: underline;color: #0275d8;font-weight: bold">Sort by:</label>
+                    <label class="col-md-2 control-label"
+                           style="text-decoration: underline;color: #0275d8;font-weight: bold">Experience
+                        filter:</label>
+                    <label class="col-md-2 control-label"
+                           style="text-decoration: underline;color: #0275d8;font-weight: bold">Outgoing filter:</label>
+                    <label class="col-md-3 control-label"
+                           style="text-decoration: underline;color: #0275d8;font-weight: bold">Specialties
+                        filter:</label>
                 </div>
-                <br>
-                <br>
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-md-2 ">
-                            <p class="panel-title">Search</p>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input class="form-check-input" id="exampleRadios1" name="sort by"
+                                   th:checked="${data.contains('name')}"
+                                   type="radio" value="name">
+                            <label class="form-check-label" for="exampleRadios1" style="font-weight: bold">name</label>
                         </div>
-                        <div class="col-md-10" >
-                            <input class="form-control mb-4" id="tableSearch" type="text"
-                                   placeholder="Type something to search operators">
+                        <div class="form-check">
+                            <input class="form-check-input" id="exampleRadios2" name="sort by"
+                                   th:checked="${data.contains('specialties')}"
+                                   type="radio" value="specialties">
+                            <label class="form-check-label" for="exampleRadios1"
+                                   style="font-weight: bold">specialties</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" id="exampleRadios3" name="sort by"
+                                   th:checked="${data.contains('date of employment')}"
+                                   type="radio" value="date of employment">
+                            <label class="form-check-label" for="exampleRadios1"
+                                   style="font-weight: bold">experience</label>
                         </div>
 
                     </div>
 
+                    <div class="col-md-2">
+                        <div class="group">
+                            <p id="controls">
+                            <input name="experience" th:checked="${data.contains('experience=[0 year')}" type="checkbox"
+                                   value="0 year"><b>0 years</b><br>
+                            <input name="experience" th:checked="${data.contains('experience=[1 year')}" type="checkbox"
+                                   value="1 year"><b>1 year</b><br>
+                            <input name="experience" th:checked="${data.contains('experience=[2 year')}" type="checkbox"
+                                   value="2 year"><b>2 years</b><br>
+                            <input name="experience" th:checked="${data.contains('experience=[3 year')}" type="checkbox"
+                                   value="3 year"><b>3 years</b><br>
+                            <input name="experience" th:checked="${data.contains('experience=[4 year')}" type="checkbox"
+                                   value="4 year"> <b>4+ years</b><br>
+                            <input id="experience" name="experience" th:checked="${data.contains('experience=[all')}" type="checkbox"
+                                   value="all"><b>all</b>
+                            </p>
+                        </div>
 
-                </div>
 
-                <div class="panel-body">
+                    </div>
 
-                        <div class="table-responsive" th:if="${not #lists.isEmpty(operators)}">
-                            <table class="table table-hover">
-                                <thead class="thead-inverse">
-                                <tr>
-                                    <th>№</th>
-                                    <!--                                <th>ID</th>-->
-                                    <th>Name</th>
-                                    <th>Number</th>
-                                    <th>Experience(years)</th>
-                                    <th>Incom./Outg.</th>
-                                    <th>Specs.</th>
-                                    <th>View</th>
-                                    <th>Update</th>
-                                    <th>Delete</th>
-                                </tr>
-                                </thead>
-                                <tbody id="myTable">
-                                <tr th:each="operator : ${operators}" >
-                                    <!--/*@thymesVar id="operator" type="com.balakin.sberbankast.domain.Operator"*/-->
-                                    <td>123</td>
-                                    <!--                                <td th:text="${operator.id}">idd</td>-->
-                                    <td th:text="${operator.lastName+' '+operator.firstName}">Tasty Goodnees 3</td>
-                                    <td th:text="${operator.number}+' '+${operator.additionalNumber}">Tasty Goodnees 3</td>
-                                    <td th:text="${operator.getYears()+' years ('+operator.employementDate+')'}">Tasty Goodnees 3</td>
-                                    <td th:text="${operator.isIncoming()+'/ '+operator.isOutgoing()}">Tasty Goodnees 3</td>
-                                    <td th:text="${operator.specialties.size()}">Tasty Goodnees 3</td>
-                                    <td><a href="#" th:href="@{'/operator/' + ${operator.id}+'/show'}">View</a></td>
-                                    <td><a href="#" th:href="@{'/operator/' + ${operator.id}+'/update'}">Update</a></td>
-                                    <td><a href="#" th:href="@{'/operator/' + ${operator.id}+'/delete'}">Delete</a></td>
-                                </tr>
-                                </tbody>
-                            </table>
+                    <div class="col-md-2 form-group">
+
+                        <div class="group2">
+                            <p id="controls2">
+                            <input name="callout" th:checked="${data.contains('callout=[incom')}" type="checkbox"
+                                   value="incom"><b>incoming only</b><br>
+                            <input name="callout" th:checked="${data.contains('callout=[outg]')}" type="checkbox"
+                                   value="outg"><b>outgoing only</b><br>
+                            <input name="callout" th:checked="${data.contains('callout=[inc&out')}" type="checkbox"
+                                   value="inc&out"><b>inc. & outg.</b><br>
+                            <input id="incoming" name="callout" th:checked="${data.contains('callout=[every')}" type="checkbox"
+                                   value="every"><b>all</b>
+                            </p>
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <p id="controls3">
+                            <input name="specialty" th:checked="${data.contains('GOS(44-FZ)')}" type="checkbox"
+                                   value="GOS(44-FZ)"><b>GOS(44-FZ)</b><br>
+                            <input name="specialty" th:checked="${data.contains('Corporate(223-FZ)')}" type="checkbox"
+                                   value="Corporate(223-FZ)"><b>Corporate(223-FZ)</b><br>
+                            <input name="specialty" th:checked="${data.contains('Bankruptsy&Privatization')}"
+                                   type="checkbox"
+                                   value="Bankruptsy&Privatization"><b>Bankruptsy & Privatization</b><br>
+                            <input name="specialty" th:checked="${data.contains('Commercial')}" type="checkbox"
+                                   value="Commercial"><b>Commercial</b><br>
+                            <input name="specialty" th:checked="${data.contains('Other')}" type="checkbox"
+                                   value="Other"><b>Other</b><br>
+                            <input id="checkbox" name="specialty" th:checked="${data.contains('everyspecialty')}"
+                                   type="checkbox" value="everyspecialty"/><b>All specialties</b>
+                        </p>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <button class="btn btn-primary" type="submit">Filter</button>
                     </div>
                 </div>
-            </div>
+            </form>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-2 ">
+            <p class="panel-title">Search operators</p>
+        </div>
+        <div class="col-md-8">
+            <input class="form-control mb-4" id="tableSearch" placeholder="Type something to search operators"
+                   type="text">
+        </div>
+        <div class="col-md-2">
+            <a class="btn btn-primary" href="#" role="button" th:href="@{'/operator/new'}">Add operator</a>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="table-responsive" th:if="${not #lists.isEmpty(operators)}">
+            <table class="table table-hover">
+                <thead class="thead-inverse">
+                <tr>
+                    <th>№</th>
+                    <!--                                <th>ID</th>-->
+                    <th>Name</th>
+                    <th>Number</th>
+                    <th>Experience(years)</th>
+                    <th>Stake</th>
+                    <th>Incom./Outg.</th>
+                    <th>Specs.</th>
+                    <th>View</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody id="myTable">
+                <tr th:each="operator : ${operators}">
+                    <!--/*@thymesVar id="operator" type="com.balakin.sberbankast.domain.Operator"*/-->
+                    <td>123</td>
+                    <!--                                <td th:text="${operator.id}">idd</td>-->
+                    <td th:text="${operator.lastName+' '+operator.firstName}">Tasty Goodnees 3</td>
+                    <td th:text="${operator.number}+' '+${operator.additionalNumber}">Tasty Goodnees 3</td>
+                    <td th:text="${operator.getYears()+' years ('+operator.employementDate+')'}">Tasty Goodnees 3</td>
+                    <td th:text="${operator.isStake()}">Tasty Goodnees 3</td>
+                    <td th:text="${operator.isIncoming()+'/ '+operator.isOutgoing()}">Tasty Goodnees 3</td>
+                    <td th:text="${operator.specialties.size()}">Tasty Goodnees 3</td>
+                    <td><a href="#" th:href="@{'/operator/' + ${operator.id}+'/show'}">View</a></td>
+                    <td><a href="#" th:href="@{'/operator/' + ${operator.id}+'/update'}">Update</a></td>
+                    <td><a href="#" th:href="@{'/operator/' + ${operator.id}+'/delete'}">Delete</a></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -248,43 +207,48 @@
 </script>
 
 <script>
-
-    $(".group input").on("click", function() {
-
-        $(".group input").removeAttr("checked"); // Снимаем чекбокс со всей группы
-        $(this).prop("checked", true); // Оставляем выбранный чекбокс
-
-    });
-
-    $(".group2 input").on("click", function() {
-
-        $(".group2 input").removeAttr("checked"); // Снимаем чекбокс со всей группы
-        $(this).prop("checked", true); // Оставляем выбранный чекбокс
-
+    // the selector will match all input controls in group1 & group2 of type :checkbox
+    // and attach a click event handler
+    $(".group input:checkbox,.group2 input:checkbox").on('click', function() {
+        // in the handler, 'this' refers to the box clicked on
+        var $box = $(this);
+        if ($box.is(":checked")) {
+            // the name of the box is retrieved using the .attr() method
+            // as it is assumed and expected to be immutable
+            var group = "input:checkbox[name='" + $box.attr("name") + "']";
+            // the checked state of the group/box on the other hand will change
+            // and the current value is retrieved using .prop() method
+            $(group).prop("checked", false);
+            $box.prop("checked", true);
+        } else {
+            $box.prop("checked", false);
+        }
     });
 
 </script>
 
+
+
 <script>
-    $('#checkbox').click(function(){
-        if ($(this).is(':checked')){
-            $('#controls input:checkbox').prop('checked', true);
+    $('#checkbox').click(function () {
+        if ($(this).is(':checked')) {
+            $('#controls3 input:checkbox').prop('checked', true);
         } else {
-            $('#controls input:checkbox').prop('checked', false);
+            $('#controls3 input:checkbox').prop('checked', false);
         }
     });
 </script>
 
 <!--Filter table-->
 <script>
-$(document).ready(function(){
-$("#tableSearch").on("keyup", function() {
-var value = $(this).val().toLowerCase();
-$("#myTable tr").filter(function() {
-$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-});
-});
-});
+    $(document).ready(function () {
+        $("#tableSearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
 </script>
 </body>
 </html>

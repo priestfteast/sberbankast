@@ -5,56 +5,39 @@
     <title>Show Operator</title>
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"
-          th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
-
-    <script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
-
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet"
+          th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}">
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+
 </head>
 <body>
-<div class="container-fluid" style="margin-top: 20px">
+<div class="container-fluid col-md-6 offset-3" style="margin-top: 20px">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title" style="color: #0275d8" th:text="${operator.firstName+' '+operator.lastName}">Operator's name</h5>
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="pannel-group">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <!--/*@thymesVar id="operator" type="com.balakin.sberbankast.domain.Operator"*/-->
-                        <h1 class="panel-title" th:text="${operator.firstName+' '+operator.lastName}">Operator's name here!</h1>
-
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-4">
+                                   <div class="col-md-4">
                                 <img src="../../static/images/guacamole400x400WithX.jpg"
                                      th:src="@{'/operator/' + ${operator.id} + '/operatorimage'}"
                                      width="200" height="200">
                             </div>
                             <div class="col-md-1">
-                                <a class="btn btn-default" href="#"
+                                <a class="btn btn-primary" href="#"
                                    th:href="@{'/operator/' + ${operator.id} + '/image'}" role="button">Change Image</a>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <p style="font-weight: bold">Last name:</p>
-                            </div>
-                            <div class="col-md-3">
-                                <p th:text="${operator.lastName}">Seregin</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <p style="font-weight: bold">First name:</p>
-                            </div>
-                            <div class="col-md-3">
-                                <p th:text="${operator.firstName}">Sergey</p>
-                            </div>
-                        </div>
+            <br>
                         <div class="row">
                             <div class="col-md-3">
                                 <p style="font-weight: bold">Date of employement:</p>
@@ -89,21 +72,21 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3">
-                                <input type="checkbox" th:name="incoming" th:value="true" th:checked="${operator.isIncoming()}" th:disabled="disabled"><label>  Incoming</label> <br>
-                                <input type="checkbox" th:name="outgoing" th:value="true" th:checked="${operator.isOutgoing()}" th:disabled="disabled"><label>  Outgoing</label>
+                            <div class="col-md-5">
+                                <input type="checkbox" style="font-weight: bold" th:name="incoming" th:value="true" th:checked="${operator.isIncoming()}" th:disabled="disabled"><label>  Incoming</label>
+                                <input type="checkbox" style="font-weight: bold" th:name="outgoing" th:value="true" th:checked="${operator.isOutgoing()}" th:disabled="disabled"><label>  Outgoing</label>
                             </div>
                         </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <input type="checkbox" style="font-weight: bold" th:name="stake" th:value="true" th:checked="${operator.isStake()}" th:disabled="disabled"><label>  Stake</label>
+                </div>
+            </div>
                         <div class="row">
-                            <div class="col-md-3">
-                                <input type="checkbox" th:name="stake" th:value="true" th:checked="${operator.isStake()}" th:disabled="disabled"><label>  Stake</label> <br>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <p style="font-weight: bold">Specialties:</p>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-5">
                                 <ul>
                                     <li th:remove="all">cat one</li>
                                     <li th:remove="all">cat two</li>
@@ -113,11 +96,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h1 class="panel-title" >Notes</h1>
-                    </div>
-                    <div class="panel-body">
+
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title" style="color: #0275d8">Notes</h5>
                         <div class="row">
                             <div class="col-md-12">
                                 <!--/*@thymesVar id="operator" type="com.balakin.sberbankast.domain.Operator"*/-->
@@ -126,18 +109,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
+    <br>
+    <div class="card">
+        <div class="card-body">
                         <div class="row">
                             <div class="col-md-10 ">
-                                <h1 class="panel-title">Fines</h1>
+                                <h5 class="card-title" style="color: #0275d8">Fines</h5>
                             </div>
                             <div class="col-md-1">
-                                <a class="btn btn-default" href="#" th:href="@{'/operator/' + ${operator.id} + '/fines'}" role="button">Edit</a>
+                                <a class="btn btn-primary" href="#" th:href="@{'/operator/' + ${operator.id} + '/fines'}" role="button">Edit</a>
                             </div>
                         </div>
-                    </div>
-                    <div class="panel-body">
+
                         <div class="row">
                             <div class="col-md-12">
                                 <ul>
@@ -149,18 +132,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-md-10 ">
-                                <h1 class="panel-title">Bonuses</h1>
-                            </div>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-10 ">
+                    <h5 class="card-title" style="color: #0275d8">Bonuses</h5>
+                </div>
                             <div class="col-md-1">
-                                <a class="btn btn-default" href="#" th:href="@{'/operator/' + ${operator.id} + '/bonuses'}" role="button">Edit</a>
+                                <a class="btn btn-primary" href="#" th:href="@{'/operator/' + ${operator.id} + '/bonuses'}" role="button">Edit</a>
                             </div>
                         </div>
                     </div>
-                    <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <ul>
@@ -172,9 +155,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+
 </body>
 </html>

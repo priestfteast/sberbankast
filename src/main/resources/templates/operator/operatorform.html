@@ -5,252 +5,277 @@
     <title>New Operator</title>
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"
-          th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
-
-    <script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
-
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet"
+          th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}">
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
 </head>
 <body>
 <!--/*@thymesVar id="operator" type="com.balakin.sberbankast.domain.OperatorCommand"*/-->
+<div class="container-fluid col-md-8 offset-2" style="margin-top: 20px">
+    <form th:object="${operator}" th:action="@{/operator/}" method="post" class="form-horizontal">
 
-<div class="container-fluid" style="margin-top: 20px">
-    <div class="row">
+        <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+            <p th:text="#{operator.error}">Please Correct Errors Below</p>
+        </div>
 
-        <div class="col-md-6 col-md-offset-3">
-            <form th:object="${operator}" th:action="@{/operator/}" method="post" class="form-horizontal">
-
-                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
-                    <p th:text="#{operator.error}">Please Correct Errors Below</p>
-                </div>
-
-                <input type="hidden" th:field="*{id}">
-            <div class="pannel-group">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h1 class="panel-title">Operator creation form</h1>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title" style="color: #0275d8">Operator's data</h5>
+                <div class="row">
+                    <input type="hidden" th:field="*{id}">
+                    <div class="col-md-2">
+                        <p>Last name:</p>
                     </div>
-                    <div class="panel-body">
-                        <div class="row">
-                        <div class="col-md-12 form-group" th:class="${#fields.hasErrors('lastName')}
-                               ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
-                            <label for="ln" class="col-md-3 control-label">Last name:</label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" id="ln" placeholder="Last name"
-                                       th:field="*{lastName}"
-                                       th:errorclass="has-error">
-                                <span class="help-block" th:if="${#fields.hasErrors('lastName')}">
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="ln" placeholder="Last name"
+                               th:field="*{lastName}"
+                               th:errorclass="has-error">
+                        <span class="help-block" th:if="${#fields.hasErrors('lastName')}">
                                         <ul>
                                             <li th:each="err : ${#fields.errors('lastName')}"
                                                 th:text="${err}"/>
                                         </ul>
                                     </span>
-                            </div>
-                        </div>
-                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8" th:class="${#fields.hasErrors('lastName')}
+                               ? 'col-md-8 has-error' : 'col-md-8'">
+                    </div>
+                </div>
 
 
-                        <div class="row">
-                            <div class="col-md-12 form-group" th:class="${#fields.hasErrors('firstName')}
-                               ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
-                                <label for="fn" class="col-md-3 control-label">First name:</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="fn" placeholder="First name"
-                                           th:field="*{firstName}"
-                                           th:errorclass="has-error">
-                                    <span class="help-block" th:if="${#fields.hasErrors('firstName')}">
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>First name:</p>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="fn" placeholder="First name"
+                               th:field="*{firstName}"
+                               th:errorclass="has-error">
+                        <span class="help-block" th:if="${#fields.hasErrors('firstName')}">
                                         <ul>
                                             <li th:each="err : ${#fields.errors('firstName')}"
                                                 th:text="${err}"/>
                                         </ul>
                                     </span>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8" th:class="${#fields.hasErrors('firstName')}
+                               ? 'col-md-8 has-error' : 'col-md-8'">
+                    </div>
+                </div>
 
-                        <div class="row">
-                            <div class="col-md-12 form-group" th:class="${#fields.hasErrors('number')}
-                               ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
-                                <label for="num" class="col-md-3 control-label">Number:</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="num" placeholder="Number"
-                                           th:field="*{number}"
-                                           th:errorclass="has-error">
-                                    <span class="help-block" th:if="${#fields.hasErrors('number')}">
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>Number:</p>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="num" placeholder="Number"
+                               th:field="*{number}"
+                               th:errorclass="has-error">
+                        <span class="help-block" th:if="${#fields.hasErrors('number')}">
                                         <ul>
                                             <li th:each="err : ${#fields.errors('number')}"
                                                 th:text="${err}"/>
                                         </ul>
                                     </span>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8" th:class="${#fields.hasErrors('number')}
+                               ? 'col-md-8 has-error' : 'col-md-8'">
+                    </div>
+                </div>
 
-                        <div class="row">
-                            <div class="col-md-12 form-group" th:class="${#fields.hasErrors('additionalNumber')}
-                               ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
-                                <label for="num" class="col-md-3 control-label">Additional Number:</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="adnum" placeholder="AdditionalNumber"
-                                           th:field="*{additionalNumber}"
-                                           th:errorclass="has-error">
-                                    <span class="help-block" th:if="${#fields.hasErrors('additionalNumber')}">
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>Additional number:</p>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="adnum" placeholder="Additional number"
+                               th:field="*{additionalNumber}"
+                               th:errorclass="has-error">
+                        <span class="help-block" th:if="${#fields.hasErrors('additionalNumber')}">
                                         <ul>
                                             <li th:each="err : ${#fields.errors('additionalNumber')}"
                                                 th:text="${err}"/>
                                         </ul>
                                     </span>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8" th:class="${#fields.hasErrors('additionalNumber')}
+                               ? 'col-md-8 has-error' : 'col-md-8'">
+                    </div>
+                </div>
 
-                        <div class="row">
-                            <div class="col-md-12 form-group" th:class="${#fields.hasErrors('employementDate')}
-                               ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
-                                <label for="doe" class="col-md-3 control-label">Date of employement:</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="doe" placeholder="Date of employement"
-                                           th:field="*{employementDate}"
-                                           th:errorclass="has-error">
-                                    <span class="help-block" th:if="${#fields.hasErrors('employementDate')}">
+                <div class="row">
+
+                    <div class="col-md-2">
+                        <p>Employement date:</p>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="doe" placeholder="Date of employement"
+                               th:field="*{employementDate}"
+                               th:errorclass="has-error">
+                        <span class="help-block" th:if="${#fields.hasErrors('employementDate')}">
                                         <ul>
                                             <li th:each="err : ${#fields.errors('employementDate')}"
                                                 th:text="${err}"/>
                                         </ul>
                                     </span>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8" th:class="${#fields.hasErrors('employementDate')}
+                               ? 'col-md-8 has-error' : 'col-md-8'">
+                    </div>
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>Categories:</p>
+                    </div>
+                    <div class="col-md-5">
+                        <ul>
+                            <li th:each="item : ${specialtylist}">
+                                <input type="checkbox" th:field="*{specialties}" th:value="${item}"/>
+                                <label th:for="${#ids.prev('specialties')}" th:text="${item.description}"></label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
 
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="checkbox" th:name="incoming" th:value="true" th:checked="${operator.isIncoming()}">
+                        <label>Incoming</label> <br>
+                        <input type="checkbox" th:name="outgoing" th:value="true" th:checked="${operator.isOutgoing()}">
+                        <label>Outgoing</label>
+                    </div>
+                </div>
 
-                        <div class="row">
-                            <div class="col-md-6 form-group">
-                                <label>Categories:</label>
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="checkbox" th:name="stake" th:value="true" th:checked="${operator.isStake()}">
+                        <label>Stake</label>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>Shift:</p>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control" th:field="*{shift}">
+                            <option th:each="shiftValue : ${T(com.balakin.sberbankast.domain.Shift).values()}"
+                                    th:value="${shiftValue.name()}"
+                                    th:text="${shiftValue.name()}"
+                            >val
+                            </option>
+                        </select>
 
-                                <ul>
-                                    <li th:each="item : ${specialtylist}">
-                                        <input type="checkbox" th:field="*{specialties}" th:value="${item}"/>
-                                        <label th:for="${#ids.prev('specialties')}" th:text="${item.description}"></label>
-                                    </li>
-                                </ul>
-
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-3">
-                                <input type="checkbox" th:name="incoming" th:value="true" th:checked="${operator.isIncoming()}" ><label>  Incoming</label> <br>
-                                <input type="checkbox" th:name="outgoing" th:value="true" th:checked="${operator.isOutgoing()}" ><label>  Outgoing</label>
-
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-3">
-                                <input type="checkbox" th:name="stake" th:value="true" th:checked="${operator.isStake()}" ><label>  Stake</label> <br>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 form-group">
-                            <label>Shift:</label>
-                            <select class="form-control" th:field="*{shift}">
-                                <option th:each="shiftValue : ${T(com.balakin.sberbankast.domain.Shift).values()}"
-                                        th:value="${shiftValue.name()}"
-                                        th:text="${shiftValue.name()}"
-                                >val</option>
-                            </select>
-
-                                    <select class="form-control" th:remove="all">
-                                        <option>SEVEN_AM</option>
-                                        <option>EIGHT_AM</option>
-                                        <option>NINE_AM</option>
-                                    </select>
-
-
-                            </div>
-
-
-
-
-
-
-
+                        <select class="form-control" th:remove="all">
+                            <option>SEVEN_AM</option>
+                            <option>EIGHT_AM</option>
+                            <option>NINE_AM</option>
+                        </select>
 
                     </div>
                 </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h1 class="panel-title">Notes</h1>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-12 form-group">
-                                <textarea class="form-control" rows="3" th:field="*{notes.description}"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-md-10 ">
-                                <h1 class="panel-title">Fines</h1>
-                            </div>
-                            <div class="col-md-1">
-                                <a class="btn btn-default" href="#" th:href="@{'/operator/' + ${operator.id} + '/fines'}" th:disabled="${operator.id==null}" role="button">Edit</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <ul>
-                                    <li th:remove="all">test 1</li>
-                                    <li th:remove="all">test 2</li>
-                                    <li th:each="fine : ${operator.fines}"
-                                        th:text="${fine.getSize() +' rub. - ' + fine.getDescription()}">Test Fine
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-md-10 ">
-                                <h1 class="panel-title">Bonuses</h1>
-                            </div>
-                            <div class="col-md-1">
-                                <a class="btn btn-default" href="#" th:href="@{'/operator/' + ${operator.id} + '/bonuses'}" role="button" th:disabled="${operator.id==null}">Edit</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <ul>
-                                    <li th:remove="all">test 1</li>
-                                    <li th:remove="all">test 2</li>
-                                    <li th:each="bonus : ${operator.bonuses}"
-                                        th:text="${bonus.getSize() +' rub. - ' + bonus.getDescription()}">Test Bonus
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
-            </form>
         </div>
-    </div>
+        <br>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title" style="color: #0275d8">Notes</h5>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <textarea class="form-control" rows="3" th:field="*{notes.description}"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-md-10 ">
+                        <h5 class="card-title" style="color: #0275d8">Fines</h5>
+                    </div>
+
+                        <div class="col-md-1" th:if="${operator.id ne null}">
+                            <a class="btn btn-primary" href="#" th:href="@{'/operator/' + ${operator.id} + '/fines'}"
+                               role="button">Edit</a>
+                        </div>
+
+                    <div class="col-md-10">
+                        <ul>
+                            <li th:remove="all">test 1</li>
+                            <li th:remove="all">test 2</li>
+                            <li th:each="fine : ${operator.fines}"
+                                th:text="${fine.getSize() +' rub. - ' + fine.getDate()+' - '+fine.getDescription()}">
+                                Test
+                                Bonus
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-10 ">
+                        <h5 class="card-title" style="color: #0275d8">Bonuses</h5>
+                    </div>
+
+                    <div class="col-md-1" th:if="${operator.id ne null}">
+                        <a class="btn btn-primary" href="#" th:href="@{'/operator/' + ${operator.id} + '/bonuses'}"
+                           role="button">Edit</a>
+                    </div>
+                    <div class="col-md-10">
+                        <ul>
+                            <li th:remove="all">test 1</li>
+                            <li th:remove="all">test 2</li>
+                            <li th:each="bonus : ${operator.bonuses}"
+                                th:text="${bonus.getSize() +' rub. - ' + bonus.getDate()+' - '+bonus.getDescription()}">
+                                Test
+                                Bonus
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
 </div>
+
+
 </body>
 </html>

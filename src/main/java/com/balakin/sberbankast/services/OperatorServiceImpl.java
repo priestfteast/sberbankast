@@ -210,4 +210,21 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
 
+    public int countAllByIdNotNull(){
+        return operatorRepository.countAllByIdNotNull();
+    }
+    public int countAllByOutgoingTrue(){
+        return operatorRepository.countAllByOutgoingTrue();
+    }
+
+    public int countAllByIncomingTrue(){
+        return operatorRepository.countAllByIncomingTrue();
+    }
+
+    public int countAllByStakeTrue(){
+        return operatorRepository.countAllByStakeTrue();
+        }
+
+
+
 }

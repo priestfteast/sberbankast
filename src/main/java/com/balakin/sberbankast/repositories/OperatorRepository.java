@@ -9,6 +9,12 @@ public interface OperatorRepository extends CrudRepository<Operator,Long> {
 
     Operator findByLastName(String lastName);
 
+
+    int countAllByIdNotNull();
+    int countAllByOutgoingTrue();
+    int countAllByIncomingTrue();
+    int countAllByStakeTrue();
+
     Operator findByNumber(String number);
     Operator findByAdditionalNumber(String number);
 

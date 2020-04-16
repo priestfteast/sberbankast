@@ -1,9 +1,6 @@
 package com.balakin.sberbankast.controllers;
 
 import com.balakin.sberbankast.domain.DailyStats;
-import com.balakin.sberbankast.domain.Operator;
-import com.balakin.sberbankast.repositories.DailyStatsRepository;
-import com.balakin.sberbankast.repositories.OperatorRepository;
 import com.balakin.sberbankast.repositories.OutgoingRepository;
 import com.balakin.sberbankast.services.DailyStatsService;
 import lombok.extern.slf4j.Slf4j;

@@ -29,21 +29,6 @@ class IndexControllerTest {
 
     IndexController controller;
 
-    @BeforeEach
-    public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
-        controller = new IndexController(operatorService, specialtyService);
-    }
-
-    @Test
-    public void testMockMVC() throws Exception {
-        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-
-        mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("index"));
-    }
-
 
 
 }

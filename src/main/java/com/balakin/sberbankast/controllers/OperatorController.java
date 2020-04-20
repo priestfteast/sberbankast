@@ -7,6 +7,7 @@ import com.balakin.sberbankast.services.SpecialtyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,6 +19,7 @@ import javax.validation.Valid;
 public class OperatorController {
 
     private final String OPERATOR_OPERATOR_FORM_URL = "operator/operatorform";
+    private final String OPERATOR_OPERATORS = "operator/operators";
 
     private final OperatorService operatorService;
     private final SpecialtyService specialtyService;
@@ -25,6 +27,28 @@ public class OperatorController {
     public OperatorController(OperatorService operatorService, SpecialtyService specialtyService) {
         this.operatorService = operatorService;
         this.specialtyService = specialtyService;
+    }
+
+    private String data ="sort by=[name] experience=[all] callout=[every";
+
+    @RequestMapping({"operator/operators","operator/operators.html"})
+    public String getIndexPage(Model model){
+
+        log.debug("getting operators page");
+
+        model.addAttribute("data",data);
+        model.addAttribute("specialtylist", specialtyService.listAllSpecialties());
+        model.addAttribute("operators",operatorService.getOperators(data));
+        return OPERATOR_OPERATORS;
+    }
+
+
+    @PostMapping("sort")
+    public String sortBy (@RequestBody MultiValueMap<String, String> formData){
+        data =formData.toString();
+        System.out.println(formData);
+
+        return "redirect:/"+OPERATOR_OPERATORS;
     }
 
     @GetMapping({"/operator/{id}/show"})

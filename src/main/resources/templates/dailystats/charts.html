@@ -75,6 +75,11 @@
 
 <br>
 <br>
+<div class="row" th:if="${error ne null}">
+    <div class="table-responsive">
+        <p th:text="${error}"></p>
+    </div>
+</div>
 <div class="col-md-4 offset-4" th:if="${#lists.isEmpty(days)and request.get(4).equals('not null')}">
     <div class="table-responsive">
         <p th:text="${'No data found for chosen period'}"></p>
@@ -82,7 +87,7 @@
 </div>
 
 
-<div class="row " th:if="${request.get(3).equals('Total loged in time')and not #lists.isEmpty(days)}">
+<div class="row " th:if="${request.get(3).equals('Total loged in time')and not #lists.isEmpty(days) and  error == null}">
 
     <div class="col-md-8">
         <canvas id="result_duration_over_time_chart">
@@ -209,7 +214,7 @@
         </div>
     </div>
 </div>
-<div class="row" th:if="${request.get(3).equals('Incoming calls quantity')and not #lists.isEmpty(days)}">
+<div class="row" th:if="${request.get(3).equals('Incoming calls quantity')and not #lists.isEmpty(days)and  error == null}">
     <div class="col-md-8">
         <canvas id="ChartDemo2"></canvas>
         <script type="text/javascript" th:inline="javascript">
@@ -302,7 +307,7 @@
 </div>
 
 
-<div class="row" th:if="${request.get(3).equals('Average call duration')and not #lists.isEmpty(days)}">
+<div class="row" th:if="${request.get(3).equals('Average call duration')and not #lists.isEmpty(days)and  error == null}">
     <div class="col-md-8">
         <canvas id="ChartDemo3"
                 th:if="${request.get(3).equals('Average call duration')and not #lists.isEmpty(days)}"></canvas>

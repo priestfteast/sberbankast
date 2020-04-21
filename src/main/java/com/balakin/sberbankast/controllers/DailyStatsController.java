@@ -34,6 +34,7 @@ public class DailyStatsController {
     private List<DailyStats> dailyStats = new ArrayList<>();
     private DailyStats dstats = new DailyStats();
     private List<String> request = new ArrayList<>();
+    private String error = null;
 
     public DailyStatsController(DailyStatsRepository dailyStatsRepository, OperatorRepository operatorRepository, DailyStatsService dailyStatsService, OutgoingRepository outgoingRepository) {
         this.dailyStatsRepository = dailyStatsRepository;
@@ -45,57 +46,65 @@ public class DailyStatsController {
 
     @GetMapping("dailystats/view")
     public String showDailyStats(Model model) {
-//        if(dailyStats.size()==0){
-//            DailyStats ds = dailyStatsRepository.findTopByOrderByIdDesc();
-//            dailyStats=dailyStatsRepository.getAllByDate(ds.getDate());
-//        }
-        if(request.size()==0){
-            System.out.println(LocalDate.now().toString());
-            request.add(LocalDate.now().toString().substring(0,8)+"01");
-            request.add(LocalDate.now().toString());
-            request.add("all");
-        }
-        ArrayList<Operator> operators = (ArrayList<Operator>) operatorRepository.findAll();
-        Collections.sort(operators, new Comparator<Operator>() {
-            @Override
-            public int compare(Operator o1, Operator o2) {
-                return o1.getLastName().compareTo(o2.getLastName());
-            }
-        });
 
-        model.addAttribute("operators", operators);
-        model.addAttribute("stats", dailyStats);
-        model.addAttribute("dstats", dstats);
-        model.addAttribute("request", request);
-        model.addAttribute("outgoinglist",outgoingRepository.findAll());
-        model.addAttribute("outgoingstring",outgoingRepository.findAll().toString());
-
-        return "dailystats/view";
+    if (request.size() == 0) {
+        request.add(LocalDate.now().toString().substring(0, 8) + "01");
+        request.add(LocalDate.now().toString());
+        request.add("all");
     }
+    ArrayList<Operator> operators = (ArrayList<Operator>) operatorRepository.findAll();
+    Collections.sort(operators, new Comparator<Operator>() {
+        @Override
+        public int compare(Operator o1, Operator o2) {
+            return o1.getLastName().compareTo(o2.getLastName());
+        }
+    });
+
+    model.addAttribute("operators", operators);
+    model.addAttribute("stats", dailyStats);
+    model.addAttribute("dstats", dstats);
+    model.addAttribute("request", request);
+    model.addAttribute("error", error);
+    model.addAttribute("outgoinglist", outgoingRepository.findAll());
+    model.addAttribute("outgoingstring", outgoingRepository.findAll().toString());
+
+    error = null;
+
+    return "dailystats/view";
+}
 
 
     @PostMapping("viewstats")
-    public String viewStats(@RequestParam MultiValueMap<String, String> formData) throws Exception {
+    public String viewStats(@RequestParam MultiValueMap<String, String> formData)  {
+
 
         dailyStats = new ArrayList<>();
         dstats = new DailyStats();
+
 
         String startdate = formData.getFirst("startdate"); request.set(0,startdate);
         String enddate = formData.getFirst("enddate");request.set(1,enddate);
         String operator = formData.getFirst("operator");request.set(2,operator);
 
-
-        if (operator.equals("all")) {
-            dailyStats = dailyStatsService.getAllStats(Date.valueOf(startdate), Date.valueOf(enddate));
-            dstats = dailyStatsService.getTotalStats(dailyStats);
-        } else {
-            dailyStats = dailyStatsService.getOperatorStats(Date.valueOf(startdate), Date.valueOf(enddate), operator);
-            dstats = dailyStatsService.getTotalOperatorStats(dailyStats);
+        try {
+            if (operator.equals("all")) {
+                dailyStats = dailyStatsService.getAllStats(Date.valueOf(startdate), Date.valueOf(enddate));
+                dstats = dailyStatsService.getTotalStats(dailyStats);
+            } else {
+                dailyStats = dailyStatsService.getOperatorStats(Date.valueOf(startdate), Date.valueOf(enddate), operator);
+                dstats = dailyStatsService.getTotalOperatorStats(dailyStats);
+            }
+            return "redirect:/dailystats/view";
         }
-
-
-
-        return "redirect:/dailystats/view";
+        catch (Exception e){
+            error=e.toString()+"\n";
+            for (StackTraceElement el: e.getStackTrace()
+                 ) {
+                error+=el+"\n";
+                System.out.println(el);
+            }
+            return "redirect:/dailystats/view";
+        }
     }
 
 }

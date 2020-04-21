@@ -31,67 +31,69 @@ public class DailyStatsServiceImpl implements DailyStatsService {
     }
 
     @Override
-    public DailyStats getTotalOperatorStats(List<DailyStats> stats) {
-        DailyStats dstats = new DailyStats(null,"",0L,0L,0L,0L,0L,0L,0L,
-                0L,0L,0L,0L,0L,0L,0L,0L,
-                0L,0L,0L,null);
+    public DailyStats getTotalOperatorStats(List<DailyStats> stats) throws Exception{
+       try {
+           DailyStats dstats = new DailyStats(null, "", 0L, 0L, 0L, 0L, 0L, 0L, 0L,
+                   0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L,
+                   0L, 0L, 0L, null);
 
 
-        List<String> days = new ArrayList<>();
-        List<Operator> operators = new ArrayList<>();
+           List<String> days = new ArrayList<>();
+           List<Operator> operators = new ArrayList<>();
 
 
+           for (DailyStats ds : stats
+           ) {
+               dstats.setDate(ds.getDate());
+               dstats.setOperator(ds.getOperator());
 
-        for (DailyStats ds: stats
-        ) {
-            dstats.setDate(ds.getDate());
-            dstats.setOperator(ds.getOperator());
+               dstats.setNumber(ds.getNumber());
 
-                dstats.setNumber(ds.getNumber());
-
-            dstats.setIncoming(ds.getIncoming() + dstats.getIncoming());
-            dstats.setTotalWorkTime(ds.getTotalWorkTime() + dstats.getTotalWorkTime());
-            dstats.setTotalAfterCallTime(ds.getTotalAfterCallTime()+dstats.getTotalAfterCallTime());
-            dstats.setLost406(ds.getLost406() + dstats.getLost406());
-
-
-                dstats.setOutgoingExternal(ds.getOutgoingExternal()+dstats.getOutgoingExternal());
+               dstats.setIncoming(ds.getIncoming() + dstats.getIncoming());
+               dstats.setTotalWorkTime(ds.getTotalWorkTime() + dstats.getTotalWorkTime());
+               dstats.setTotalAfterCallTime(ds.getTotalAfterCallTime() + dstats.getTotalAfterCallTime());
+               dstats.setLost406(ds.getLost406() + dstats.getLost406());
 
 
+               dstats.setOutgoingExternal(ds.getOutgoingExternal() + dstats.getOutgoingExternal());
 
 
-                dstats.setTotalNotReadyTime(ds.getTotalNotReadyTime() + dstats.getTotalNotReadyTime());
-                dstats.setHolded(ds.getHolded()+dstats.getHolded());
-                dstats.setTotalHoldTime(ds.getTotalHoldTime()+dstats.getTotalHoldTime());
-                dstats.setIncomingAvrg(ds.getIncomingAvrg()+dstats.getIncomingAvrg());
+               dstats.setTotalNotReadyTime(ds.getTotalNotReadyTime() + dstats.getTotalNotReadyTime());
+               dstats.setHolded(ds.getHolded() + dstats.getHolded());
+               dstats.setTotalHoldTime(ds.getTotalHoldTime() + dstats.getTotalHoldTime());
+               dstats.setIncomingAvrg(ds.getIncomingAvrg() + dstats.getIncomingAvrg());
 
 
-            if (!(operators.contains(ds.getOperator())))
-                operators.add(ds.getOperator());
+               if (!(operators.contains(ds.getOperator())))
+                   operators.add(ds.getOperator());
 
-            if (!(days.contains(ds.getDate().toString())))
-                days.add(ds.getDate().toString());
+               if (!(days.contains(ds.getDate().toString())))
+                   days.add(ds.getDate().toString());
 
-        }
-        if(dstats.getIncomingAvrg()>0L) {
-            dstats.setIncomingAvrg(dstats.getIncomingAvrg() / stats.size());
-        }
-        if(dstats.getTotalAfterCallTime()>0L) {
-            dstats.setAfterCallTimeAvrg(dstats.getTotalAfterCallTime() / (dstats.getIncoming() + dstats.getOutgoingExternal()));
-        }
-        dstats.setLost((long) operators.size());
-        if(dstats.getTotalHoldTime()>0L) {
-            dstats.setHoldTimeAvrg(dstats.getTotalHoldTime() / dstats.getHolded());
-        }
-        dstats.setOutgoingInternal((long) days.size());
+           }
+           if (dstats.getIncomingAvrg() > 0L) {
+               dstats.setIncomingAvrg(dstats.getIncomingAvrg() / stats.size());
+           }
+//        &&(dstats.getIncoming() + dstats.getOutgoingExternal())>0L
+           if (dstats.getTotalAfterCallTime() > 0L ) {
+               dstats.setAfterCallTimeAvrg(dstats.getTotalAfterCallTime() / (dstats.getIncoming() + dstats.getOutgoingExternal()));
+           }
+           dstats.setLost((long) operators.size());
+           if (dstats.getTotalHoldTime() > 0L) {
+               dstats.setHoldTimeAvrg(dstats.getTotalHoldTime() / dstats.getHolded());
+           }
+           dstats.setOutgoingInternal((long) days.size());
 
 
-
-        return dstats;
+           return dstats;
+       }
+       catch (Exception e){
+           throw e;
+       }
     }
 
     @Override
-    public DailyStats getTotalStats(List<DailyStats> stats) {
+    public DailyStats getTotalStats(List<DailyStats> stats) throws Exception {
         DailyStats dstats = new DailyStats(null,"",0L,0L,0L,0L,0L,0L,0L,
                 0L,0L,0L,0L,0L,0L,0L,0L,
                 0L,0L,0L,null);
@@ -159,24 +161,29 @@ public class DailyStatsServiceImpl implements DailyStatsService {
     }
 
     @Override
-    public List<DailyStats> getAllStats(Date start, Date end) {
+    public List<DailyStats> getAllStats(Date start, Date end) throws Exception{
 
-        List<DailyStats> resultList = new ArrayList<>();
+        try {
+            List<DailyStats> resultList = new ArrayList<>();
 
-        List<DailyStats> dailyStats = dailyStatsRepository.getAllByDateBetween(start,end);
+            List<DailyStats> dailyStats = dailyStatsRepository.getAllByDateBetween(start, end);
 
-        List<String> allOperators = getAllOperators(dailyStats);
+            List<String> allOperators = getAllOperators(dailyStats);
 
 
-        for (String number: allOperators
-             ) {
+            for (String number : allOperators
+            ) {
 
-            List<DailyStats> operatorStats = dailyStatsRepository.getAllByDateBetweenAndNumber(start,end, number);
+                List<DailyStats> operatorStats = dailyStatsRepository.getAllByDateBetweenAndNumber(start, end, number);
 
-            resultList.add(getTotalOperatorStats(operatorStats));
+                resultList.add(getTotalOperatorStats(operatorStats));
 
+            }
+            return resultList;
         }
-        return resultList;
+        catch (Exception e){
+            throw e;
+        }
         }
 
 
@@ -454,7 +461,7 @@ public class DailyStatsServiceImpl implements DailyStatsService {
         return value;
     }
 
-    public String[] getChartDays(String start, String end,String operator) {
+    public String[] getChartDays(String start, String end,String operator) throws Exception {
 
         LocalDate startDate = LocalDate.parse(start);
         LocalDate endDate = LocalDate.parse(end);
@@ -488,7 +495,7 @@ public class DailyStatsServiceImpl implements DailyStatsService {
         return days;
     }
 
-    public List <Long[]> getChartsData(String start, String end,String operator){
+    public List <Long[]> getChartsData(String start, String end,String operator) throws Exception {
 
 //        Creating list for all data necessary for charts
         List<Long[]> result = new ArrayList<>();

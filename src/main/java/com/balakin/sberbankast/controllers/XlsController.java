@@ -31,6 +31,7 @@ public class XlsController {
     private final DailyStatsRepository dailyStatsRepository;
 
     private List<DailyStats> dailyStats=new ArrayList<>();
+    private String error = null;
 
     public XlsController(UploadXlsService uploadXlsService, OperatorRepository operatorRepository, DailyStatsRepository dailyStatsRepository) {
         this.uploadXlsService = uploadXlsService;
@@ -54,19 +55,22 @@ public class XlsController {
 
         model.addAttribute("stats",dailyStats);
         model.addAttribute("nullStats", nullStats);
+        model.addAttribute("error", error);
+        error=null;
         return "upload/dailystats";
     }
 
     @GetMapping("/save")
-    public String saveStats() throws Exception {
+    public String saveStats()  {
         for (File myFile : new File("C:\\Users\\Jeremy\\sberbankast\\src\\main\\resources\\dailystats").listFiles())
             if (myFile.isFile()) myFile.delete();
         int size = dailyStats.size();
         Date date = dailyStats.get(0).getDate();
         if(dailyStatsRepository.getFirstByDate(date)!=null) {
-            throw new Exception("В базе уже сохранены данные " +
-                    "по статистике за " + date +"\n"+
-                    " Удалите старые данные перед их перезагрузкой" +"\n");
+          error="В базе уже сохранены данные " +
+                    "по статистике за " + date +".\n"+
+                    " Удалите старые данные перед их перезагрузкой" +".\n";
+            return "redirect:/upload/dailystats";
         }
         dailyStatsRepository.saveAll(dailyStats);
        log.debug("saved "+size+" daily stats for "+date);
@@ -76,57 +80,70 @@ public class XlsController {
     }
 
     @PostMapping("dailystats")
-    public String UploadStats( @RequestParam("xlsstats") MultipartFile file) throws Exception {
+    public String UploadStats( @RequestParam("xlsstats") MultipartFile file)  {
 
-        dailyStats=new ArrayList<>();
+        try {
+            error=null;
+            dailyStats = new ArrayList<>();
 
-       uploadXlsService.uploadXls(file);
+            uploadXlsService.uploadXls(file);
 
-       ParseXlsService parseXlsService = new ParseXlsServiceImpl();
+            ParseXlsService parseXlsService = new ParseXlsServiceImpl();
 
-       dailyStats = parseXlsService.parseStatsXml("C:\\Users\\Jeremy\\sberbankast\\src\\main\\resources\\dailystats\\"+file.getOriginalFilename(),operatorRepository, dailyStatsRepository);
-       List<DailyStats> nullStats = new ArrayList<>();
-        if(dailyStats.size()>0) {
-            for (DailyStats ds : dailyStats
-            ) {
-                if (ds.getOperator()==null)
-                    nullStats.add(ds);
+            dailyStats = parseXlsService.parseStatsXml("C:\\Users\\Jeremy\\sberbankast\\src\\main\\resources\\dailystats\\" + file.getOriginalFilename(), operatorRepository, dailyStatsRepository);
+            List<DailyStats> nullStats = new ArrayList<>();
+            if (dailyStats.size() > 0) {
+                for (DailyStats ds : dailyStats
+                ) {
+                    if (ds.getOperator() == null)
+                        nullStats.add(ds);
+                }
             }
-        }
-        if(nullStats.size()>0) {
-            Files.deleteIfExists(Paths.get("C:\\Users\\Jeremy\\sberbankast\\src\\main\\resources\\dailystats\\" + file.getOriginalFilename()));
-            System.out.println("File deleted");
-        }
-        else {
+            if (nullStats.size() > 0) {
+                Files.deleteIfExists(Paths.get("C:\\Users\\Jeremy\\sberbankast\\src\\main\\resources\\dailystats\\" + file.getOriginalFilename()));
+                System.out.println("File deleted");
+            } else {
 //            dailyStatsRepository.saveAll(dailyStats);
-            System.out.println("Daily stats saved");
-        }
+                System.out.println("Daily stats saved");
+            }
 
-       return "redirect:/upload/dailystats";
+            return "redirect:/upload/dailystats";
+        }
+        catch (Exception e){
+            error=e.toString()+"\n";
+            for (StackTraceElement el: e.getStackTrace()
+            ) {
+                error+=el+"\n";
+                System.out.println(el);
+            }
+
+            return "redirect:/upload/dailystats";
+        }
     }
 
     @PostMapping("lost406")
     public String uploadLost( @RequestParam("xlslost") MultipartFile file) throws Exception {
 
-      if(dailyStats.size()<1)
-          throw new Exception("You should upload dailyStats first!!!");
+      if(dailyStats.size()<1) {
+          error = "You should upload dailyStats first!!!";
+          return "redirect:/upload/dailystats";
+      }
 
         uploadXlsService.uploadXls(file);
-
         ParseXlsService parseXlsService = new ParseXlsServiceImpl();
-
-        dailyStats = parseXlsService.parseLostXml("C:\\Users\\Jeremy\\sberbankast\\src\\main\\resources\\dailystats\\"+file.getOriginalFilename(),dailyStats);
-
+        dailyStats = parseXlsService.parseLostXml("C:\\Users\\Jeremy\\sberbankast\\src\\main\\resources\\dailystats\\"
+                +file.getOriginalFilename(),dailyStats);
         return "redirect:/upload/dailystats";
     }
 
     @Transactional
     @PostMapping("deletestats")
-    public String removeStatistics(Date date) throws Exception {
+    public String removeStatistics(Date date) {
         if(dailyStatsRepository.getFirstByDate(date)==null) {
-            throw new Exception("\n"+"В базе нет данных " +
-                    "по статистике за " + date +"\n"+
-                    " Выберите другую дату" +"\n");
+           error="В базе нет данных " +
+                    "по статистике за " + date +".\n"+
+                    " Выберите другую дату" +".\n";
+            return "redirect:/upload/dailystats";
         }
         dailyStatsRepository.deleteAllByDate(date);
         log.debug("Deleted statistics for "+date);

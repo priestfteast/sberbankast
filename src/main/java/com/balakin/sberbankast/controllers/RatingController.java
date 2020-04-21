@@ -25,16 +25,13 @@ public class RatingController {
     private List<DailyStats> dailyStats = new ArrayList<>();
     private List<Map.Entry<DailyStats, Integer[]>> rating = new ArrayList<>();
     private List<String> request = new ArrayList<>();
+    private String error=null;
 
     public RatingController(DailyStatsService dailyStatsService, OutgoingRepository outgoingRepository) {
         this.dailyStatsService = dailyStatsService;
         this.outgoingRepository = outgoingRepository;
     }
 
-    @GetMapping("dailystats/test")
-    public String showTest(Model model) {
-        return "dailystats/test";
-    }
 
     @GetMapping("dailystats/rating")
     public String showDailyStats(Model model) {
@@ -50,6 +47,8 @@ public class RatingController {
         model.addAttribute("request", request);
         model.addAttribute("outgoinglist",outgoingRepository.findAll());
         model.addAttribute("outgoingstring",outgoingRepository.findAll().toString());
+        model.addAttribute("error",error);
+        error = null;
 
         return "dailystats/rating";
     }
@@ -62,24 +61,32 @@ public class RatingController {
         rating = new ArrayList<>();
 
 
-        String startdate = formData.getFirst("startdate"); request.set(0,startdate);
-        String enddate = formData.getFirst("enddate");request.set(1,enddate);
-        String criterion = formData.getFirst("criterion");request.set(2,criterion);
+        String startdate = formData.getFirst("startdate");
+        request.set(0, startdate);
+        String enddate = formData.getFirst("enddate");
+        request.set(1, enddate);
+        String criterion = formData.getFirst("criterion");
+        request.set(2, criterion);
 
-
-        if(criterion.equals("Overall")){
-            rating = dailyStatsService.getRating(dailyStatsService.getAllStats(Date.valueOf(startdate), Date.valueOf(enddate)));
+        try {
+            if (criterion.equals("Overall")) {
+                rating = dailyStatsService.getRating(dailyStatsService.getAllStats(Date.valueOf(startdate), Date.valueOf(enddate)));
+            } else {
+                dailyStats = dailyStatsService.filter(dailyStatsService.getAllStats(Date.valueOf(startdate), Date.valueOf(enddate)), criterion);
+            }
+            return "redirect:/dailystats/rating";
         }
-        else {
-            dailyStats = dailyStatsService.filter(dailyStatsService.getAllStats(Date.valueOf(startdate), Date.valueOf(enddate)), criterion);
+        catch (Exception e){
+            error=e.toString()+"\n";
+            for (StackTraceElement el: e.getStackTrace()
+            ) {
+                error+=el+"\n";
+                System.out.println(el);
+            }
+
+            return "redirect:/dailystats/rating";
         }
-
-
-
-
-
-
-        return "redirect:/dailystats/rating";
     }
+
 
 }

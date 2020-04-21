@@ -53,13 +53,18 @@
 
 <br>
 <br>
+<div class="row" th:if="${error ne null}">
+    <div class="table-responsive">
+        <p th:text="${error}"></p>
+    </div>
+</div>
 <div class="row col-md-4 offset-4" th:if="${#lists.isEmpty(stats)}">
     <div class="table-responsive">
         <p th:text="${'No data found for chosen period'}"></p>
     </div>
 </div>
 
-    <div class="row">
+    <div class="row" th:if="${error == null}">
         <div class="col-md-12">
             <div class="row" th:if="${not #lists.isEmpty(stats)}">
                 <div class="col-md-11">
@@ -104,7 +109,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="table-responsive" th:if="${not #lists.isEmpty(stats)}">
+                <div class="table-responsive" th:if="${not #lists.isEmpty(stats) and error == null}">
                     <br>
                     <table class="table table-hover">
                         <thead class="thead-inverse">
@@ -145,7 +150,7 @@
             </div>
             <br>
             <br>
-            <div class="panel-heading" th:if="${not #lists.isEmpty(stats)}">
+            <div class="panel-heading" th:if="${not #lists.isEmpty(stats) and error == null}">
 
                 <div class="col-md-3">
                     <p class="panel-title" th:text="${'Detailed statistics ('+stats.size()+' found)'}"

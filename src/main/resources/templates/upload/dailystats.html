@@ -54,7 +54,13 @@
             </div>
         </div>
     </div>
-
+<br>
+<br>
+<div class="row" th:if="${error ne null}">
+    <div class="table-responsive">
+        <p th:text="${error}" style="color: red"></p>
+    </div>
+</div>
 
     <div class="row">
         <div class="col-md-12">

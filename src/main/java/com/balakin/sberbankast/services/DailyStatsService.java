@@ -9,11 +9,11 @@ import java.util.Map;
 
 public interface DailyStatsService {
 
-    DailyStats getTotalStats(List<DailyStats> stats);
+    DailyStats getTotalStats(List<DailyStats> stats) throws Exception;
 
-    DailyStats getTotalOperatorStats(List<DailyStats> stats);
+    DailyStats getTotalOperatorStats(List<DailyStats> stats) throws Exception;
 
-    List<DailyStats> getAllStats(Date start, Date end);
+    List<DailyStats> getAllStats(Date start, Date end) throws Exception;
 
     List<DailyStats> getOperatorStats(Date start, Date end, String number);
 
@@ -21,8 +21,8 @@ public interface DailyStatsService {
 
     List<Map.Entry<DailyStats, Integer[]>> getRating(List<DailyStats> stats);
 
-    List<Long[]> getChartsData(String start, String end, String operator);
+    List<Long[]> getChartsData(String start, String end, String operator) throws Exception;
 
-    String[] getChartDays(String start, String end,String operator);
+    String[] getChartDays(String start, String end,String operator) throws Exception;
 
 }

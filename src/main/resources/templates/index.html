@@ -10,7 +10,12 @@
 <!--/*@thymesVar id="stats" type="com.balakin.sberbankast.domain.DailyStats"*/-->
 <br>
 <div class="container col-md-8 offset-2">
-    <div class="row">
+    <div class="row" th:if="${error ne null}">
+        <div class="table-responsive">
+            <p th:text="${error}"></p>
+        </div>
+    </div>
+    <div class="row" th:if="${error == null}">
         <div class="col-md-3">
      <div class="card" style="width: 16rem;">
         <img  src="../static/images/employee.jpg" th:src="@{/images/employee.jpg}" class="card-img-top" alt="...">

@@ -11,6 +11,7 @@ spring:
     database: mysql
     show-sql: true
 
+
 #    Run lines below just at first database initialization
 
 #    properties:

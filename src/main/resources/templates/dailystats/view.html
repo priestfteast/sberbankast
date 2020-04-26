@@ -103,7 +103,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                                    <a type="button" class="btn btn-primary" th:href="@{'/dailystats/outgoinglist'}">Изменить исключения</a>
+                                    <a sec:authorize="hasRole('ADMIN')" type="button" class="btn btn-primary" th:href="@{'/dailystats/outgoinglist'}">Изменить исключения</a>
                                 </div>
                             </div>
                         </div>

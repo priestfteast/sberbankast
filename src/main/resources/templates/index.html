@@ -10,6 +10,19 @@
 <!--/*@thymesVar id="stats" type="com.balakin.sberbankast.domain.DailyStats"*/-->
 <br>
 <div class="container col-md-8 offset-2">
+
+<!--    <p>Spring Security Thymeleaf tutorial</p>-->
+<!--    <div sec:authorize="hasRole('USER')">Text visible to user.</div>-->
+<!--    <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>-->
+<!--    <div sec:authorize="isAuthenticated()">-->
+<!--        Text visible only to authenticated users.-->
+<!--    </div>-->
+<!--    Authenticated username:-->
+<!--    <div sec:authentication="name"></div>-->
+<!--    Authenticated user roles:-->
+<!--    <div sec:authentication="principal.authorities"></div>-->
+
+
     <div class="row" th:if="${error ne null}">
         <div class="table-responsive">
             <p th:text="${error}"></p>
@@ -74,7 +87,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                            <a type="button" class="btn btn-primary" th:href="@{'/dailystats/labourdays/2020'}">Изменить рабочие дни</a>
+                            <a sec:authorize="hasRole('ADMIN')" type="button" class="btn btn-primary" th:href="@{'/dailystats/labourdays/2020'}">Изменить рабочие дни</a>
                         </div>
                     </div>
                 </div>

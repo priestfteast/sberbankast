@@ -100,8 +100,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="#" th:href="${'/dailystats/charts'}" style="font-size: larger;font-weight: bold">Charts</a>
             </li>
-            <li class="nav-item">
+            <li sec:authorize="hasRole('ADMIN')" class="nav-item">
                 <a class="nav-link" href="#" th:href="${'/upload/dailystats'}" style="font-size: larger;font-weight: bold">Upload</a>
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <a th:href="@{/logout}">Logout</a>
             </li>
         </ul>
     </div>

@@ -74,8 +74,8 @@ public class DailyStatsServiceImpl implements DailyStatsService {
            if (dstats.getIncomingAvrg() > 0L) {
                dstats.setIncomingAvrg(dstats.getIncomingAvrg() / stats.size());
            }
-//        &&(dstats.getIncoming() + dstats.getOutgoingExternal())>0L
-           if (dstats.getTotalAfterCallTime() > 0L ) {
+
+           if (dstats.getTotalAfterCallTime() > 0L  &&(dstats.getIncoming() + dstats.getOutgoingExternal())>0L) {
                dstats.setAfterCallTimeAvrg(dstats.getTotalAfterCallTime() / (dstats.getIncoming() + dstats.getOutgoingExternal()));
            }
            dstats.setLost((long) operators.size());

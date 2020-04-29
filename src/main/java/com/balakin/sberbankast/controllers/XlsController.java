@@ -41,7 +41,7 @@ public class XlsController {
 
     @GetMapping("upload/dailystats")
     public String showUploadForm( Model model){
-        for (File myFile : new File("C:\\Users\\Jeremy\\sberbankast\\src\\main\\resources\\dailystats").listFiles())
+        for (File myFile : new File("src\\main\\resources\\dailystats").listFiles())
             if (myFile.isFile()) myFile.delete();
 
         List<DailyStats> nullStats = new ArrayList<>();
@@ -62,7 +62,7 @@ public class XlsController {
 
     @GetMapping("/save")
     public String saveStats()  {
-        for (File myFile : new File("C:\\Users\\Jeremy\\sberbankast\\src\\main\\resources\\dailystats").listFiles())
+        for (File myFile : new File("src\\main\\resources\\dailystats").listFiles())
             if (myFile.isFile()) myFile.delete();
         int size = dailyStats.size();
         Date date = dailyStats.get(0).getDate();
@@ -90,7 +90,7 @@ public class XlsController {
 
             ParseXlsService parseXlsService = new ParseXlsServiceImpl();
 
-            dailyStats = parseXlsService.parseStatsXml("C:\\Users\\Jeremy\\sberbankast\\src\\main\\resources\\dailystats\\" + file.getOriginalFilename(), operatorRepository, dailyStatsRepository);
+            dailyStats = parseXlsService.parseStatsXml("src\\main\\resources\\dailystats\\" + file.getOriginalFilename(), operatorRepository, dailyStatsRepository);
             List<DailyStats> nullStats = new ArrayList<>();
             if (dailyStats.size() > 0) {
                 for (DailyStats ds : dailyStats
@@ -100,7 +100,7 @@ public class XlsController {
                 }
             }
             if (nullStats.size() > 0) {
-                Files.deleteIfExists(Paths.get("C:\\Users\\Jeremy\\sberbankast\\src\\main\\resources\\dailystats\\" + file.getOriginalFilename()));
+                Files.deleteIfExists(Paths.get("src\\main\\resources\\dailystats\\" + file.getOriginalFilename()));
                 System.out.println("File deleted");
             } else {
 //            dailyStatsRepository.saveAll(dailyStats);
@@ -131,7 +131,7 @@ public class XlsController {
 
         uploadXlsService.uploadXls(file);
         ParseXlsService parseXlsService = new ParseXlsServiceImpl();
-        dailyStats = parseXlsService.parseLostXml("C:\\Users\\Jeremy\\sberbankast\\src\\main\\resources\\dailystats\\"
+        dailyStats = parseXlsService.parseLostXml("src\\main\\resources\\dailystats\\"
                 +file.getOriginalFilename(),dailyStats);
         return "redirect:/upload/dailystats";
     }

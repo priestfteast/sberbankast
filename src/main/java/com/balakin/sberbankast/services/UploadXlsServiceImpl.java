@@ -41,11 +41,11 @@ public class UploadXlsServiceImpl implements UploadXlsService {
 
             File uploadedFile;
 
-            if(Files.exists(Paths.get("C:\\Users\\Jeremy\\sberbankast\\src\\main\\resources\\dailystats\\"+file.getOriginalFilename()))) {
+            if(Files.exists(Paths.get("src\\main\\resources\\dailystats\\"+file.getOriginalFilename()))) {
                 throw new Exception("File " + file.getOriginalFilename() + " has been uploaded earlier");
             }
             else {
-                uploadedFile = new File("C:\\Users\\Jeremy\\sberbankast\\src\\main\\resources\\dailystats\\" + file.getOriginalFilename());
+                uploadedFile = new File("src\\main\\resources\\dailystats\\" + file.getOriginalFilename());
             }
 
             OutputStream os = new FileOutputStream(uploadedFile);

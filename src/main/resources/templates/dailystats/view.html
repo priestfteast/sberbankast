@@ -67,7 +67,7 @@
     <div class="row" th:if="${error == null}">
         <div class="col-md-12">
             <div class="row" th:if="${not #lists.isEmpty(stats)}">
-                <div class="col-md-11">
+                <div class="col-md-10">
                     <p th:text="${'Total statistics'}" style="font-size: large; font-weight: bold"></p>
                 </div>
 
@@ -109,6 +109,15 @@
                         </div>
                     </div>
                 </div>
+
+
+                <div class="col-md-1">
+                    <form action="http:\\localhost" enctype="multipart/form-data" method="get"
+                          th:action="@{'/excel'}">
+                    <input  src="#" th:src="@{/images/xls.png}" style="height: 40px" class="file"  name="imagefile" type="image">
+                    </form>
+                </div>
+
                 <div class="table-responsive" th:if="${not #lists.isEmpty(stats) and error == null}">
                     <br>
                     <table class="table table-hover">

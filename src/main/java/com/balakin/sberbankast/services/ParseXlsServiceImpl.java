@@ -4,11 +4,14 @@ import com.balakin.sberbankast.domain.DailyStats;
 import com.balakin.sberbankast.domain.Operator;
 import com.balakin.sberbankast.repositories.DailyStatsRepository;
 import com.balakin.sberbankast.repositories.OperatorRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Date;
@@ -17,11 +20,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
+@Service
 public class ParseXlsServiceImpl implements ParseXlsService {
-
-
-
-
 
 
     @Override
@@ -44,6 +45,7 @@ public class ParseXlsServiceImpl implements ParseXlsService {
             break;
             case 3: throw new Exception("Указанный файл не является таблицей Excel. Перезагрузите файл.");
         }
+        
 // Getting the Sheet at index zero
         Sheet readsheet = null;
         if (readbookXls != null)
@@ -299,13 +301,99 @@ public class ParseXlsServiceImpl implements ParseXlsService {
 
 
 
-    public static void main(String[] args) throws Exception {
-//        ParseXlsService parseXlsService = new ParseXlsServiceImpl();
-////        parseXlsService.parseXml( "C:/Users/Jeremy/Desktop/projects/Report.xlsx");
-////        parseXlsService.parseTime("00:04:51");
-//        Date result = ((ParseXlsServiceImpl) parseXlsService).getDate("19.02.20");
-//        System.out.println(result.toString());
 
+
+    @Override
+    public File saveStatsToXLS(List<String> request, List<DailyStats> stats, DailyStats totalStats) throws Exception {
+        for (File myFile : new File("src\\main\\resources\\dailystats").listFiles())
+            if (myFile.isFile()) myFile.delete();
+
+            stats.add(totalStats);
+
+        HSSFWorkbook workBook = new HSSFWorkbook();
+        HSSFSheet sheet = workBook.createSheet("statistics");
+        CellStyle style1 = workBook.createCellStyle();
+        CellStyle style2 = workBook.createCellStyle();
+        Font font1 = workBook.createFont();
+        Font font2 = workBook.createFont();
+        font1.setBold(true);
+        font2.setBold(false);
+        style1.setAlignment(HorizontalAlignment.CENTER);
+        style1.setFont(font1);
+        style2.setAlignment(HorizontalAlignment.CENTER);
+        style2.setFont(font2);
+
+        int rownum = 1;
+        Cell cell = sheet.createRow(rownum).createCell(0);
+        cell.setCellValue(request.get(0)+" - "+request.get(1));
+        cell.setCellStyle(style1);
+        rownum+=2;
+
+        String[] list = {"ФИО","Смен","Доб.","Отработано","Не готов","Входящих","Ср. разговор","Ср. удержания","Ср. постобработка",
+                "Исходящие", "Потеряные (406)"};
+        int cellnum = 0;
+        Row row = sheet.createRow(rownum++);
+        for (String s : list) {
+             cell = row.createCell(cellnum++);
+            cell.setCellValue(s);
+            cell.setCellStyle(style1);
+        }
+
+
+        for (DailyStats ds : stats) {
+            row = sheet.createRow(rownum++);
+            String lost = "0(0%)";
+            if(ds.getIncoming()!=0) {
+                double lostRate =  (double)ds.getLost406() * 100 / (double)ds.getIncoming();
+                lost = ds.getLost406() + "(" + String.format("%.2f", lostRate) + "%)";
+            }
+            Object[] objArr = {ds.getOperator().getLastName()+" "+ds.getOperator().getFirstName(), ds.getOutgoingInternal(),ds.getNumber(),
+                    ds.getTime(ds.getTotalWorkTime()), ds.getTime(ds.getTotalNotReadyTime()), ds.getIncoming(), ds.getTime(ds.getIncomingAvrg()),
+                    ds.getTime(ds.getHoldTimeAvrg()), ds.getTime(ds.getAfterCallTimeAvrg()), ds.getOutgoingExternal(), lost};
+            cellnum = 0;
+            for (Object obj : objArr) {
+                 cell = row.createCell(cellnum++);
+                cell.setCellStyle(style2);
+
+                if (obj instanceof Date)
+                    cell.setCellValue((Date) obj);
+                else if (obj instanceof Boolean)
+                    cell.setCellValue((Boolean) obj);
+                else if (obj instanceof String)
+                    cell.setCellValue((String) obj);
+                else if (obj instanceof Double)
+                    cell.setCellValue((Double) obj);
+                else if (obj instanceof Integer)
+                    cell.setCellValue((int) obj);
+                else if (obj instanceof Long)
+                    cell.setCellValue((Long) obj);
+            }
+        }
+
+
+        for (int i = 0; i < 11; i++) {
+            sheet.autoSizeColumn(i);
+            cell = sheet.getRow(rownum-1).getCell(i);
+            if(cell.getColumnIndex()<3)
+                cell.setCellValue("");
+            cell.setCellStyle(style1);
+        }
+
+
+        File file = new File("src\\main\\resources\\dailystats\\"
+                +request.get(0)+" - "+request.get(1)+".xls");
+
+        FileOutputStream out = new FileOutputStream(file);
+        workBook.write(out);
+        out.close();
+        System.out.println("Excel written successfully..");
+        workBook.close();
+
+
+        return file;
     }
+
+
+
 
 }

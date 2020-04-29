@@ -6,6 +6,7 @@ import com.balakin.sberbankast.repositories.OperatorRepository;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -15,5 +16,6 @@ public interface ParseXlsService {
     long parseTime(String time);
     int checkXlsOrXlsx(String fileName);
     void closeReadBooks(Workbook readbookXls, XSSFWorkbook readbookXlsx) throws Exception;
+    File saveStatsToXLS(List<String> request,List<DailyStats> stats, DailyStats totalStats) throws Exception;
 
 }

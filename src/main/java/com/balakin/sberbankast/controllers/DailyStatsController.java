@@ -6,14 +6,18 @@ import com.balakin.sberbankast.repositories.DailyStatsRepository;
 import com.balakin.sberbankast.repositories.OperatorRepository;
 import com.balakin.sberbankast.repositories.OutgoingRepository;
 import com.balakin.sberbankast.services.DailyStatsService;
+import com.balakin.sberbankast.services.ParseXlsService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -30,17 +34,19 @@ public class DailyStatsController {
     private final OperatorRepository operatorRepository;
     private final DailyStatsService dailyStatsService;
     private final OutgoingRepository outgoingRepository;
+    private final ParseXlsService parseXlsService;
 
     private List<DailyStats> dailyStats = new ArrayList<>();
     private DailyStats dstats = new DailyStats();
     private List<String> request = new ArrayList<>();
     private String error = null;
 
-    public DailyStatsController(DailyStatsRepository dailyStatsRepository, OperatorRepository operatorRepository, DailyStatsService dailyStatsService, OutgoingRepository outgoingRepository) {
+    public DailyStatsController(DailyStatsRepository dailyStatsRepository, OperatorRepository operatorRepository, DailyStatsService dailyStatsService, OutgoingRepository outgoingRepository, ParseXlsService parseXlsService) {
         this.dailyStatsRepository = dailyStatsRepository;
         this.operatorRepository = operatorRepository;
         this.dailyStatsService = dailyStatsService;
         this.outgoingRepository = outgoingRepository;
+        this.parseXlsService = parseXlsService;
     }
 
 
@@ -94,6 +100,12 @@ public class DailyStatsController {
                 dailyStats = dailyStatsService.getOperatorStats(Date.valueOf(startdate), Date.valueOf(enddate), operator);
                 dstats = dailyStatsService.getTotalOperatorStats(dailyStats);
             }
+            Collections.sort(dailyStats, new Comparator<DailyStats>() {
+                @Override
+                public int compare(DailyStats d1, DailyStats d2) {
+                    return d1.getOperator().getLastName().compareTo(d2.getOperator().getLastName());
+                }
+            });
             return "redirect:/dailystats/view";
         }
         catch (Exception e){
@@ -107,4 +119,21 @@ public class DailyStatsController {
         }
     }
 
-}
+//    @RequestMapping("/excel")
+//    public String openXls() throws Exception {
+//        File xls = parseXlsService.saveStatsToXLS(request,dailyStats, dstats);
+//        Runtime.getRuntime().exec(new String[]
+//                {"rundll32", "url.dll,FileProtocolHandler",
+//                        xls.getAbsolutePath()});
+//        return "redirect:/dailystats/view";
+//    }
+@ResponseBody
+@RequestMapping(value = "/excel", produces = "application/vnd.ms-excel")
+    public FileSystemResource doAction(HttpServletResponse response) throws Exception {
+
+        File xls = parseXlsService.saveStatsToXLS(request,dailyStats, dstats);
+        String header = "attachment; filename="+xls.getName();
+    response.setHeader("Content-Disposition", header);
+    return new FileSystemResource(xls);
+    }
+    }

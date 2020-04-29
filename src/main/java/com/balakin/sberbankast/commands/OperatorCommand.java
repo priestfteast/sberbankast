@@ -1,8 +1,6 @@
 package com.balakin.sberbankast.commands;
 
-import com.balakin.sberbankast.domain.Bonus;
-import com.balakin.sberbankast.domain.Fine;
-import com.balakin.sberbankast.domain.Shift;
+import com.balakin.sberbankast.domain.*;
 
 import com.balakin.sberbankast.validators.OperatorImageConstraint;
 import com.balakin.sberbankast.validators.OperatorLastNameConstraint;
@@ -53,6 +51,8 @@ public class OperatorCommand {
 
     private boolean stake;
 
+    private boolean card;
+
 
     private NotesCommand notes;
 
@@ -67,6 +67,10 @@ public class OperatorCommand {
     private Set<BonusCommand> bonuses = new HashSet<>();
 
     private Shift shift;
+
+    private Company company;
+
+    private ContractType contractType;
 
 
 

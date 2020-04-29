@@ -40,6 +40,8 @@ public class Operator {
 
     private boolean stake;
 
+    private boolean card;
+
 
     @Lob
     private Byte[] image;
@@ -63,6 +65,12 @@ public class Operator {
 
     @Enumerated(value = EnumType.STRING)
     private Shift shift;
+
+    @Enumerated(value = EnumType.STRING)
+    private Company company;
+
+    @Enumerated(value = EnumType.STRING)
+    private ContractType contractType;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "operator")
     private Set<Fine> fines = new HashSet<>();

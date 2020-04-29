@@ -162,6 +162,8 @@
                     <div class="col-md-3">
                         <input type="checkbox" th:name="stake" th:value="true" th:checked="${operator.isStake()}">
                         <label>Stake</label>
+                        <input type="checkbox" th:name="card" th:value="true" th:checked="${operator.isCard()}">
+                        <label>Card</label>
                     </div>
                 </div>
                 <br>
@@ -186,9 +188,51 @@
 
                     </div>
                 </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2">
+                    <p> Company:</p>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control" th:field="*{company}">
+                        <option th:each="companyValue : ${T(com.balakin.sberbankast.domain.Company).values()}"
+                                th:value="${companyValue.name()}"
+                                th:text="${companyValue.name()}"
+                        >val
+                        </option>
+                    </select>
+
+                    <select class="form-control" th:remove="all">
+                        <option>SEVEN_AM</option>
+                        <option>EIGHT_AM</option>
+                        <option>NINE_AM</option>
+                    </select>
+
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2">
+                    <p> Contract type:</p>
+                </div>
+                <div class="col-md-4">
+                    <select class="form-control" th:field="*{contractType}">
+                        <option th:each="ctValue : ${T(com.balakin.sberbankast.domain.ContractType).values()}"
+                                th:value="${ctValue.name()}"
+                                th:text="${ctValue.name()}"
+                        >val
+                        </option>
+                    </select>
+
+                    <select class="form-control" th:remove="all">
+                        <option>SEVEN_AM</option>
+                        <option>EIGHT_AM</option>
+                        <option>NINE_AM</option>
+                    </select>
+                </div>
             </div>
         </div>
-        <br>
+
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title" style="color: #0275d8">Notes</h5>
@@ -200,6 +244,7 @@
             </div>
         </div>
         <br>
+        </div>
         <div class="card">
             <div class="card-body">
 

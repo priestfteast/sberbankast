@@ -48,9 +48,12 @@ public class OperatorCommandToOperator implements Converter<OperatorCommand, Ope
             operator.setAdditionalNumber(operatorCommand.getAdditionalNumber());
         }
         operator.setShift(operatorCommand.getShift());
+        operator.setCompany(operatorCommand.getCompany());
+        operator.setContractType(operatorCommand.getContractType());
         operator.setIncoming(operatorCommand.isIncoming());
         operator.setOutgoing(operatorCommand.isOutgoing());
         operator.setStake(operatorCommand.isStake());
+        operator.setCard(operatorCommand.isCard());
         operator.setNotes(notesCommandToNotes.convert(operatorCommand.getNotes()));
 
         if(operatorCommand.getSpecialties()!=null && operatorCommand.getSpecialties().size()>0){

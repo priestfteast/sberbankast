@@ -41,7 +41,10 @@ public class OperatorToOperatorCommand implements Converter<Operator, OperatorCo
         operatorCommand.setIncoming(operator.isIncoming());
         operatorCommand.setOutgoing(operator.isOutgoing());
         operatorCommand.setStake(operator.isStake());
+        operatorCommand.setCard(operator.isCard());
         operatorCommand.setShift(operator.getShift());
+        operatorCommand.setCompany(operator.getCompany());
+        operatorCommand.setContractType(operator.getContractType());
         operatorCommand.setImage(operator.getImage());
         operatorCommand.setNotes(notesToNotesCommand.convert(operator.getNotes()));
 

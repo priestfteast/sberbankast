@@ -74,6 +74,12 @@ public class OperatorServiceImpl implements OperatorService {
         return filteredList;
     }
 
+    @Transactional
+    @Override
+    public List<Specialty> getSpecialties(Long id) {
+
+        return findById(id).getSpecialties();
+    }
 
     @Override
     public List<Operator> getOperatorsBySpecialties() {

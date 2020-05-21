@@ -7,6 +7,7 @@ import com.balakin.sberbankast.repositories.OperatorRepository;
 import com.balakin.sberbankast.repositories.OutgoingRepository;
 import com.balakin.sberbankast.services.DailyStatsService;
 import com.balakin.sberbankast.services.ParseXlsService;
+import com.balakin.sberbankast.services.PositionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -35,18 +35,20 @@ public class DailyStatsController {
     private final DailyStatsService dailyStatsService;
     private final OutgoingRepository outgoingRepository;
     private final ParseXlsService parseXlsService;
+    private final PositionService positionService;
 
     private List<DailyStats> dailyStats = new ArrayList<>();
     private DailyStats dstats = new DailyStats();
     private List<String> request = new ArrayList<>();
     private String error = null;
 
-    public DailyStatsController(DailyStatsRepository dailyStatsRepository, OperatorRepository operatorRepository, DailyStatsService dailyStatsService, OutgoingRepository outgoingRepository, ParseXlsService parseXlsService) {
+    public DailyStatsController(DailyStatsRepository dailyStatsRepository, OperatorRepository operatorRepository, DailyStatsService dailyStatsService, OutgoingRepository outgoingRepository, ParseXlsService parseXlsService, PositionService positionService) {
         this.dailyStatsRepository = dailyStatsRepository;
         this.operatorRepository = operatorRepository;
         this.dailyStatsService = dailyStatsService;
         this.outgoingRepository = outgoingRepository;
         this.parseXlsService = parseXlsService;
+        this.positionService = positionService;
     }
 
 
@@ -131,7 +133,7 @@ public class DailyStatsController {
 @RequestMapping(value = "/excel", produces = "application/vnd.ms-excel")
     public FileSystemResource doAction(HttpServletResponse response) throws Exception {
 
-        File xls = parseXlsService.saveStatsToXLS(request,dailyStats, dstats);
+        File xls = parseXlsService.saveStatsToXLS(request,dailyStats, dstats, positionService);
         String header = "attachment; filename="+xls.getName();
     response.setHeader("Content-Disposition", header);
     return new FileSystemResource(xls);

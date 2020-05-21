@@ -16,6 +16,6 @@ public interface ParseXlsService {
     long parseTime(String time);
     int checkXlsOrXlsx(String fileName);
     void closeReadBooks(Workbook readbookXls, XSSFWorkbook readbookXlsx) throws Exception;
-    File saveStatsToXLS(List<String> request,List<DailyStats> stats, DailyStats totalStats) throws Exception;
+    File saveStatsToXLS(List<String> request,List<DailyStats> stats, DailyStats totalStats, PositionService positionService) throws Exception;
 
 }

@@ -1,8 +1,11 @@
 package com.balakin.sberbankast.repositories;
 
 import com.balakin.sberbankast.domain.Operator;
+import com.balakin.sberbankast.domain.Specialty;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 public interface OperatorRepository extends CrudRepository<Operator,Long> {

@@ -29,14 +29,16 @@ public class XlsController {
     private final UploadXlsService uploadXlsService;
     private final OperatorRepository operatorRepository;
     private final DailyStatsRepository dailyStatsRepository;
+    private final ParseXlsService parseXlsService;
 
     private List<DailyStats> dailyStats=new ArrayList<>();
     private String error = null;
 
-    public XlsController(UploadXlsService uploadXlsService, OperatorRepository operatorRepository, DailyStatsRepository dailyStatsRepository) {
+    public XlsController(UploadXlsService uploadXlsService, OperatorRepository operatorRepository, DailyStatsRepository dailyStatsRepository, ParseXlsService parseXlsService) {
         this.uploadXlsService = uploadXlsService;
         this.operatorRepository = operatorRepository;
         this.dailyStatsRepository = dailyStatsRepository;
+        this.parseXlsService = parseXlsService;
     }
 
     @GetMapping("upload/dailystats")
@@ -88,7 +90,6 @@ public class XlsController {
 
             uploadXlsService.uploadXls(file);
 
-            ParseXlsService parseXlsService = new ParseXlsServiceImpl();
 
             dailyStats = parseXlsService.parseStatsXml("src\\main\\resources\\dailystats\\" + file.getOriginalFilename(), operatorRepository, dailyStatsRepository);
             List<DailyStats> nullStats = new ArrayList<>();
@@ -130,7 +131,7 @@ public class XlsController {
       }
 
         uploadXlsService.uploadXls(file);
-        ParseXlsService parseXlsService = new ParseXlsServiceImpl();
+
         dailyStats = parseXlsService.parseLostXml("src\\main\\resources\\dailystats\\"
                 +file.getOriginalFilename(),dailyStats);
         return "redirect:/upload/dailystats";

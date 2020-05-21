@@ -48,7 +48,7 @@ public class PositionServiceImpl implements PositionService {
         ) {
             if(!resultDates.contains( date.toString().substring(0,date.toString().lastIndexOf("-"))))
                 resultDates.add(date.toString().substring(0,date.toString().lastIndexOf("-")));
-            System.out.println(date.toString().substring(0,date.toString().lastIndexOf("-")));
+//            System.out.println(date.toString().substring(0,date.toString().lastIndexOf("-")));
         }
 
 

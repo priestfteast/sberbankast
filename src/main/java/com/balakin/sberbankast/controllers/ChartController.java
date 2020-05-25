@@ -37,14 +37,16 @@ public class ChartController {
 
     @GetMapping("dailystats/charts")
     public String showDailyStats(Model model) {
+        List<String> initialRequest = new ArrayList<>();
+        initialRequest.add(LocalDate.now().toString().substring(0, 8) + "01");
+        initialRequest.add(LocalDate.now().toString());
+        initialRequest.add("all");
+        initialRequest.add("Total loged in time");
+        initialRequest.add("null");
 
         try {
             if (request.size() == 0) {
-                request.add(LocalDate.now().toString().substring(0, 8) + "01");
-                request.add(LocalDate.now().toString());
-                request.add("all");
-                request.add("Total loged in time");
-                request.add("null");
+                request = new ArrayList(initialRequest);
             }
 
             ArrayList<Operator> operators = (ArrayList<Operator>) operatorRepository.findAll();
@@ -82,8 +84,8 @@ public class ChartController {
             }
             double pos = Double.valueOf(positions);
             Long labourDays = positionService.getLabourdays(LocalDate.parse(request.get(0)), LocalDate.parse(request.get(1)));
-            System.out.println(positions);
-            System.out.println(labourDays);
+//            System.out.println(positions);
+//            System.out.println(labourDays);
             pos = pos / 3600 / 7.75 / labourDays;
             String formattedPos = String.format("%.2f", pos);
 
@@ -103,7 +105,7 @@ public class ChartController {
             model.addAttribute("labourdays", labourDays);
             model.addAttribute("calls", calls);
             model.addAttribute("callsavg", callsAvg);
-
+            request = new ArrayList<>(initialRequest);
 
 
 

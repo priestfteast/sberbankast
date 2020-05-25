@@ -26,6 +26,7 @@ public class RatingController {
     private List<Map.Entry<DailyStats, Integer[]>> rating = new ArrayList<>();
     private List<String> request = new ArrayList<>();
     private String error=null;
+    private boolean isNewRequest =true;
 
     public RatingController(DailyStatsService dailyStatsService, OutgoingRepository outgoingRepository) {
         this.dailyStatsService = dailyStatsService;
@@ -35,19 +36,27 @@ public class RatingController {
 
     @GetMapping("dailystats/rating")
     public String showDailyStats(Model model) {
-
+        List<String> initialRequest = new ArrayList<>();
+        initialRequest.add(LocalDate.now().toString().substring(0, 8) + "01");
+        initialRequest.add(LocalDate.now().toString());
+        initialRequest.add("overall");
+        boolean isNewRequestCopy = isNewRequest;
         if(request.size()==0){
-            request.add(LocalDate.now().toString().substring(0,8)+"01");
-            request.add(LocalDate.now().toString());
-            request.add("overall");
+            request = new ArrayList(initialRequest);
         }
 
-        model.addAttribute("stats", dailyStats);
-        model.addAttribute("rating",rating);
+        model.addAttribute("stats", new ArrayList(dailyStats));
+        model.addAttribute("rating",new ArrayList(rating));
         model.addAttribute("request", request);
         model.addAttribute("outgoinglist",outgoingRepository.findAll());
         model.addAttribute("outgoingstring",outgoingRepository.findAll().toString());
+        model.addAttribute("isNewRequest",isNewRequestCopy);
         model.addAttribute("error",error);
+
+        request = new ArrayList(initialRequest);
+        dailyStats = new ArrayList<>();
+        rating = new ArrayList<>();
+        isNewRequest = true;
         error = null;
 
         return "dailystats/rating";
@@ -74,6 +83,7 @@ public class RatingController {
             } else {
                 dailyStats = dailyStatsService.filter(dailyStatsService.getAllStats(Date.valueOf(startdate), Date.valueOf(enddate)), criterion);
             }
+           isNewRequest = false;
             return "redirect:/dailystats/rating";
         }
         catch (Exception e){

@@ -41,6 +41,7 @@ public class DailyStatsController {
     private DailyStats dstats = new DailyStats();
     private List<String> request = new ArrayList<>();
     private String error = null;
+    private boolean isNewRequest =true;
 
     public DailyStatsController(DailyStatsRepository dailyStatsRepository, OperatorRepository operatorRepository, DailyStatsService dailyStatsService, OutgoingRepository outgoingRepository, ParseXlsService parseXlsService, PositionService positionService) {
         this.dailyStatsRepository = dailyStatsRepository;
@@ -54,11 +55,16 @@ public class DailyStatsController {
 
     @GetMapping("dailystats/view")
     public String showDailyStats(Model model) {
+        List<String> initialRequest = new ArrayList<>();
+        initialRequest.add(LocalDate.now().toString().substring(0, 8) + "01");
+        initialRequest.add(LocalDate.now().toString());
+        initialRequest.add("all");
+        boolean isNewRequestCopy = isNewRequest;
 
     if (request.size() == 0) {
-        request.add(LocalDate.now().toString().substring(0, 8) + "01");
-        request.add(LocalDate.now().toString());
-        request.add("all");
+        request = new ArrayList(initialRequest);
+        dstats=new DailyStats();
+        dailyStats =new ArrayList<>();
     }
     ArrayList<Operator> operators = (ArrayList<Operator>) operatorRepository.findAll();
     Collections.sort(operators, new Comparator<Operator>() {
@@ -69,12 +75,17 @@ public class DailyStatsController {
     });
 
     model.addAttribute("operators", operators);
-    model.addAttribute("stats", dailyStats);
+    model.addAttribute("stats", new ArrayList(dailyStats));
     model.addAttribute("dstats", dstats);
     model.addAttribute("request", request);
     model.addAttribute("error", error);
     model.addAttribute("outgoinglist", outgoingRepository.findAll());
     model.addAttribute("outgoingstring", outgoingRepository.findAll().toString());
+    model.addAttribute("isNewRequest",isNewRequestCopy);
+
+    request = new ArrayList(initialRequest);
+    dailyStats = new ArrayList<>();
+    isNewRequest = true;
 
     error = null;
 
@@ -102,6 +113,7 @@ public class DailyStatsController {
                 dailyStats = dailyStatsService.getOperatorStats(Date.valueOf(startdate), Date.valueOf(enddate), operator);
                 dstats = dailyStatsService.getTotalOperatorStats(dailyStats);
             }
+            isNewRequest=false;
             Collections.sort(dailyStats, new Comparator<DailyStats>() {
                 @Override
                 public int compare(DailyStats d1, DailyStats d2) {

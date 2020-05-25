@@ -35,8 +35,10 @@ public class OperatorController {
     public String getIndexPage(Model model){
 
         log.debug("getting operators page");
-
-        model.addAttribute("data",data);
+        String requestData = data;
+        String initialData ="sort by=[name] experience=[all] callout=[every";
+        data = initialData;
+        model.addAttribute("data",requestData);
         model.addAttribute("specialtylist", specialtyService.listAllSpecialties());
         model.addAttribute("operators",operatorService.getOperators(data));
         return OPERATOR_OPERATORS;

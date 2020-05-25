@@ -58,7 +58,7 @@
         <p th:text="${error}"></p>
     </div>
 </div>
-<div class="row col-md-4 offset-4" th:if="${#lists.isEmpty(stats)}">
+<div class="row col-md-4 offset-4" th:if="${#lists.isEmpty(stats) and not isNewRequest}">
     <div class="table-responsive">
         <p th:text="${'No data found for chosen period'}"></p>
     </div>

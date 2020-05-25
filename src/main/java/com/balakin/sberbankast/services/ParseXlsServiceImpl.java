@@ -540,7 +540,7 @@ public class ParseXlsServiceImpl implements ParseXlsService {
 
                 switch (j) {
                     case 0:
-                        cell.setCellValue(finalStats.get(i-3).getOperator().getLastName());
+                        cell.setCellValue(stat.getOperator().getLastName()+" "+stat.getOperator().getFirstName());
                         break;
                     case 1:
                         if (stat.getOperator().isCard()) {

@@ -73,7 +73,8 @@
         <p th:text="${error}"></p>
     </div>
 </div>
-<div class="row col-md-4 offset-4" th:if="${#lists.isEmpty(rating)}">
+
+<div class="row col-md-4 offset-4" th:if="${#lists.isEmpty(stats) and #lists.isEmpty(rating) and not isNewRequest}">
     <div class="table-responsive">
     <p th:text="${'No data found for chosen period'}"></p>
 </div>
@@ -82,7 +83,7 @@
 
 
 
-    <div class="row" th:if="${error == null}">
+    <div class="row" th:if="${error == null }">
         <div class="col-md-12">
 
 
@@ -97,7 +98,7 @@
                 </div>
             </div>
 
-            <div class="overall" th:if="${error == null}">
+            <div class="overall" th:if="${error == null and rating.size()>0}">
                 <div class="table-responsive" th:if="${request.get(2).equals('Overall')}">
                     <table class="table table-hover">
                         <thead class="thead-inverse">

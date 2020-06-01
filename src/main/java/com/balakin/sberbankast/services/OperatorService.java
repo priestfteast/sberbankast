@@ -17,4 +17,5 @@ public interface OperatorService {
     void deleteById(Long idToDelete);
     List<Specialty> getSpecialties(Long id);
 
+    void fireById(Long id);
 }

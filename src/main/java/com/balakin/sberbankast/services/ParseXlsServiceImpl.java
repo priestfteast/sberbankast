@@ -51,12 +51,12 @@ public class ParseXlsServiceImpl implements ParseXlsService {
 
         switch (checkXlsOrXlsx(path)){
             case 1: readbookXls = WorkbookFactory.create(file);
-            break;
+                break;
             case 2:  readbookXlsx = new XSSFWorkbook(new FileInputStream(file));
-            break;
+                break;
             case 3: throw new Exception("Указанный файл не является таблицей Excel. Перезагрузите файл.");
         }
-        
+
 // Getting the Sheet at index zero
         Sheet readsheet = null;
         if (readbookXls != null)
@@ -172,8 +172,8 @@ public class ParseXlsServiceImpl implements ParseXlsService {
                         case 16:
                             System.out.print(cell_data+"  ");
                             break;
-                       default:
-                           break;
+                        default:
+                            break;
                     }
                 }
                 dailyStats.add(dStats);
@@ -236,10 +236,10 @@ public class ParseXlsServiceImpl implements ParseXlsService {
                     Files.deleteIfExists(file.toPath());
                     throw new Exception("\n"+"Загруженный файл не является файлом с пропущенными!"+"\n"+"Загрузите корректный файл"+"\n");
                 }
-               String number = dataFormatter.formatCellValue(row.getCell(1));
+                String number = dataFormatter.formatCellValue(row.getCell(1));
                 Long lost406 = Long.valueOf(dataFormatter.formatCellValue(row.getCell(3)));
                 for (DailyStats stats: dailyStats
-                     ) {
+                ) {
                     if(stats.getNumber().equals(number))
                         stats.setLost406(lost406);
                 }
@@ -319,7 +319,7 @@ public class ParseXlsServiceImpl implements ParseXlsService {
         for (File myFile : new File("src\\main\\resources\\dailystats").listFiles())
             if (myFile.isFile()) myFile.delete();
 
-            stats.add(totalStats);
+        stats.add(totalStats);
 
         XSSFWorkbook workBook = new XSSFWorkbook();
         XSSFSheet sheet = workBook.createSheet("statistics");
@@ -347,7 +347,7 @@ public class ParseXlsServiceImpl implements ParseXlsService {
         int cellnum = 0;
         Row row = sheet.createRow(rownum++);
         for (String s : list) {
-             cell = row.createCell(cellnum++);
+            cell = row.createCell(cellnum++);
             cell.setCellValue(s);
             cell.setCellStyle(style1);
         }
@@ -365,7 +365,7 @@ public class ParseXlsServiceImpl implements ParseXlsService {
                     ds.getTime(ds.getHoldTimeAvrg()), ds.getTime(ds.getAfterCallTimeAvrg()), ds.getOutgoingExternal(), lost};
             cellnum = 0;
             for (Object obj : objArr) {
-                 cell = row.createCell(cellnum++);
+                cell = row.createCell(cellnum++);
                 cell.setCellStyle(style2);
 
                 if (obj instanceof Date)
@@ -467,8 +467,8 @@ public class ParseXlsServiceImpl implements ParseXlsService {
         int cellnum = 0;
         Row row = sheet.createRow(rownum);
         for (String s : list) {
-           Cell cell = row.createCell(cellnum++);
-           cell.setCellStyle(style1);
+            Cell cell = row.createCell(cellnum++);
+            cell.setCellStyle(style1);
             cell.setCellValue(s);
         }
         cellnum=4;
@@ -556,13 +556,13 @@ public class ParseXlsServiceImpl implements ParseXlsService {
                         cell.setCellValue(stat.getOperator().getContractType().toString());
                         break;
                 }
-                    if(j==lastCellNum-11) {
-                        if (stat.getOperator().isStake()) {
-                            cell.setCellValue("ставка");
-                        }
+                if(j==lastCellNum-11) {
+                    if (stat.getOperator().isStake()) {
+                        cell.setCellValue("ставка");
                     }
+                }
                 if(j==lastCellNum-10) {
-                        cell.setCellValue(stat.getTime(stat.getTotalWorkTime()));
+                    cell.setCellValue(stat.getTime(stat.getTotalWorkTime()));
                 }
                 if(j==lastCellNum-8) {
                     String timeCell = rowN.getCell(lastCellNum-9).getAddress().formatAsString();
@@ -582,7 +582,7 @@ public class ParseXlsServiceImpl implements ParseXlsService {
                                     Integer.valueOf((int) (positionService.getLabourdays(LocalDate.parse(request.get(0)), LocalDate.parse(request.get(1))) * 9)).toString());
                         }
                     }
-                  else {
+                    else {
                         cell.setCellFormula(timeCellFormated+"*90");
                     }
                 }
@@ -647,24 +647,24 @@ public class ParseXlsServiceImpl implements ParseXlsService {
         List<DailyStats> tempoStats = new ArrayList<>(stats);
         List<DailyStats> finalStats = new ArrayList<>();
 
-            for (DailyStats ds : tempoStats
+        for (DailyStats ds : tempoStats
+        ) {
+            for (DailyStats ds2:stats
             ) {
-                for (DailyStats ds2:stats
-                     ) {
-                    if(ds2.getOperator().equals(ds.getOperator())&& ds.getDate().equals(ds2.getDate()) && !(ds2.getNumber().equals(ds.getNumber()))) {
-                        boolean contains = false;
-                        for (DailyStats ds3: finalStats
-                             ) {
-                            if(ds3.getOperator().equals(ds.getOperator()))
-                                contains=true;
-                        }
-                        if(!contains) {
-                            ds.setTotalWorkTime(ds.getTotalWorkTime() + ds2.getTotalWorkTime());
-                            finalStats.add(ds);
-                        }
+                if(ds2.getOperator().equals(ds.getOperator())&& ds.getDate().equals(ds2.getDate()) && !(ds2.getNumber().equals(ds.getNumber()))) {
+                    boolean contains = false;
+                    for (DailyStats ds3: finalStats
+                    ) {
+                        if(ds3.getOperator().equals(ds.getOperator()))
+                            contains=true;
+                    }
+                    if(!contains) {
+                        ds.setTotalWorkTime(ds.getTotalWorkTime() + ds2.getTotalWorkTime());
+                        finalStats.add(ds);
                     }
                 }
             }
+        }
 
         for (DailyStats ds : stats
         ) {
@@ -678,7 +678,7 @@ public class ParseXlsServiceImpl implements ParseXlsService {
                 finalStats.add(ds);
                 contains=false;
             }
-            }
+        }
 
         return finalStats;
     }
@@ -771,7 +771,7 @@ public class ParseXlsServiceImpl implements ParseXlsService {
         int bonus = 0;
 
         for (Bonus b: bonuses
-             ) {
+        ) {
             if(b.getDate().isBefore(LocalDate.parse(request.get(1))) && b.getDate().isAfter(LocalDate.parse(request.get(0))))
                 bonus+=b.getSize();
         }
@@ -823,10 +823,10 @@ public class ParseXlsServiceImpl implements ParseXlsService {
         List<DailyStats> finalStats = new ArrayList<>();
 
         for (Operator op:operators
-             ) {
+        ) {
             boolean contains = false;
             for (DailyStats ds: tempoStats
-                 ) {
+            ) {
                 String name = ds.getOperator().getLastName()+ds.getOperator().getFirstName();
                 if(name.equals(op.getLastName()+op.getFirstName()))
                     contains=true;

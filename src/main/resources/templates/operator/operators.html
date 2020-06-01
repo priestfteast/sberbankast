@@ -161,7 +161,7 @@
                     <td th:text="${operator.specialties.size()}">Tasty Goodnees 3</td>
                     <td><a href="#" th:href="@{'/operator/' + ${operator.id}+'/show'}">View</a></td>
                     <td sec:authorize="hasRole('ADMIN')"><a href="#" th:href="@{'/operator/' + ${operator.id}+'/update'}">Update</a></td>
-                    <td sec:authorize="hasRole('ADMIN')"><a href="#" th:href="@{'/operator/' + ${operator.id}+'/delete'}">Delete</a></td>
+                    <td sec:authorize="hasRole('ADMIN')"><a href="#" th:href="@{'/operator/' + ${operator.id}+'/fire'}">Fire</a></td>
                 </tr>
                 </tbody>
             </table>

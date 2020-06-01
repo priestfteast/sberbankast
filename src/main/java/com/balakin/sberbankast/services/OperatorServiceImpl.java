@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -49,6 +50,7 @@ public class OperatorServiceImpl implements OperatorService {
 
         List<Operator> filteredList = new ArrayList<>();
         filteredList.addAll(operators);
+        filteredList = removeFiredOperators(filteredList);
 
         if (parsedRequest.length == 3) {
             filteredList=filterByExperience(filteredList,parsedRequest);
@@ -79,6 +81,19 @@ public class OperatorServiceImpl implements OperatorService {
     public List<Specialty> getSpecialties(Long id) {
 
         return findById(id).getSpecialties();
+    }
+
+    @Override
+    @Transactional
+    public void fireById(Long id) {
+        System.out.println(id);
+        Operator op = findById(id);
+        op.setNumber("000");
+        op.setAdditionalNumber("001");
+        op.setFired(true);
+        op.setRetirementDate(LocalDate.now());
+        operatorRepository.save(op);
+
     }
 
     @Override
@@ -229,6 +244,17 @@ public class OperatorServiceImpl implements OperatorService {
 
     public int countAllByStakeTrue(){
         return operatorRepository.countAllByStakeTrue();
+        }
+
+        public List <Operator> removeFiredOperators(List<Operator> operators){
+        List<Operator> filteredList = new ArrayList<>();
+        operators.forEach(operator -> {
+                if (!operator.isFired()) {
+                    filteredList.add(operator);
+                }
+        });
+
+            return filteredList;
         }
 
 

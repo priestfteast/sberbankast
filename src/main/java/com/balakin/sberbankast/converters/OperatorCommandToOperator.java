@@ -54,6 +54,7 @@ public class OperatorCommandToOperator implements Converter<OperatorCommand, Ope
         operator.setOutgoing(operatorCommand.isOutgoing());
         operator.setStake(operatorCommand.isStake());
         operator.setCard(operatorCommand.isCard());
+        operator.setFired(false);
         operator.setNotes(notesCommandToNotes.convert(operatorCommand.getNotes()));
 
         if(operatorCommand.getSpecialties()!=null && operatorCommand.getSpecialties().size()>0){

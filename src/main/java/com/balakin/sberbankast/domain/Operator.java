@@ -42,6 +42,10 @@ public class Operator {
 
     private boolean card;
 
+    private boolean fired;
+
+    private LocalDate retirementDate;
+
 
     @Lob
     private Byte[] image;

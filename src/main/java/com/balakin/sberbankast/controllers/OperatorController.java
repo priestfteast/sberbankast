@@ -82,6 +82,13 @@ public class OperatorController {
         return "redirect:/";
     }
 
+    @GetMapping("operator/{id}/fire")
+    public String fireById(@PathVariable String id){
+        log.debug("Firing operator id: "+id);
+        operatorService.fireById(Long.valueOf(id));
+        return "redirect:/"+OPERATOR_OPERATORS;
+    }
+
     @PostMapping("operator")
     public String saveOrUpdate (@Valid @ModelAttribute("operator") OperatorCommand operatorCommand, BindingResult bindingResult,Model model){
 

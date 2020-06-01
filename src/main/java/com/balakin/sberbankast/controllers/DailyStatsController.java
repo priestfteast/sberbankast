@@ -38,8 +38,10 @@ public class DailyStatsController {
     private final PositionService positionService;
 
     private List<DailyStats> dailyStats = new ArrayList<>();
+    private List<DailyStats> dailyStatsForXls = new ArrayList<>();
     private DailyStats dstats = new DailyStats();
     private List<String> request = new ArrayList<>();
+    private List<String> requestForXLS = new ArrayList<>();
     private String error = null;
     private boolean isNewRequest =true;
 
@@ -82,8 +84,9 @@ public class DailyStatsController {
     model.addAttribute("outgoinglist", outgoingRepository.findAll());
     model.addAttribute("outgoingstring", outgoingRepository.findAll().toString());
     model.addAttribute("isNewRequest",isNewRequestCopy);
-
+    requestForXLS = new ArrayList<>(request);
     request = new ArrayList(initialRequest);
+    dailyStatsForXls = new ArrayList<>(dailyStats);
     dailyStats = new ArrayList<>();
     isNewRequest = true;
 
@@ -145,7 +148,7 @@ public class DailyStatsController {
 @RequestMapping(value = "/excel", produces = "application/vnd.ms-excel")
     public FileSystemResource doAction(HttpServletResponse response) throws Exception {
 
-        File xls = parseXlsService.saveStatsToXLS(request,dailyStats, dstats, positionService);
+        File xls = parseXlsService.saveStatsToXLS(requestForXLS,dailyStatsForXls, dstats, positionService);
         String header = "attachment; filename="+xls.getName();
     response.setHeader("Content-Disposition", header);
     return new FileSystemResource(xls);

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
+<head>
+    <meta charset="UTF-8"/>
+    <title id="pageTitle">Operator's info</title>
+</head>
+
+
+<body>
+<div class="container-fluid col-md-6 offset-3" style="margin-top: 20px">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title" style="color: #0275d8" th:text="${operator.firstName+' '+operator.lastName}">
+                Operator's name</h5>
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="../../static/images/guacamole400x400WithX.jpg"
+                         th:src="@{'/operator/' + ${operator.id} + '/operatorimage'}"
+                         width="200" height="200">
+                </div>
+                <div class="col-md-2 offset-3">
+                    <a class="btn btn-primary" href="#"
+                       th:href="@{'/operator/' + ${operator.id} + '/image'}" role="button">Change Image</a>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <p style="font-weight: bold">Date of employement:</p>
+                </div>
+                <div class="col-md-3">
+                    <!--/*@thymesVar id="operator" type="com.balakin.sberbankast.domain.Operator"*/-->
+                    <p th:text="${operator.employementDate}">12/12/2019</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <p style="font-weight: bold">Shift:</p>
+                </div>
+                <div class="col-md-3">
+                    <p th:text="${operator.shift}">Seven_AM</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <p style="font-weight: bold">Company:</p>
+                </div>
+                <div class="col-md-4">
+                    <p th:text="${operator.company}">Seven_AM</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <p style="font-weight: bold">Contract type:</p>
+                </div>
+                <div class="col-md-4">
+                    <p th:text="${operator.contractType}">Seven_AM</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <p style="font-weight: bold">Number:</p>
+                </div>
+                <div class="col-md-3">
+                    <p th:text="${operator.number}">user223</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <p style="font-weight: bold">Additional number:</p>
+                </div>
+                <div class="col-md-3">
+                    <p th:text="${operator.additionalNumber}">user223</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <input type="checkbox" style="font-weight: bold" th:name="incoming" th:value="true"
+                           th:checked="${operator.isIncoming()}" th:disabled="disabled"><label> Incoming</label>
+                    <input type="checkbox" style="font-weight: bold" th:name="outgoing" th:value="true"
+                           th:checked="${operator.isOutgoing()}" th:disabled="disabled"><label> Outgoing</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <input type="checkbox" style="font-weight: bold" th:name="stake" th:value="true"
+                           th:checked="${operator.isStake()}" th:disabled="disabled"><label> Stake</label>
+                    <input type="checkbox" style="font-weight: bold" th:name="card" th:value="true"
+                           th:checked="${operator.isCard()}" th:disabled="disabled"><label> Card</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <p style="font-weight: bold">Specialties:</p>
+                </div>
+                <div class="col-md-5">
+                    <ul>
+                        <li th:remove="all">cat one</li>
+                        <li th:remove="all">cat two</li>
+                        <li th:each="specialty : ${operator.specialties}" th:text="${specialty.getDescription()}">
+                            Specialty example
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title" style="color: #0275d8">Notes</h5>
+            <div class="row">
+                <div class="col-md-12">
+                    <!--/*@thymesVar id="operator" type="com.balakin.sberbankast.domain.Operator"*/-->
+                    <p th:text="${operator.getNotes().getDescription()}">Lorem ipsum dolor sit amet, consectetuer
+                        adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et
+                        magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec,
+                        pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla
+                        vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
+                        justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus
+                        elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu,
+                        consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a,
+                        tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam
+                        ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.
+                        Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing
+                        sem neque sed ipsum.</p>
+                    </div>
+                </div>
+    </div>
+</div>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-10 ">
+                    <h5 class="card-title" style="color: #0275d8">Fines</h5>
+                </div>
+                <div class="col-md-1">
+                    <a class="btn btn-primary" href="#" th:href="@{'/operator/' + ${operator.id} + '/fines'}"
+                       role="button">Edit</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        <li th:remove="all">cat one</li>
+                        <li th:remove="all">cat two</li>
+                        <li th:each="fine : ${operator.fines}"
+                            th:text="${fine.getDate()+'  '+ fine.getSize()+'  rub. -  '+ fine.getDescription()}">1000
+                            fine example
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-10 ">
+                    <h5 class="card-title" style="color: #0275d8">Bonuses</h5>
+                </div>
+                <div class="col-md-1">
+                    <a class="btn btn-primary" href="#" th:href="@{'/operator/' + ${operator.id} + '/bonuses'}"
+                       role="button">Edit</a>
+                        </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <ul>
+                    <li th:remove="all">cat one</li>
+                    <li th:remove="all">cat two</li>
+                    <li th:each="bonus : ${operator.bonuses}"
+                        th:text="${bonus.getDate()+'  '+ bonus.getSize()+'  rub. -  '+ bonus.getDescription()}">1000
+                        bonus example
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

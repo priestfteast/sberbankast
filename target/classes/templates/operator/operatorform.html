@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'operator form')}">
+<head>
+    <meta charset="UTF-8"/>
+    <title id="pageTitle">Operator form</title>
+
+
+</head>
+<body>
+<!--/*@thymesVar id="operator" type="com.balakin.sberbankast.domain.OperatorCommand"*/-->
+<div class="container col-md-8 offset-2">
+
+    <form th:object="${operator}" th:action="@{/operator/}" method="post" class="form-horizontal">
+
+        <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+            <p th:text="#{operator.error}">Please Correct Errors Below</p>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title" style="color: #0275d8">Operator's data</h5>
+                <div class="row">
+                    <input type="hidden" th:field="*{id}">
+                    <div class="col-md-2">
+                        <p>Last name:</p>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="ln" placeholder="Last name"
+                               th:field="*{lastName}"
+                               th:errorclass="has-error">
+                        <span class="help-block" th:if="${#fields.hasErrors('lastName')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('lastName')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8" th:class="${#fields.hasErrors('lastName')}
+                               ? 'col-md-8 has-error' : 'col-md-8'">
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>First name:</p>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="fn" placeholder="First name"
+                               th:field="*{firstName}"
+                               th:errorclass="has-error">
+                        <span class="help-block" th:if="${#fields.hasErrors('firstName')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('firstName')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8" th:class="${#fields.hasErrors('firstName')}
+                               ? 'col-md-8 has-error' : 'col-md-8'">
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>Number:</p>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="num" placeholder="Number"
+                               th:field="*{number}"
+                               th:errorclass="has-error">
+                        <span class="help-block" th:if="${#fields.hasErrors('number')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('number')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8" th:class="${#fields.hasErrors('number')}
+                               ? 'col-md-8 has-error' : 'col-md-8'">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>Additional number:</p>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="adnum" placeholder="Additional number"
+                               th:field="*{additionalNumber}"
+                               th:errorclass="has-error">
+                        <span class="help-block" th:if="${#fields.hasErrors('additionalNumber')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('additionalNumber')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8" th:class="${#fields.hasErrors('additionalNumber')}
+                               ? 'col-md-8 has-error' : 'col-md-8'">
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-2">
+                        <p>Employement date:</p>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="doe" placeholder="Date of employement"
+                               th:field="*{employementDate}"
+                               th:errorclass="has-error">
+                        <span class="help-block" th:if="${#fields.hasErrors('employementDate')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('employementDate')}"
+                                                th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8" th:class="${#fields.hasErrors('employementDate')}
+                               ? 'col-md-8 has-error' : 'col-md-8'">
+                    </div>
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>Categories:</p>
+                    </div>
+                    <div class="col-md-5">
+                        <ul>
+                            <li th:each="item : ${specialtylist}">
+                                <input type="checkbox" th:field="*{specialties}" th:value="${item}"/>
+                                <label th:for="${#ids.prev('specialties')}" th:text="${item.description}"></label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="checkbox" th:name="incoming" th:value="true" th:checked="${operator.isIncoming()}">
+                        <label>Incoming</label> <br>
+                        <input type="checkbox" th:name="outgoing" th:value="true" th:checked="${operator.isOutgoing()}">
+                        <label>Outgoing</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="checkbox" th:name="stake" th:value="true" th:checked="${operator.isStake()}">
+                        <label>Stake</label>
+                        <input type="checkbox" th:name="card" th:value="true" th:checked="${operator.isCard()}">
+                        <label>Card</label>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>Shift:</p>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control" th:field="*{shift}">
+                            <option th:each="shiftValue : ${T(com.balakin.sberbankast.domain.Shift).values()}"
+                                    th:value="${shiftValue.name()}"
+                                    th:text="${shiftValue.name()}"
+                            >val
+                            </option>
+                        </select>
+
+                        <select class="form-control" th:remove="all">
+                            <option>SEVEN_AM</option>
+                            <option>EIGHT_AM</option>
+                            <option>NINE_AM</option>
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2">
+                    <p> Company:</p>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control" th:field="*{company}">
+                        <option th:each="companyValue : ${T(com.balakin.sberbankast.domain.Company).values()}"
+                                th:value="${companyValue.name()}"
+                                th:text="${companyValue.name()}"
+                        >val
+                        </option>
+                    </select>
+
+                    <select class="form-control" th:remove="all">
+                        <option>SEVEN_AM</option>
+                        <option>EIGHT_AM</option>
+                        <option>NINE_AM</option>
+                    </select>
+
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2">
+                    <p> Contract type:</p>
+                </div>
+                <div class="col-md-4">
+                    <select class="form-control" th:field="*{contractType}">
+                        <option th:each="ctValue : ${T(com.balakin.sberbankast.domain.ContractType).values()}"
+                                th:value="${ctValue.name()}"
+                                th:text="${ctValue.name()}"
+                        >val
+                        </option>
+                    </select>
+
+                    <select class="form-control" th:remove="all">
+                        <option>SEVEN_AM</option>
+                        <option>EIGHT_AM</option>
+                        <option>NINE_AM</option>
+                    </select>
+                </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title" style="color: #0275d8">Notes</h5>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <textarea class="form-control" rows="3" th:field="*{notes.description}"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        </div>
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-md-10 ">
+                        <h5 class="card-title" style="color: #0275d8">Fines</h5>
+                    </div>
+
+                        <div class="col-md-1" th:if="${operator.id ne null}">
+                            <a class="btn btn-primary" href="#" th:href="@{'/operator/' + ${operator.id} + '/fines'}"
+                               role="button">Edit</a>
+                        </div>
+
+                    <div class="col-md-10">
+                        <ul>
+                            <li th:remove="all">test 1</li>
+                            <li th:remove="all">test 2</li>
+                            <li th:each="fine : ${operator.fines}"
+                                th:text="${fine.getSize() +' rub. - ' + fine.getDate()+' - '+fine.getDescription()}">
+                                Test
+                                Bonus
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-10 ">
+                        <h5 class="card-title" style="color: #0275d8">Bonuses</h5>
+                    </div>
+
+                    <div class="col-md-1" th:if="${operator.id ne null}">
+                        <a class="btn btn-primary" href="#" th:href="@{'/operator/' + ${operator.id} + '/bonuses'}"
+                           role="button">Edit</a>
+                    </div>
+                    <div class="col-md-10">
+                        <ul>
+                            <li th:remove="all">test 1</li>
+                            <li th:remove="all">test 2</li>
+                            <li th:each="bonus : ${operator.bonuses}"
+                                th:text="${bonus.getSize() +' rub. - ' + bonus.getDate()+' - '+bonus.getDescription()}">
+                                Test
+                                Bonus
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

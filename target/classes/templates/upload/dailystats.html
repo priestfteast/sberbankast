@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'uploadstatistics')}">
+<head>
+    <meta charset="UTF-8"/>
+    <title id="pageTitle">Upload statistics</title>
+</head>
+<body>
+
+<!--/*@thymesVar id="dailyStats" type="com.balakin.sberbankast.domain.DailyStats"*/-->
+
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <form  action="http:\\localhost" method="post" enctype="multipart/form-data"
+                           th:action="@{'/dailystats'}">
+                        <label class="control-label">Select File with statistics</label>
+                        <input id="statsfile" name="xlsstats" type="file" class="file"  accept=".xls, .xlsx">
+                        <br>
+                        <br>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <form  action="http:\\localhost" method="post" enctype="multipart/form-data"
+                           th:action="@{'/lost406'}">
+                        <label class="control-label">Select File with Lost calls (406)</label>
+                        <input id="lostfile" name="xlslost" type="file" class="file"  accept=".xls, .xlsx">
+                        <br>
+                        <br>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <form  action="http:\\localhost" method="post" class="form-horizontal" th:action="@{'/deletestats'}">
+                        <div class="form-group">
+                            <label>Remove statistics by particular date</label>
+                            <input name="date" type="date" class="form-control">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Remove</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<br>
+<br>
+<div class="row" th:if="${error ne null}">
+    <div class="table-responsive">
+        <p th:text="${error}" style="color: red"></p>
+    </div>
+</div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <br>
+            <br>
+            <div class="table-responsive" th:if="${not #lists.isEmpty(nullStats)}">
+                <p th:text="${'No number/additional number match found for '+nullStats.size()+' operators'}"></p>
+            </div>
+            <div class="table-responsive" th:if="${not #lists.isEmpty(nullStats)}">
+                <table class="table table-hover">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>№</th>
+                        <th>Date</th>
+                        <th>Number</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="dailyStats : ${nullStats}" >
+                        <td>123</td>
+                        <td th:text="${dailyStats.date}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.number}">Tasty Goodnees 3</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row" th:if="${not #lists.isEmpty(stats)}">
+        <div class="col-md-12">
+            <br>
+            <br>
+            <div class="row" th:if="${#lists.isEmpty(nullStats)}">
+                <div class="col-md-4">
+                    <p th:text="${'Uploaded stats for '+stats.size()+' operators'}"></p>
+                </div>
+                <p>
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        Save data
+                    </button>
+                </p>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        Are you sure you want to save data? Press "Yes" to assent.
+                        <form action="http:\\localhost" method="GET" th:action="@{'/save'}">
+                            <input type="submit" name="action" value="Yes" class="btn btn-primary" />
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="table-responsive" th:if="${#lists.isEmpty(nullStats)}">
+                <table class="table table-hover">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>№</th>
+                        <!--                                <th>ID</th>-->
+                        <th>Дата</th>
+                        <th>Оператор</th>
+                        <th>Доб.</th>
+                        <th>Входящие</th>
+                        <th>Ср. время входящих</th>
+                        <th>Исходящие внеш.</th>
+                        <th>Время работы</th>
+                        <th>Не готов</th>
+                        <th>Ср. работа после звонка</th>
+                        <th>Ср. удержание</th>
+                        <th>Потеряные (406)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="dailyStats : ${stats}" >
+                        <td>123</td>
+                        <!--                                <td th:text="${operator.id}">idd</td>-->
+                        <td th:text="${dailyStats.date}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.operator.lastName}+' '+${dailyStats.operator.firstName}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.number}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.incoming}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.getTime(dailyStats.incomingAvrg)}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.outgoingExternal}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.getTime(dailyStats.totalWorkTime)}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.getTime(dailyStats.totalNotReadyTime)}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.getTime(dailyStats.afterCallTimeAvrg)}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.getTime(dailyStats.holdTimeAvrg)}">Tasty Goodnees 3</td>
+                        <td th:text="${dailyStats.incoming==0} ? ${0+'(0%)'} : ${dailyStats.lost406+' ('+dailyStats.lost406*100/dailyStats.incoming+'%)'}">Tasty Goodnees 3</td>
+                    </tr>
+                    </tbody>
+                </table>
+        </div>
+    </div>
+</div>
+
+
+    <script>
+        $('.table tbody tr').each(function (i) {
+            var number = i + 1;
+            $(this).find('td:first').text(number + ".");
+        });
+    </script>
+</body>
+</html>

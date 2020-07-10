@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'bonus')}">
+<head>
+    <meta charset="UTF-8"/>
+    <title id="pageTitle">Bonus</title>
+</head>
+<body>
+<body>
+<!--/*@thymesVar id="bonus" type="com.balakin.sberbankast.commands.BonusCommand"*/-->
+<div class="container-fluid col-md-6 offset-3" style="margin-top: 20px">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <h5 class="card-title" style="color: #0275d8">Bonus info</h5>
+                </div>
+            </div>
+            <div class="row">
+                    <div class="table-responsive">
+                        <table class="table table-hover ">
+                            <thead class="thead-inverse">
+                            <tr>
+                                <th>Date</th>
+                                <th>Size</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tr th:remove="all">
+                                <td>12333</td>
+                                <td>Ttest</td>
+                                <td><a href="#">View</a></td>
+                                <td><a href="#">Update</a></td>
+                                <td><a href="#">Delete</a></td>
+                            </tr>
+                            <tr>
+                                <td th:text="${bonus.date}">334</td>
+                                <td th:text="${bonus.size}">test</td>
+                                <td th:text="${bonus.description}">test</td>
+
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+</body>
+</html>

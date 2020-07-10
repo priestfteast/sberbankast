@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/sber_prod?useUnicode=true&serverTimezone=UTC
+    username: sber_prod_user
+    password: test
+  platform: mysql
+    jpa:
+      hibernate:
+        ddl-auto: validate
+      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+      database: mysql
+      show-sql: false

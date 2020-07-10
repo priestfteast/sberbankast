@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/sber_dev?useUnicode=true&serverTimezone=UTC
+    username: sber_dev_user
+    password: test
+    platform: mysql
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
+    show-sql: true
+
+
+#    Run lines below just at first database initialization
+
+#    properties:
+#      hibernate:
+#        hbm2ddl:
+#          delimiter: ";"
+#      javax:
+#        persistence:
+#          schema-generation:
+#            create-source: metadata
+#            scripts:
+#              action: create
+#              create-target: sber_database.sql

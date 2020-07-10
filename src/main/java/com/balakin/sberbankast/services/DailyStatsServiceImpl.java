@@ -120,7 +120,8 @@ public class DailyStatsServiceImpl implements DailyStatsService {
                 dstats.setIncoming(ds.getIncoming() + dstats.getIncoming());
                 dstats.setTotalWorkTime(ds.getTotalWorkTime() + dstats.getTotalWorkTime());
                 dstats.setTotalAfterCallTime(ds.getTotalAfterCallTime()+dstats.getTotalAfterCallTime());
-
+                if(ds.getIncomingAvrg()==null||ds.getOperator()==null)
+                    System.out.println(ds.getNumber()+"!!!!");
                 if (ds.getIncomingAvrg()>0&&ds.getOperator().isIncoming())
                     incOperatorCounter++;
                 if(ds.getOperator().isOutgoing()&& checkNumber(ds.getNumber(),outgoingList)) {

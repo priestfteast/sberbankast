@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'ratings')}">
+<head>
+    <meta charset="UTF-8"/>
+    <title id="pageTitle">Ratings</title>
+</head>
+<body>
+<!--/*@thymesVar id="dailyStats" type="com.balakin.sberbankast.domain.DailyStats"*/-->
+
+    <br>
+<div class="container col-md-8 offset-2">
+    <form action="http:\\localhost" method="post" class="form-horizontal" th:action="@{'/rating'}">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="form-group">
+                        <h5 class="card-title">Start date</h5>
+                        <input name="startdate" type="date" th:value="${request.get(0)}" required="required"
+                               pattern="{1,20}" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="form-group">
+                        <h5 class="card-title">End date</h5>
+                        <input name="enddate" type="date" required="required" th:value="${request.get(1)}"
+                               pattern="{1,20}" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                <select name="criterion">
+                    <option class="dropdown-item" text="filter" value="Overall" th:selected="${request.get(2).equals('Overall')}">
+                       Сводный рейтинг
+                    </option>
+                    <option class="dropdown-item" text="filter" value="Total loged in time" th:selected="${request.get(2).equals('Total loged in time')}">
+                        Общее отработанное время
+                    </option>
+                    <option class="dropdown-item" text="filter" value="Incoming calls quantity" th:selected="${request.get(2).equals('Incoming calls quantity')}">
+                        Общее количество принятых звонков
+                    </option>
+                    <option class="dropdown-item" text="filter" value="Average call duration" th:selected="${request.get(2).equals('Average call duration')}">
+                        Средняя продолжительность консультации
+                    </option>
+                    <option class="dropdown-item" text="filter" value="Average after call time" th:selected="${request.get(2).equals('Average after call time')}">
+                        Среднее время работы после звонка
+                    </option>
+                    <option class="dropdown-item" text="filter" value="Average hold time" th:selected="${request.get(2).equals('Average hold time')}">
+                        Среднее время удержания
+                    </option>
+                    <option class="dropdown-item" text="filter" value="Lost calls (406)" th:selected="${request.get(2).equals('Lost calls (406)')}">
+                        Общее количество пропущенных (406)
+                    </option>
+                    <option class="dropdown-item" text="filter" value="Outgoing calls quantity" th:selected="${request.get(2).equals('Outgoing calls quantity')}">
+                        Общее количество исходящих звонков
+                    </option>
+                </select>
+            </div>
+                <br>
+                    <div class="card">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+            </div>
+        </div>
+    </form>
+</div>
+<br>
+<br>
+<div class="row" th:if="${error ne null}">
+    <div class="table-responsive">
+        <p th:text="${error}"></p>
+    </div>
+</div>
+
+<div class="row col-md-4 offset-4" th:if="${#lists.isEmpty(stats) and #lists.isEmpty(rating) and not isNewRequest}">
+    <div class="table-responsive">
+    <p th:text="${'No data found for chosen period'}"></p>
+</div>
+</div>
+
+
+
+
+    <div class="row" th:if="${error == null }">
+        <div class="col-md-12">
+
+
+            <div class="panel-heading" th:if="${not #lists.isEmpty(stats) or rating.size()>0}">
+                <div class="col-md-8">
+                    <p class="panel-title" th:text="${request.get(2)+' rating '+'for period '+request.get(0)+' - '+request.get(1)}"
+                       style="font-size: large; font-weight: bold">Search</p>
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control mb-4" id="tableSearch" type="text"
+                           placeholder="Type something to search data">
+                </div>
+            </div>
+
+            <div class="overall" th:if="${error == null and rating.size()>0}">
+                <div class="table-responsive" th:if="${request.get(2).equals('Overall')}">
+                    <table class="table table-hover">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>№</th>
+                            <!--                                <th>ID</th>-->
+                            <th>Оператор</th>
+                            <th>Доб.</th>
+                            <th  >Отработано часов</th>
+                            <th >Принято звонков</th>
+                            <th >Ср. время входящих</th>
+                            <th >Средн. время после звонка</th>
+                            <th >Средн. время удержания</th>
+                            <th >Потеряные звонки (406)</th>
+                            <th >Сумма рейтингов</th>
+                        </tr>
+                        </thead>
+                        <tbody id="myTable2">
+                        <tr th:each="entry : ${rating}">
+                            <td>1</td>
+                            <td th:text="${entry.getKey().getOperator().getLastName()}+' '+${entry.getKey().getOperator().getFirstName()}">Tasty
+                                Goodnees 3
+                            </td>
+                            <td th:text="${entry.getKey().number}" >Tasty Goodnees 3</td>
+                            <td th:text="${entry.getKey().getTime(entry.getKey().getTotalWorkTime())+'('+entry.getValue()[0]+')'}">Tasty Goodnees 3</td>
+                            <td th:text="${entry.getKey().incoming+'('+entry.getValue()[1]+')'}">Tasty Goodnees 3</td>
+                            <td th:text="${entry.getKey().getTime(entry.getKey().incomingAvrg)+'('+entry.getValue()[2]+')'}">Tasty Goodnees 3</td>
+                            <td th:text="${entry.getKey().getTime(entry.getKey().afterCallTimeAvrg)+'('+entry.getValue()[3]+')'}">Tasty Goodnees 3</td>
+                            <td th:text="${entry.getKey().getTime(entry.getKey().holdTimeAvrg)+'('+entry.getValue()[4]+')'}">Tasty Goodnees 3</td>
+                            <td th:text="${entry.getKey().incoming==0} ? ${0+'(0%)'+'('+entry.getValue()[5]+')'} :
+                            ${#numbers.formatDecimal(entry.getKey().lost406*100.0/entry.getKey().incoming,1,2)+'% ('+entry.getKey().lost406+')'+'('+entry.getValue()[5]+')'}">
+                                Tasty Goodnees 3
+                            </td>
+                            <td th:text="${entry.getValue()[6]}">Tasty Goodnees 3</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+            <div class="location" th:if="${error == null}">
+                <div class="table-responsive" th:if="${not #lists.isEmpty(stats)}">
+                    <table class="table table-hover">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>№</th>
+                            <!--                                <th>ID</th>-->
+                            <th>Период</th>
+                            <th>Оператор</th>
+                            <th>Доб.</th>
+                            <th th:style="${request.get(2).equals('Incoming calls quantity') ? 'color: #0275d8;font-weight: bold' : 'color: black'}">Входящие</th>
+                            <th th:style="${request.get(2).equals('Average call duration') ? 'color: #0275d8;font-weight: bold' : 'color: black'}">Ср. время входящих</th>
+                            <th  th:style="${request.get(2).equals('Outgoing calls quantity') ? 'color: #0275d8;font-weight: bold' : 'color: black'}">Исход. внешн.</th>
+                            <th  th:style="${request.get(2).equals('Total loged in time') ? 'color: #0275d8;font-weight: bold' : 'color: black'}">В сети</th>
+                            <th>Не готов</th>
+                            <th>Работа после звонка</th>
+                            <th th:style="${request.get(2).equals('Average after call time') ? 'color: #0275d8;font-weight: bold' : 'color: black'}">Средн. работа после звонка</th>
+                            <th th:style="${request.get(2).equals('Average hold time') ? 'color: #0275d8;font-weight: bold' : 'color: black'}">Средн. удерж.</th>
+                            <th th:style="${request.get(2).equals('Lost calls (406)') ? 'color: #0275d8;font-weight: bold' : 'color: black'}">Потеряные (406)</th>
+                        </tr>
+                        </thead>
+                        <tbody id="myTable">
+                        <tr th:each="dailyStats : ${stats}">
+                            <td>1</td>
+                            <!--                                <td th:text="${operator.id}">idd</td>-->
+                            <td th:text="${dailyStats.outgoingInternal+' дней'}">Tasty Goodnees 3 </td>
+                            <td th:text="${dailyStats.operator.lastName}+' '+${dailyStats.operator.firstName}">Tasty
+                                Goodnees 3
+                            </td>
+                            <td th:text="${dailyStats.number}" >Tasty Goodnees 3</td>
+                            <td th:text="${dailyStats.incoming}"
+                                th:style="${request.get(2).equals('Incoming calls quantity') ? 'color: #0275d8;font-weight: bold' : 'color: black'}">
+                                Tasty Goodnees 3</td>
+                            <td th:text="${dailyStats.getTime(dailyStats.incomingAvrg)}"
+                                th:style="${request.get(2).equals('Average call duration') ? 'color: #0275d8;font-weight: bold' : 'color: black'}">
+                                Tasty Goodnees 3</td>
+                            <td th:text="${dailyStats.outgoingExternal}"
+                                th:style="${request.get(2).equals('Outgoing calls quantity') ? 'color: #0275d8;font-weight: bold' : 'color: black'}">
+                                Tasty Goodnees 3</td>
+                            <td th:text="${dailyStats.getTime(dailyStats.totalWorkTime)}"
+                                th:style="${request.get(2).equals('Total loged in time') ? 'color: #0275d8;font-weight: bold' : 'color: black'}">
+                                Tasty Goodnees 3</td>
+                            <td th:text="${dailyStats.getTime(dailyStats.totalNotReadyTime)}">Tasty Goodnees 3</td>
+                            <td th:text="${dailyStats.getTime(dailyStats.totalAfterCallTime)}">Tasty Goodnees 3</td>
+                            <td th:text="${dailyStats.getTime(dailyStats.afterCallTimeAvrg)}"
+                                th:style="${request.get(2).equals('Average after call time') ? 'color: #0275d8;font-weight: bold' : 'color: black'}">
+                                Tasty Goodnees 3</td>
+                            <td th:text="${dailyStats.getTime(dailyStats.holdTimeAvrg)}"
+                                th:style="${request.get(2).equals('Average hold time') ? 'color: #0275d8;font-weight: bold' : 'color: black'}">
+                                Tasty Goodnees 3</td>
+                            <td th:text="${dailyStats.incoming==0} ? ${0+'(0%)'} : ${#numbers.formatDecimal(dailyStats.lost406*100.0/dailyStats.incoming,1,2)+
+                            '% ('+dailyStats.lost406+')'}" th:style="${request.get(2).equals('Lost calls (406)') ? 'color: #0275d8;font-weight: bold' : 'color: black'}">
+                                Tasty Goodnees 3
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+<!--index table numbers-->
+<script>
+    $('.location table tbody tr').each(function (i) {
+        var number = i + 1;
+        $(this).find('td:first').text(number + ".");
+    });
+</script>
+
+<script>
+    $('.overall table tbody tr').each(function (i) {
+        var number = i + 1;
+        $(this).find('td:first').text(number + ".");
+    });
+</script>
+
+<!--Filter table-->
+<script>
+    $(document).ready(function () {
+        $("#tableSearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#tableSearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable2 tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+</body>
+</html>

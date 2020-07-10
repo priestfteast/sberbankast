@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{fragments/layout :: layout (~{::body},'home')}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title id="pageTitle">Image upload</title>
+
+
+</head>
+<body>
+<!--/*@thymesVar id="operator" type="com.balakin.sberbankast.domain.Operator"*/-->
+<div class="container col-md-4 col-md-offset-4">
+    <br>
+    <br>
+    <div class="row">
+        <h4 class="panel-title" style="color: #0275d8">Upload a new operator image</h4>
+    </div>
+    <br>
+    <form action="http:\\localhost" enctype="multipart/form-data" method="post"
+          th:action="@{'/operator/' + ${operator.getId()} + '/image'}">
+    <div class="row">
+            <label class="control-label">Select File</label>
+            <input accept=".jpg, .jpeg, .png" class="file" id="imagefile" name="imagefile" type="file">
+    </div>
+    <br>
+    <div class="row">
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+</form>
+</div>
+</body>
+</html>

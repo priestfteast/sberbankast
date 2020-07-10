@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'operators')}">
+<head>
+    <meta charset="UTF-8"/>
+    <title id="pageTitle">Charts</title>
+
+    <link rel="shortcut icon" type="../static/images/favicon.png" th:href="@{/images/favicon.png}">
+
+
+</head>
+
+<body>
+<!--/*@thymesVar id="dailyStats" type="com.balakin.sberbankast.domain.DailyStats"*/-->
+<br>
+<div class="container col-md-8 offset-2">
+    <form action="http:\\localhost" method="post" class="form-horizontal" th:action="@{'/charts'}">
+        <div class="row">
+
+            <div class="col-sm-3">
+                <div class="card">
+                    <h5 class="card-title">Start date</h5>
+                    <input name="startdate" type="date" th:value="${request.get(0)}" required="required"
+                           pattern="{1,20}" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <h5 class="card-title">End date</h5>
+                    <input name="enddate" type="date" required="required" th:value="${request.get(1)}"
+                           pattern="{1,20}" class="form-control">
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="card">
+                    <select name="operator">
+                        <option class="dropdown-item" text="all" value="all"
+                                th:selected="${request.get(2).equals('all')}">
+                            All operators
+                        </option>
+                        <option class="dropdown-item" th:each="operator : ${operators}"
+                                th:text="${operator.lastName+' '+operator.number}"
+                                th:value="${operator.number}" th:selected="${request.get(2).equals(operator.number)}">
+                            Name
+                        </option>
+                    </select>
+                </div>
+                <br>
+                <div class="card">
+                    <select name="criterion">
+                        <option class="dropdown-item" text="filter" value="Total loged in time"
+                                th:selected="${request.get(3).equals('Total loged in time')}">
+                            Время работы
+                        </option>
+                        <option class="dropdown-item" text="filter" value="Incoming calls quantity"
+                                th:selected="${request.get(3).equals('Incoming calls quantity')}">
+                            Количество звонков
+                        </option>
+                        <option class="dropdown-item" text="filter" value="Average call duration"
+                                th:selected="${request.get(3).equals('Average call duration')}">
+                            Показатели звонков
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="card">
+                    <button type="submit" class="btn btn-primary ">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<br>
+<br>
+<div class="row" th:if="${error ne null}">
+    <div class="table-responsive">
+        <p th:text="${error}"></p>
+    </div>
+</div>
+<div class="col-md-4 offset-4" th:if="${#lists.isEmpty(days)and request.get(4).equals('not null')}">
+    <div class="table-responsive">
+        <p th:text="${'No data found for chosen period'}"></p>
+    </div>
+</div>
+
+
+<div class="row " th:if="${request.get(3).equals('Total loged in time')and not #lists.isEmpty(days) and  error == null}">
+
+    <div class="col-md-8">
+        <canvas id="result_duration_over_time_chart">
+        </canvas>
+        <script type="text/javascript" th:inline="javascript">
+            var opers = /*[[ ${opers} ]]*/
+                new Chart(document.getElementById("result_duration_over_time_chart"), {
+                    type: 'line',
+                    data: {
+                        labels: /*[[ ${days} ]]*/,
+                        datasets: [{
+                            label: 'Общее время работы',
+                            fill: true,
+                            borderColor: '#0275d8',
+                            data: /*[[ ${totalworktime} ]]*/,
+                        }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        // maintainAspectRatio: false,
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    userCallback: function (v) {
+                                        return toHHMMSS(v).substring(0, toHHMMSS(v).indexOf(':')) + ' часов'
+                                    },
+                                    stepSize: 10 * 3600
+                                }
+                            }]
+                        },
+                        tooltips: {
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return toHHMMSS(tooltipItem.yLabel) + ': ' + opers[tooltipItem.index] + ' чел.'
+                                }
+                            }
+                        }
+                    }
+                });
+
+            function toHHMMSS(seconds) {
+
+                var hours = Math.floor(seconds / 3600);
+                var minutes = Math.floor((seconds - (hours * 3600)) / 60);
+                var seconds = seconds - (hours * 3600) - (minutes * 60);
+
+                if (hours < 10) {
+                    hours = "0" + hours;
+                }
+                if (minutes < 10) {
+                    minutes = "0" + minutes;
+                }
+                if (seconds < 10) {
+                    seconds = "0" + seconds;
+                }
+                return hours + ':' + minutes + ':' + seconds;
+            }
+
+        </script>
+    </div>
+    <div class="col-md-4">
+        <br>
+        <div class="card" style="width: 18rem;">
+            <br>
+            <img src="../static/images/garniturablue.jpg" th:src="@{/images/garniturablue.jpg}" class="card-img-top"
+                 alt="...">
+            <div class="card-body">
+                <h6 class="card-title" th:text="${'С '+request.get(0) +'  по  '+request.get(1)}"></h6>
+                <p class="card-text" th:if="${request.get(2).equals('all')}"
+                   th:text="${'Работало операторов : '+opersquantity}">Somefjmfhjjhjft.</p>
+                <p class="card-text" th:if="${request.get(2).equals('all')}"
+                   th:text="${'Время работы: '+totaltime}">Somefjmfhjjhjft.</p>
+
+                <div class="row">
+                    <div class="col-md-7" th:if="${request.get(2).equals('all')}">
+                        <p class="card-text" th:text="${'Позиций: '+positions}">Somefjmfhjjhjft.</p>
+                    </div>
+                    <!-- Button trigger modal -->
+                    <div class="col-md-4" th:if="${request.get(2).equals('all')}">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            Info
+                        </button>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel"
+                                        th:text="${'Формула расчета позиций:'}" style="color: #0275d8">
+                                        Из общей статистики исключены следующие данные:</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p style="font-weight: bold">Позиции = Общее время работы / рабочие дни / 7,75</p>
+                                    <p th:text="${'Отработанное время за выбранный период = '+totaltime}">- Общее
+                                        отработанное время за выбранный период =;</p>
+                                    <p th:text="${'Рабочих дней за выбранный период = '+labourdays}">- среднее время
+                                        удержания;</p>
+                                    <p th:text="${totaltime+' / '+labourdays+' / '+'7,75 = '+positions}">- среднее время
+                                        удержания;</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть
+                                    </button>
+                                    <a sec:authorize="hasRole('ADMIN')" type="button" class="btn btn-primary" th:href="@{'/dailystats/labourdays/2020'}">Изменить
+                                        рабочие дни</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="card-text" th:if="${not request.get(2).equals('all')}"
+                       th:text="${'Оператором доб. '+request.get(2)+ ' отработано: '+totaltime +' часов'}">
+                        Somefjmfhjjhjft.</p>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" th:if="${request.get(3).equals('Incoming calls quantity')and not #lists.isEmpty(days)and  error == null}">
+    <div class="col-md-8">
+        <canvas id="ChartDemo2"></canvas>
+        <script type="text/javascript" th:inline="javascript">
+            /*<![CDATA[*/
+            var ctx = document.getElementById("ChartDemo2").getContext('2d');
+            var ChartDemo = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    // コントローラーで格納したlabelを変数式で取り出すだけ。
+                    labels: /*[[ ${days} ]]*/,
+                    datasets: [
+                        {
+                            label: "Входящие",
+                            borderColor: 'forestgreen',
+                            lineTension: 0,
+                            fill: false,
+                            // 上記と同様、pointを変数式で取り出しているだけです。
+                            data: /*[[ ${incoming} ]]*/,
+                        },
+                        {
+                            label: "Исходящие",
+                            borderColor: '#0275d8',
+                            lineTension: 0,
+                            fill: false,
+                            // 上記と同様、pointを変数式で取り出しているだけです。
+                            data: /*[[ ${outgoingexternal} ]]*/,
+                        },
+                        {
+                            label: "Пропущенные",
+                            borderColor: 'rgb(255, 0, 0)',
+                            lineTension: 0,
+                            fill: false,
+                            // 上記と同様、pointを変数式で取り出しているだけです。
+                            data: /*[[ ${lost406} ]]*/,
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    // maintainAspectRatio: false,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                userCallback: function (v) {
+                                    return v + ' звонков'
+                                },
+                            }
+                        }]
+                    },
+
+                }
+            });
+            /*]]>*/
+        </script>
+    </div>
+    <div class="col-md-4">
+        <canvas id="bar-chart" height="300"></canvas>
+
+        <script type="text/javascript" th:inline="javascript">
+            new Chart(document.getElementById("bar-chart"), {
+                type: 'bar',
+                data: {
+                    labels: ["Входящие", "Исходящие", "Пропущенные"],
+                    datasets: [
+                        {
+                            label: "Количество звонков",
+                            backgroundColor: ["forestgreen", "#0275d8", "rgb(255, 0, 0)"],
+                            data: /*[[ ${calls} ]]*/,
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                stepSize: 2000
+                            }
+                        }]
+                    },
+                    responsive: true,
+                    legend: {display: false},
+                    title: {
+                        display: true,
+                        text: 'Общее количество звонков'
+                    }
+                }
+            });
+        </script>
+    </div>
+</div>
+
+
+<div class="row" th:if="${request.get(3).equals('Average call duration')and not #lists.isEmpty(days)and  error == null}">
+    <div class="col-md-8">
+        <canvas id="ChartDemo3"
+                th:if="${request.get(3).equals('Average call duration')and not #lists.isEmpty(days)}"></canvas>
+        <script type="text/javascript" th:inline="javascript">
+            /*<![CDATA[*/
+            var ctx = document.getElementById("ChartDemo3").getContext('2d');
+            var ChartDemo = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    // コントローラーで格納したlabelを変数式で取り出すだけ。
+                    labels: /*[[ ${days} ]]*/,
+                    datasets: [
+                        {
+                            label: "Средняя продолжительность звонка",
+                            borderColor: 'forestgreen',
+                            lineTension: 0,
+                            fill: false,
+                            // 上記と同様、pointを変数式で取り出しているだけです。
+                            data: /*[[ ${talktimeavg} ]]*/,
+                        },
+                        {
+                            label: "Среднее время удержания",
+                            borderColor: '#0275d8',
+                            lineTension: 0,
+                            fill: false,
+                            // 上記と同様、pointを変数式で取り出しているだけです。
+                            data: /*[[ ${holdtimeavg} ]]*/,
+                        },
+                        {
+                            label: "Среднее время работы после звонка",
+                            borderColor: 'rgb(255, 0, 0)',
+                            lineTension: 0,
+                            fill: false,
+                            // 上記と同様、pointを変数式で取り出しているだけです。
+                            data: /*[[ ${aftercallavg} ]]*/,
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    // maintainAspectRatio: false,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                userCallback: function (v) {
+                                    return toMMSS(v).substring(1, 2) + ' мин.'
+                                },
+                                stepSize: 60
+                            }
+                        }]
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function (tooltipItem, data) {
+                                return data.datasets[tooltipItem.datasetIndex].label + ': ' + toMMSS(tooltipItem.yLabel)
+                            }
+                        }
+                    }
+                }
+            });
+
+            function toMMSS(seconds) {
+
+                var hours = Math.floor(seconds / 3600);
+                var minutes = Math.floor((seconds - (hours * 3600)) / 60);
+                var seconds = seconds - (hours * 3600) - (minutes * 60);
+
+                if (hours < 10) {
+                    hours = "0" + hours;
+                }
+                if (minutes < 10) {
+                    minutes = "0" + minutes;
+                }
+                if (seconds < 10) {
+                    seconds = "0" + seconds;
+                }
+                return minutes + ':' + seconds;
+            }
+        </script>
+    </div>
+    <div class="col-md-4">
+        <canvas id="bar-chart2" height="300"></canvas>
+
+        <script type="text/javascript" th:inline="javascript">
+            new Chart(document.getElementById("bar-chart2"), {
+                type: 'bar',
+                data: {
+                    labels: ["Разговор", "Удержание", "После звонка"],
+                    datasets: [
+                        {
+                            label: "Показатели звонков",
+                            backgroundColor: ["forestgreen", "#0275d8", "rgb(255, 0, 0)"],
+                            data: /*[[ ${callsavg} ]]*/,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    // maintainAspectRatio: false,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                userCallback: function (v) {
+                                    return toMMSS(v).substring(1, 2) + ' мин.'
+                                },
+                                stepSize: 60
+                            }
+                        }]
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function (tooltipItem, data) {
+                                return data.datasets[tooltipItem.datasetIndex].label + ': ' + toMMSS(tooltipItem.yLabel)
+                            }
+                        }
+                    },
+                    responsive: true,
+                    legend: {display: false},
+                    title: {
+                        display: true,
+                        text: 'Общее количество звонков'
+                    }
+                }
+            });
+
+            function toMMSS(seconds) {
+
+                var hours = Math.floor(seconds / 3600);
+                var minutes = Math.floor((seconds - (hours * 3600)) / 60);
+                var seconds = seconds - (hours * 3600) - (minutes * 60);
+
+                if (hours < 10) {
+                    hours = "0" + hours;
+                }
+                if (minutes < 10) {
+                    minutes = "0" + minutes;
+                }
+                if (seconds < 10) {
+                    seconds = "0" + seconds;
+                }
+                return minutes + ':' + seconds;
+            }
+        </script>
+    </div>
+</div>
+
+</body>
+</html>

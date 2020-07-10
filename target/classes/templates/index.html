@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
+<head>
+    <meta charset="UTF-8">
+    <title id="pageTitle">Main page</title>
+
+
+</head>
+<body>
+<!--/*@thymesVar id="stats" type="com.balakin.sberbankast.domain.DailyStats"*/-->
+<br>
+<div class="container col-md-8 offset-2">
+
+<!--    <p>Spring Security Thymeleaf tutorial</p>-->
+<!--    <div sec:authorize="hasRole('USER')">Text visible to user.</div>-->
+<!--    <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>-->
+<!--    <div sec:authorize="isAuthenticated()">-->
+<!--        Text visible only to authenticated users.-->
+<!--    </div>-->
+<!--    Authenticated username:-->
+<!--    <div sec:authentication="name"></div>-->
+<!--    Authenticated user roles:-->
+<!--    <div sec:authentication="principal.authorities"></div>-->
+
+    <div class="row" th:if="${error ne null}">
+        <div class="table-responsive">
+            <p th:text="${error}"></p>
+        </div>
+    </div>
+    <div class="row" th:if="${error == null}">
+        <div class="col-md-3">
+     <div class="card" style="width: 16rem;">
+        <img  src="../static/images/employee.jpg" th:src="@{/images/employee.jpg}" class="card-img-top" alt="...">
+                <ul class="list-group list-group-flush">
+            <li class="list-group-item" style="font-weight: bold;text-decoration: underline" th:text="${'На '+date.toString()+':'}">
+                На апрель 2020:</li>
+            <li class="list-group-item" th:text="${'Всего сотрудников: '+operators+' чел.'}">Всего сотрудников: 45 чел.</li>
+            <li class="list-group-item" th:text="${'Входящие: '+incomingoperators+' чел.'}">Входящие: 45 чел.</li>
+            <li class="list-group-item" th:text="${'Исходящие: '+outgoingoperators+' чел.'}">Исходящие: 5 чел.</li>
+            <li class="list-group-item" th:text="${'На ставке: '+stakeoperators+' чел.'}">На ставке: 5 чел.</li>
+        </ul>
+        <div class="card-body">
+            <a href="#" class="card-link" th:href="${'/operator/operators.html'}">Операторы</a>
+            <a href="#" class="card-link" th:href="${'/dailystats/rating'}">Рейтинги</a>
+        </div>
+    </div>
+        </div>
+
+
+
+
+        <div class="col-md-3 offset-1">
+    <div class="card" style="width: 16rem;">
+        <img  src="../static/images/call.jpg" th:src="@{/images/call.jpg}" class="card-img-top" alt="...">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" style="font-weight: bold;text-decoration: underline "
+                th:text="${'За '+date.getMonth()+' '+date.getYear()+':'}">За апрель 2020:</li>
+            <li class="list-group-item"  th:text="${'Принято входящих: '+stats.getIncoming()}">Принято входящих: 45</li>
+            <li class="list-group-item" th:text="${'Сделано исходящих: '+stats.getOutgoingExternal()}">Осуществлено исходящих: 5</li>
+            <li class="list-group-item" th:text="${'Пропущено (406): '+stats.getLost406()+
+            ' ('+ #numbers.formatDecimal(stats.lost406*100.0/stats.incoming,1,2)+'%)'}">Пропущено звонков: 12 (1%)</li>
+            <li class="list-group-item" th:text="${'Наработано позиций: '+positions}">Наработано позиций: 12</li>
+        </ul>
+        <div class="card-body">
+            <a href="#" class="card-link" th:href="${'/dailystats/view'}">Статистика</a>
+            <a href="#" class="card-link" data-toggle="modal" data-target="#exampleModal">Позиции</a>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel"
+                                th:text="${'Формула рассчета позиций:'}" style="color: #0275d8">
+                                Из общей статистики исключены следующие данные:</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p style="font-weight: bold">Позиции = Общее время работы / рабочие дни / 7,75</p>
+                            <p th:text="${'Отработанное время за выбранный период = '+stats.getTime(stats.getTotalWorkTime())}">- Общее отработанное время за выбранный период =;</p>
+                            <p th:text="${'Рабочих дней в '+date.getMonth()+' '+date.getYear()+' = '+labourdays}">- среднее время удержания;</p>
+                            <p th:text="${stats.getTime(stats.getTotalWorkTime())+' / '+labourdays+' / '+'7,75 = '+positions}">- среднее время удержания;</p>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                            <a sec:authorize="hasRole('ADMIN')" type="button" class="btn btn-primary" th:href="@{'/dailystats/labourdays/2020'}">Изменить рабочие дни</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+        <div class="col-md-3 offset-1">
+            <div class="card" style="width: 16rem;">
+                <img  src="../static/images/stats.jpg" th:src="@{/images/stats.jpg}" class="card-img-top" alt="...">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item " style="font-weight: bold;text-decoration: underline"
+                        th:text="${'За '+date.getMonth()+' '+date.getYear()+':'}">За апрель 2020:</li>
+                    <li class="list-group-item" th:text="${'Среднее звонка: '+
+                    stats.getTime(stats.getIncomingAvrg()).substring(2,stats.getTime(stats.getIncomingAvrg()).length())+' мин.'}">Среднее звонка: 04:51 мин.</li>
+                    <li class="list-group-item" th:text="${'Среднее удержание: '+
+                    stats.getTime(stats.getHoldTimeAvrg()).substring(2,stats.getTime(stats.getHoldTimeAvrg()).length())+' мин.'}">Среднее удержания: 03:51 мин.</li>
+                    <li class="list-group-item" th:text="${'Среднее постобработки: '+
+                    stats.getTime(stats.getAfterCallTimeAvrg()).substring(2,stats.getTime(stats.getAfterCallTimeAvrg()).length())+' мин.'}">Среднее постобработки: 00:51 мин.</li>
+                </ul>
+                <div class="card-body">
+                    <a href="#" class="card-link" th:href="${'/dailystats/view'}">Статистика</a>
+                    <a href="#" class="card-link" th:href="${'/dailystats/charts'}">Инфографика</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

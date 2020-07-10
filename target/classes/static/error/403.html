@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="../static/images/favicon.png" th:href="@{/images/favicon.png}">
+    <title >403 Forbidden</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet"
+          th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}">
+    <!-- Latest compiled and minified JavaScript -->
+    <script crossorigin="anonymous"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<body>
+
+
+<nav id="sticky-top" class="navbar navbar-expand-lg navbar-light sticky-top " style="background-color: white">
+    <a class="navbar-brand offset-3" href="/index.html" >
+        <img src="/images/comearth.png"  width="80" height="80" alt="">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div  class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/index.html" style="font-size: larger;font-weight: bold">Main page</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/operator/operators" style="font-size: larger;font-weight: bold">Operators</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dailystats/view" style="font-size: larger;font-weight: bold">Statistics</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dailystats/rating" style="font-size: larger;font-weight: bold">Ratings</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dailystats/charts" style="font-size: larger;font-weight: bold">Charts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/upload/dailystats" style="font-size: larger;font-weight: bold">Upload</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<div class="container-fluid col-md-2 offset-5">
+<br>
+    <br>
+    <div class="card">
+        <img class="card-img-top" src="/images/forbidden.png" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-text" style="text-align: center">Для доступа на эту страницу, Вы должны обладать правами администратора.</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

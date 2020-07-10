@@ -1,0 +1,1299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="268db5f3-531b-40ab-ae6e-e34b06772144" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/controllers/OperatorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/controllers/OperatorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/DailyStatsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/DailyStatsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/balakin/sberbankast/controllers/IndexControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/balakin/sberbankast/controllers/OperatorControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/balakin/sberbankast/repositories/SpecialtyRepositoryTest.java" beforeDir="false" />
+    </list>
+    <list id="0e5066e3-6fe2-4d8c-bc82-e0291aeb1e1a" name="Revert &quot;Added company, card, contractType fields to operator entity. Closes #51&quot;" comment="2 last commits were wrongly issue numbered. Closes #45, closes #52">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/commands/OperatorCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/commands/OperatorCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/domain/ContractType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/domain/ContractType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/domain/Operator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/domain/Operator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/operator/operatorform.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/operator/operatorform.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/operator/show.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/operator/show.html" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/fragments/layout.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="24" column="37" lean-forward="true" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/operator/operators.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="66" lean-forward="true" selection-start-line="1" selection-start-column="66" selection-end-line="1" selection-end-column="66" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="66" selection-start-line="1" selection-start-column="66" selection-end-line="1" selection-end-column="66" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/configuration/WebSecurityConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="27" column="62" lean-forward="true" selection-start-line="27" selection-start-column="62" selection-end-line="27" selection-end-column="62" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/controllers/IndexController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="282">
+              <caret line="63" column="20" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/controllers/OperatorController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-374">
+              <caret line="66" column="16" lean-forward="true" selection-start-line="66" selection-start-column="16" selection-end-line="66" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+        <option value="Enum" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>syst</find>
+      <find>operators</find>
+      <find>id</find>
+      <find>comp</find>
+      <find>sort</find>
+      <find>++</find>
+      <find>name</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/domain/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/domain/Role.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/repositories/UserRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/controllers/HomeController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/fragments/layout2.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/login.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/dailystats/charts.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/forbidden.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/403Forbidden.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/controllers/ControllerExceptionHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/CustomAccessDeniedHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/static/error/test.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/static/error/403.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/upload/dailystats.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/index.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/fragments/layout.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/UploadXlsServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/application-dev.yml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/configuration/WebSecurityConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/domain/Company.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/converters/OperatorToOperatorCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/operator/operatorform.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/operator/show.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/ParseXlsService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/domain/Position.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/PositionServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/controllers/XlsController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/repositories/BonusRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/repositories/FineRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/repositories/SpecialtyRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/repositories/OperatorRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/dailystats/view.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/controllers/RatingController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/dailystats/rating.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/controllers/ChartController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/repositories/DailyStatsRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/CustomUserDetailsService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/ParseXlsServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/controllers/DailyStatsController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/domain/Operator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/commands/OperatorCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/OperatorService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/converters/OperatorCommandToOperator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/OperatorServiceImpl.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/DailyStatsServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/domain/ContractType.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/ff.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/operator/operators.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/controllers/IndexController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/controllers/OperatorController.java" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="sberbankast" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="sberbankast" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="sberbankast" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectConfigurationFiles">
+    <option name="files">
+      <list>
+        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_security_2_2_1_RELEASE.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_config_5_2_1_RELEASE.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_core_5_2_1_RELEASE.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_web_5_2_1_RELEASE.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_extras_thymeleaf_extras_springsecurity5_3_0_4_RELEASE.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="85" />
+    <option name="y" value="25" />
+    <option name="width" value="1750" />
+    <option name="height" value="980" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <hideEmptyPackages ProjectPane="false" />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="sberbankast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sberbankast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sberbankast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sberbankast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sberbankast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sberbankast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="balakin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sberbankast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="balakin" type="462c0819:PsiDirectoryNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sberbankast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="balakin" type="462c0819:PsiDirectoryNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="BootStrap" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sberbankast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="balakin" type="462c0819:PsiDirectoryNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="commands" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sberbankast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="balakin" type="462c0819:PsiDirectoryNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="configuration" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sberbankast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="balakin" type="462c0819:PsiDirectoryNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sberbankast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="balakin" type="462c0819:PsiDirectoryNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="converters" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sberbankast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="balakin" type="462c0819:PsiDirectoryNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="domain" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sberbankast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="balakin" type="462c0819:PsiDirectoryNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="repositories" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sberbankast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="balakin" type="462c0819:PsiDirectoryNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sberbankast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sberbankast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sberbankast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sberbankast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="operator" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sberbankast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="Resource Bundle 'messages'" type="a6c14932:ResourceBundleNode" />
+            </path>
+            <path>
+              <item name="sberbankast" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sberbankast" type="462c0819:PsiDirectoryNode" />
+              <item name="target" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../spring5-mongo-recipe-app" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Jeremy\sberbankast\src\main\resources\static\images" />
+      <recent name="C:\Users\Jeremy\sberbankast\src\main\resources\static\error" />
+      <recent name="C:\Users\Jeremy\sberbankast\src\main\resources\templates" />
+      <recent name="C:\Users\Jeremy\sberbankast\src\main\resources" />
+      <recent name="C:\Users\Jeremy\sberbankast\src\main\resources\templates\dailystats" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Jeremy\sberbankast\src\main\resources\static" />
+      <recent name="C:\Users\Jeremy\sberbankast\src\main\resources\templates\operator" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.SberbankastApplication">
+    <configuration name="ParseXlsServiceImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.balakin.sberbankast.services.ParseXlsServiceImpl" />
+      <module name="sberbankast" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.balakin.sberbankast.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PositionServiceImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.balakin.sberbankast.services.PositionServiceImpl" />
+      <module name="sberbankast" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.balakin.sberbankast.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="com.balakin.sberbankast in sberbankast" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sberbankast" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.balakin.sberbankast.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.balakin.sberbankast" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SberbankastApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="sberbankast" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.balakin.sberbankast.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.balakin.sberbankast.SberbankastApplication" />
+      <option name="ACTIVE_PROFILES" value="dev" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.SberbankastApplication" />
+        <item itemvalue="JUnit.com.balakin.sberbankast in sberbankast" />
+        <item itemvalue="Application.ParseXlsServiceImpl" />
+        <item itemvalue="Application.PositionServiceImpl" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="268db5f3-531b-40ab-ae6e-e34b06772144" name="Default Changelist" comment="" />
+      <created>1585072998835</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1585072998835</updated>
+      <workItem from="1585073005107" duration="9304000" />
+      <workItem from="1585230391848" duration="6007000" />
+      <workItem from="1585299884798" duration="16639000" />
+      <workItem from="1585588563121" duration="740000" />
+      <workItem from="1585589424101" duration="5555000" />
+      <workItem from="1585662835546" duration="11848000" />
+      <workItem from="1585827550122" duration="15842000" />
+      <workItem from="1585844962010" duration="5807000" />
+      <workItem from="1585909124755" duration="5819000" />
+      <workItem from="1586085861674" duration="13527000" />
+      <workItem from="1586168678859" duration="13253000" />
+      <workItem from="1586195888452" duration="12676000" />
+      <workItem from="1586256299483" duration="13408000" />
+      <workItem from="1586352988976" duration="5169000" />
+      <workItem from="1586358950348" duration="3134000" />
+      <workItem from="1586363041183" duration="3967000" />
+      <workItem from="1586441112426" duration="723000" />
+      <workItem from="1586784893820" duration="14756000" />
+      <workItem from="1586852242368" duration="7842000" />
+      <workItem from="1586860376797" duration="8504000" />
+      <workItem from="1586870542992" duration="8335000" />
+      <workItem from="1586938292034" duration="9887000" />
+      <workItem from="1586969886094" duration="6636000" />
+      <workItem from="1587030540193" duration="8670000" />
+      <workItem from="1587039470041" duration="4325000" />
+      <workItem from="1587044381729" duration="2501000" />
+      <workItem from="1587050431817" duration="2635000" />
+      <workItem from="1587214036889" duration="10044000" />
+      <workItem from="1587288076658" duration="9511000" />
+      <workItem from="1587298590288" duration="610000" />
+      <workItem from="1587377547631" duration="12025000" />
+      <workItem from="1587392919069" duration="642000" />
+      <workItem from="1587461158335" duration="8464000" />
+      <workItem from="1587486234529" duration="1794000" />
+      <workItem from="1587493926653" duration="2095000" />
+      <workItem from="1587537922975" duration="713000" />
+      <workItem from="1587548742870" duration="598000" />
+      <workItem from="1587648416663" duration="4888000" />
+      <workItem from="1587725716491" duration="5242000" />
+      <workItem from="1587734659813" duration="1379000" />
+      <workItem from="1587832240598" duration="12332000" />
+      <workItem from="1587844832460" duration="136000" />
+      <workItem from="1587883097719" duration="11438000" />
+      <workItem from="1587895381654" duration="1052000" />
+      <workItem from="1587896467665" duration="796000" />
+      <workItem from="1587897292779" duration="905000" />
+      <workItem from="1587974634397" duration="2648000" />
+      <workItem from="1587978438894" duration="4981000" />
+      <workItem from="1587986827238" duration="8743000" />
+      <workItem from="1588013307311" duration="696000" />
+      <workItem from="1588062269946" duration="5897000" />
+      <workItem from="1588149065503" duration="8179000" />
+      <workItem from="1588170536840" duration="142000" />
+      <workItem from="1588761753142" duration="15669000" />
+      <workItem from="1588855825997" duration="8582000" />
+      <workItem from="1589374985332" duration="6229000" />
+      <workItem from="1589797311531" duration="6969000" />
+      <workItem from="1589825067051" duration="586000" />
+      <workItem from="1589890051852" duration="5163000" />
+      <workItem from="1589896903815" duration="66000" />
+      <workItem from="1589908871152" duration="6960000" />
+      <workItem from="1589982224606" duration="5227000" />
+      <workItem from="1589987925831" duration="612000" />
+      <workItem from="1590055535591" duration="5121000" />
+      <workItem from="1590143039823" duration="850000" />
+      <workItem from="1590410297006" duration="6618000" />
+      <workItem from="1590420086065" duration="6690000" />
+      <workItem from="1590599434816" duration="2650000" />
+      <workItem from="1590666778130" duration="5017000" />
+      <workItem from="1590687463402" duration="3854000" />
+      <workItem from="1591021569181" duration="3718000" />
+      <workItem from="1591098608275" duration="1179000" />
+      <workItem from="1591174985282" duration="1440000" />
+      <workItem from="1591180689701" duration="453000" />
+      <workItem from="1591181294918" duration="28000" />
+      <workItem from="1592558417733" duration="1998000" />
+      <workItem from="1594038124991" duration="5983000" />
+      <workItem from="1594123428597" duration="22456000" />
+    </task>
+    <task id="LOCAL-00001" summary="added some statistics view fixes. #42">
+      <created>1585073665217</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1585073665217</updated>
+    </task>
+    <task id="LOCAL-00002" summary="added some statistics view fixes. #42">
+      <created>1585082496936</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1585082496936</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added some statistics view fixes. Added ratings page, controller, service. Closes #42. Closes #43.">
+      <created>1586086359043</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1586086359043</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added full infographics dump (controller, service, html etc). Closes #44.">
+      <created>1586879054465</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1586879054465</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added stake parameter to operator entity. Closes #50.">
+      <created>1586939335524</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1586939335524</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Fixed bootstrap bugs on operators, fines, bonuses pages. Closes #46.">
+      <created>1586976393723</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1586976393723</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Added index page. Closes #49.">
+      <created>1587053249551</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1587053249566</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added navigation bar. Closes #47.">
+      <created>1587389564933</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1587389564933</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added exceptions page integration, not to new pages. Closes #51.">
+      <created>1587469629089</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1587469629089</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added Spring Security. Closes #48.">
+      <created>1587898125146</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1587898125146</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Added Statistics.xls functionality. Closes #50">
+      <created>1588154358826</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1588154358826</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Added company, card, contractType fields to operator entity. Closes #51">
+      <created>1588157559469</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1588157559469</updated>
+    </task>
+    <task id="LOCAL-00013" summary="2 last commits were wrongly issue numbered. Closes #45, closes #52">
+      <created>1588158398822</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1588158398822</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Added salary.xls downloading feature. Closes #53">
+      <created>1590062514722</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1590062514722</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Changed operators, statistics, ratings, charts refresh page functionality. Closes #54">
+      <created>1590421907593</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1590421907593</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Added operator firement functionality. Closes #55">
+      <created>1591021915200</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1591021915200</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="com_balakin_sberbankast_in_sberbankast - 2020.06.01 at 17h 35m 21s.xml">
+      <configuration name="com.balakin.sberbankast in sberbankast" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="com_balakin_sberbankast_in_sberbankast - 2020.06.03 at 13h 39m 28s.xml">
+      <configuration name="com.balakin.sberbankast in sberbankast" configurationId="JUnit" />
+    </history-entry>
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="457577000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24630873" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Web" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4986577" visible="true" weight="0.25183016" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39970717" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Spring" order="7" weight="0.329429" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.329429" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5013423" side_tool="true" weight="0.19033675" />
+      <window_info anchor="bottom" id="Java Enterprise" order="11" weight="0.329429" />
+      <window_info anchor="bottom" id="Database Changes" order="12" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.10980967" />
+      <window_info anchor="bottom" id="Version Control" order="14" weight="0.59150803" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" weight="0.3295302" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="TCPMON" order="6" />
+      <window_info anchor="right" id="Database" order="7" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+      <window_info anchor="right" id="Theme Preview" order="9" />
+      <window_info anchor="right" id="Bean Validation" order="10" />
+    </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19530201" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Web" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4986577" visible="true" weight="0.1068814" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39970717" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Spring" order="7" weight="0.329429" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.329429" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5013423" side_tool="true" weight="0.19033675" />
+      <window_info anchor="bottom" id="Java Enterprise" order="11" weight="0.329429" />
+      <window_info anchor="bottom" id="Database Changes" order="12" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.3133236" />
+      <window_info anchor="bottom" id="Version Control" order="14" weight="0.329429" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" weight="0.3295302" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="TCPMON" order="6" />
+      <window_info anchor="right" id="Database" order="7" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+      <window_info anchor="right" id="Theme Preview" order="9" />
+      <window_info anchor="right" id="Bean Validation" order="10" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added some statistics view fixes. #42" />
+    <MESSAGE value="added some statistics view fixes. Added ratings page, controller, service. Closes #42. Closes #43." />
+    <MESSAGE value="Added full infographics dump (controller, service, html etc). Closes #44." />
+    <MESSAGE value="Added stake parameter to operator entity. Closes #50." />
+    <MESSAGE value="Fixed bootstrap bugs on operators, fines, bonuses pages. Closes #46." />
+    <MESSAGE value="Added index page. Closes #49." />
+    <MESSAGE value="Added navigation bar. Closes #47." />
+    <MESSAGE value="Added exceptions page integration, not to new pages. Closes #51." />
+    <MESSAGE value="Added Spring Security. Closes #48." />
+    <MESSAGE value="Added Statistics.xls functionality. Closes #50" />
+    <MESSAGE value="Added company, card, contractType fields to operator entity. Closes #51" />
+    <MESSAGE value="2 last commits were wrongly issue numbered. closes #45,closes #52" />
+    <MESSAGE value="2 last commits were wrongly issue numbered. closes #45,52" />
+    <MESSAGE value="2 last commits were wrongly issue numbered. Closes #45,52" />
+    <MESSAGE value="2 last commits were wrongly issue numbered. Closes #45, closes #52" />
+    <MESSAGE value="Added salary.xls downloading feature. Closes #53" />
+    <MESSAGE value="Changed operators, statistics, ratings, charts refresh page functionality. Closes #54" />
+    <MESSAGE value="Added operator firement functionality. Closes #55" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added operator firement functionality. Closes #55" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/SberbankastApplication.java</url>
+          <line>11</line>
+          <properties />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/domain/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/repositories/DailyStatsRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="20" column="101" selection-start-line="20" selection-start-column="101" selection-end-line="20" selection-end-column="101" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/dailystats/view.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1547">
+          <caret line="60" column="86" selection-start-line="60" selection-start-column="66" selection-end-line="60" selection-end-column="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/controllers/DailyStatsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="136" column="5" selection-start-line="136" selection-start-column="5" selection-end-line="136" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/upload/dailystats.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="105" column="10" lean-forward="true" selection-start-line="105" selection-start-column="10" selection-end-line="112" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/CustomUserDetailsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/OperatorService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="11" column="22" lean-forward="true" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/ParseXlsServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="820" column="51" selection-start-line="820" selection-start-column="51" selection-end-line="820" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/balakin/sberbankast/controllers/IndexControllerTest.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/balakin/sberbankast/controllers/OperatorControllerTest.java" />
+    <entry file="file://$PROJECT_DIR$/target/classes/com/balakin/sberbankast/configuration/WebSecurityConfig.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#2230#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/DailyStatsServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="123" column="60" selection-start-line="123" selection-start-column="60" selection-end-line="123" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/OperatorServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="601">
+          <caret line="52" column="58" selection-start-line="52" selection-start-column="58" selection-end-line="52" selection-end-column="58" />
+          <folding>
+            <element signature="e#4638#4639#0" expanded="true" />
+            <element signature="e#4707#4708#0" expanded="true" />
+            <element signature="e#5119#5120#0" expanded="true" />
+            <element signature="e#5176#5177#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="1" lean-forward="true" selection-start-line="4" selection-start-column="1" selection-end-line="10" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/domain/Fine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/repositories/SpecialtyRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/domain/Specialty.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/SpecialtyService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="8" column="39" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/ParseXlsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="18" column="123" selection-start-line="18" selection-start-column="123" selection-end-line="18" selection-end-column="123" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/repositories/OperatorRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/SberbankastApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="17" column="18" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/SpecialtyServiceimpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/domain/ContractType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/400Error.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="58" selection-start-line="15" selection-start-column="58" selection-end-line="15" selection-end-column="58" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/BootStrap/OperatorBootStrap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/domain/Operator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-136">
+          <caret line="24" column="55" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/commands/SpecialtyCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="11" column="28" lean-forward="true" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/converters/FineToFineCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/operator/bonuses/bonusform.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="12" selection-start-line="12" selection-end-line="63" selection-end-column="11" />
+          <folding>
+            <element signature="e#2#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/messages.properties">
+      <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="ResourceBundle" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/converters/FineCommandToFine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="12" selection-start-line="12" selection-end-line="13" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/repositories/BonusRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="10" column="2" lean-forward="true" selection-start-line="10" selection-start-column="2" selection-end-line="10" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/BonusService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/BonusServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="106" lean-forward="true" selection-start-line="62" selection-start-column="3" selection-end-line="106" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/commands/OperatorCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="57" column="38" lean-forward="true" selection-start-line="57" selection-start-column="38" selection-end-line="57" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/ImageService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/converters/OperatorToOperatorCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-170">
+          <caret line="10" column="86" lean-forward="true" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/operator/operatorform.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2040">
+          <caret line="174" column="39" selection-start-line="174" selection-start-column="39" selection-end-line="174" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/operator/show.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="22" lean-forward="true" selection-start-line="14" selection-start-column="11" selection-end-line="19" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/operator/imageuploadform.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="7" lean-forward="true" selection-start-line="17" selection-start-column="4" selection-end-line="27" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/converters/OperatorCommandToOperator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="565">
+          <caret line="56" column="31" selection-start-line="56" selection-start-column="31" selection-end-line="56" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/services/ImageServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/controllers/ImageController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="69" column="9" lean-forward="true" selection-start-line="53" selection-start-column="5" selection-end-line="69" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/controllers/BonusController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="87" lean-forward="true" selection-start-line="87" selection-end-line="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/fragments/layout.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="37" lean-forward="true" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/ff.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/operator/operators.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="66" lean-forward="true" selection-start-line="1" selection-start-column="66" selection-end-line="1" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="66" selection-start-line="1" selection-start-column="66" selection-end-line="1" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/configuration/WebSecurityConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="27" column="62" lean-forward="true" selection-start-line="27" selection-start-column="62" selection-end-line="27" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/controllers/IndexController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="63" column="20" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/balakin/sberbankast/controllers/OperatorController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-374">
+          <caret line="66" column="16" lean-forward="true" selection-start-line="66" selection-start-column="16" selection-end-line="66" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Spring</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>11</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>sberbankast</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: antlr:antlr:2.7.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

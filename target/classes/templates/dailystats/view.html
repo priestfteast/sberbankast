@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'statistics')}">
+<head>
+    <meta charset="UTF-8"/>
+    <title id="pageTitle">Statistics</title>
+</head>
+<body>
+
+<!--/*@thymesVar id="dailyStats" type="com.balakin.sberbankast.domain.DailyStats"*/-->
+<br>
+<div class="container col-md-8 offset-2">
+    <form action="http:\\localhost" method="post" class="form-horizontal" th:action="@{'/viewstats'}">
+        <div class="row">
+
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="form-group">
+                        <h5 class="card-title">Start date</h5>
+                        <input name="startdate" type="date" th:value="${request.get(0)}" required="required"
+                               pattern="{1,20}" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="form-group">
+                        <h5 class="card-title">End date</h5>
+                        <input name="enddate" type="date" required="required" th:value="${request.get(1)}"
+                               pattern="{1,20}" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                <select name="operator">
+                    <option class="dropdown-item" text="all" value="all" th:selected="${request.get(2).equals('all')}">
+                        All operators
+                    </option>
+                    <option class="dropdown-item" th:each="operator : ${operators}"
+                            th:text="${operator.lastName+' '+operator.number}"
+                            th:value="${operator.number}" th:selected="${request.get(2).equals(operator.number)}">Name
+                    </option>
+                </select>
+                </div>
+                <br>
+                <div class="card">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<br>
+<br>
+<div class="row" th:if="${error ne null}">
+    <div class="table-responsive">
+        <p th:text="${error}"></p>
+    </div>
+</div>
+<div class="row col-md-4 offset-4" th:if="${#lists.isEmpty(stats) and not isNewRequest}">
+    <div class="table-responsive">
+        <p th:text="${'No data found for chosen period'}"></p>
+    </div>
+</div>
+
+    <div class="row" th:if="${error == null}">
+        <div class="col-md-12">
+            <div class="row" th:if="${not #lists.isEmpty(stats)}">
+                <div class="col-md-10">
+                    <p th:text="${'Total statistics'}" style="font-size: large; font-weight: bold"></p>
+                </div>
+
+                <div class="col-md-1" th:if="${dstats.lost>1}">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Info
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel"
+                                        th:text="${'Из общей статистики исключены данные по доб.№:  ' + outgoingstring}" style="color: #0275d8">
+                                        Из общей статистики исключены следующие данные:</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p style="font-weight: bold">Не учитываются данные по следующим показателям:</p>
+                                    <p>- среднее время входящих;</p>
+                                    <p>- среднее время удержания;</p>
+                                    <p>- общее время в статусе "Не готов";</p>
+                                    <p>- потеряные звонки (406);</p>
+                                    <br>
+                                    <p style="font-weight: bold">Исходящие внешние наоборот расчитаны только для данных добавочных.</p>
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                                    <a sec:authorize="hasRole('ADMIN')" type="button" class="btn btn-primary" th:href="@{'/dailystats/outgoinglist'}">Изменить исключения</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-1">
+                    <form action="http:\\localhost" enctype="multipart/form-data" method="get"
+                          th:action="@{'/excel'}">
+                    <input  src="#" th:src="@{/images/xls.png}" style="height: 40px" class="file"  name="imagefile" type="image">
+                    </form>
+                </div>
+
+                <div class="table-responsive" th:if="${not #lists.isEmpty(stats) and error == null}">
+                    <br>
+                    <table class="table table-hover">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>№</th>
+                            <th>Период</th>
+                            <th>Операторов</th>
+                            <th>Входящие</th>
+                            <th>Ср. время входящих</th>
+                            <th>Исходящие внеш.</th>
+                            <th>В сети</th>
+                            <th>Не готов</th>
+                            <th>Ср. после звонка</th>
+                            <th>Ср. удержание</th>
+                            <th>Потеряные (406)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1.</td>
+                            <td th:text="${request.get(0)+' - '+request.get(1)}">Tasty Goodnees 3</td>
+                            <td th:text="${dstats.lost}">Tasty Goodnees</td>
+                            <td th:text="${dstats.incoming}">Tasty Goodnees 3</td>
+                            <td th:text="${dstats.getTime(dstats.incomingAvrg)}">Tasty Goodnees 3</td>
+                            <td th:text="${dstats.outgoingExternal}">Tasty Goodnees 3</td>
+                            <td th:text="${dstats.getTime(dstats.getTotalWorkTime())}">Tasty Goodnees 3</td>
+                            <td th:text="${dstats.getTime(dstats.totalNotReadyTime)}">Tasty Goodnees 3</td>
+                            <td th:text="${dstats.getTime(dstats.afterCallTimeAvrg)}">Tasty Goodnees 3</td>
+                            <td th:text="${dstats.getTime(dstats.holdTimeAvrg)}">Tasty Goodnees 3</td>
+                            <td th:text="${dstats.getLost406()+'('+ #numbers.formatDecimal(dstats.lost406*100.0/dstats.incoming,1,2)+'%)'}">
+                                Tasty Goodnees 3
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="panel-heading" th:if="${not #lists.isEmpty(stats) and error == null}">
+
+                <div class="col-md-3">
+                    <p class="panel-title" th:text="${'Detailed statistics ('+stats.size()+' found)'}"
+                       style="font-size: large; font-weight: bold">Search</p>
+                </div>
+                <div class="col-md-8">
+                    <input class="form-control mb-4" id="tableSearch" type="text"
+                           placeholder="Type something to search data">
+                </div>
+            </div>
+            <div class="location">
+                <div class="table-responsive" th:if="${not #lists.isEmpty(stats)}">
+                    <table class="table table-hover">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>№</th>
+                            <!--                                <th>ID</th>-->
+                            <th>Период</th>
+                            <th>Оператор</th>
+                            <th>Доб.</th>
+                            <th>Входящие</th>
+                            <th>Ср. время входящих</th>
+                            <th>Исходящие внеш.</th>
+                            <th>В сети</th>
+                            <th>Не готов</th>
+                            <th>Ср. работа после звонка</th>
+                            <th>Ср. удержание</th>
+                            <th>Потеряные (406)</th>
+                        </tr>
+                        </thead>
+                        <tbody id="myTable">
+                        <tr th:each="dailyStats : ${stats}">
+                            <td>1</td>
+                            <!--                                <td th:text="${operator.id}">idd</td>-->
+                            <td th:text="${request.get(2).equals('all')} ? ${dailyStats.outgoingInternal+' дней'} :
+                         ${dailyStats.date}">Tasty Goodnees 3
+                            </td>
+                            <td th:text="${dailyStats.operator.lastName}+' '+${dailyStats.operator.firstName}">Tasty
+                                Goodnees 3
+                            </td>
+                            <td th:text="${dailyStats.number}">Tasty Goodnees 3</td>
+                            <td th:text="${dailyStats.incoming}">Tasty Goodnees 3</td>
+                            <td th:text="${dailyStats.getTime(dailyStats.incomingAvrg)}">Tasty Goodnees 3</td>
+                            <td th:text="${dailyStats.outgoingExternal}">Tasty Goodnees 3</td>
+                            <td th:text="${dailyStats.getTime(dailyStats.totalWorkTime)}">Tasty Goodnees 3</td>
+                            <td th:text="${dailyStats.getTime(dailyStats.totalNotReadyTime)}">Tasty Goodnees 3</td>
+                            <td th:text="${dailyStats.getTime(dailyStats.afterCallTimeAvrg)}">Tasty Goodnees 3</td>
+                            <td th:text="${dailyStats.getTime(dailyStats.holdTimeAvrg)}">Tasty Goodnees 3</td>
+                            <td th:text="${dailyStats.incoming==0} ? ${0+'(0%)'} : ${dailyStats.lost406+' ('+#numbers.formatDecimal(dailyStats.lost406*100.0/dailyStats.incoming,1,2)+'%)'}">
+                                Tasty Goodnees 3
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+<!--index table numbers-->
+<script>
+    $('.location table tbody tr').each(function (i) {
+        var number = i + 1;
+        $(this).find('td:first').text(number + ".");
+    });
+</script>
+
+<!--Filter table-->
+<script>
+    $(document).ready(function () {
+        $("#tableSearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+</body>
+</html>

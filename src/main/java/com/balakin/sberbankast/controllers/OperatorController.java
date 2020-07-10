@@ -64,7 +64,7 @@ public class OperatorController {
     public String newOperator(Model model){
         model.addAttribute("operator", new OperatorCommand());
         model.addAttribute("specialtylist", specialtyService.listAllSpecialties());
-        return "/operator/operatorform";
+        return "operator/operatorform";
     }
     @GetMapping({"/operator/{id}/update"})
     public String updateOperator(@PathVariable String id, Model model){

@@ -121,7 +121,7 @@ public class ChartController {
             model.addAttribute("error",error);
             error=null;
 
-            return "dailystats/charts";
+            return "templates/dailystats/dailystats/charts";
         }
     }
 

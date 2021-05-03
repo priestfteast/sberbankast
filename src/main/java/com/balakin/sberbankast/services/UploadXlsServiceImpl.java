@@ -1,5 +1,6 @@
 package com.balakin.sberbankast.services;
 
+import com.balakin.sberbankast.SberbankastApplication;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +15,8 @@ import java.nio.file.Paths;
 @Service
 @Slf4j
 public class UploadXlsServiceImpl implements UploadXlsService {
+
+    private final String PATH = "C:\\java\\sber-ast\\";
 
     @Override
     public void uploadXls(MultipartFile file) throws Exception {
@@ -40,12 +43,13 @@ public class UploadXlsServiceImpl implements UploadXlsService {
             }
 
             File uploadedFile;
+            String filePath = PATH+file.getOriginalFilename();
 
-            if(Files.exists(Paths.get("src\\main\\resources\\dailystats\\"+file.getOriginalFilename()))) {
+            if(Files.exists(Paths.get(filePath))) {
                 throw new Exception("File " + file.getOriginalFilename() + " has been uploaded earlier");
             }
             else {
-                uploadedFile = new File("src\\main\\resources\\dailystats\\" + file.getOriginalFilename());
+                uploadedFile = new File(filePath);
             }
 
             OutputStream os = new FileOutputStream(uploadedFile);

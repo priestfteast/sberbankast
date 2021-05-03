@@ -1,6 +1,5 @@
 package com.balakin.sberbankast.controllers;
 
-import com.balakin.sberbankast.commands.OutgoingCommand;
 import com.balakin.sberbankast.commands.PositionCommand;
 import com.balakin.sberbankast.services.PositionService;
 import lombok.extern.slf4j.Slf4j;

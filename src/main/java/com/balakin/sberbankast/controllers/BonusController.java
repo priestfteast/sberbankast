@@ -86,7 +86,7 @@ public class BonusController {
         log.debug("saved operator id:" + savedCommand.getOperatorId());
         log.debug("saved bonus id:" + savedCommand.getId());
 
-        return "redirect:/operator/" + savedCommand.getOperatorId() + "/bonuses/" + savedCommand.getId() + "/show";
+        return "redirect:/operator/" + savedCommand.getOperatorId() + "/show/" ;
     }
 
     @GetMapping("operator/{operatorId}/bonuses/{id}/delete")
@@ -95,7 +95,7 @@ public class BonusController {
 
 
         bonusService.deleteById(Long.valueOf(operatorId), Long.valueOf(id));
-        return "redirect:/operator/"+operatorId+"/bonuses";
+        return "redirect:/operator/" + operatorId + "/show/";
     }
 
 }

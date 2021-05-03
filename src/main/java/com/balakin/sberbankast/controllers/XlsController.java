@@ -1,10 +1,10 @@
 package com.balakin.sberbankast.controllers;
 
+import com.balakin.sberbankast.SberbankastApplication;
 import com.balakin.sberbankast.domain.DailyStats;
 import com.balakin.sberbankast.repositories.DailyStatsRepository;
 import com.balakin.sberbankast.repositories.OperatorRepository;
 import com.balakin.sberbankast.services.ParseXlsService;
-import com.balakin.sberbankast.services.ParseXlsServiceImpl;
 import com.balakin.sberbankast.services.UploadXlsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -30,6 +30,7 @@ public class XlsController {
     private final OperatorRepository operatorRepository;
     private final DailyStatsRepository dailyStatsRepository;
     private final ParseXlsService parseXlsService;
+    private final String PATH = "C:\\java\\sber-ast\\";
 
     private List<DailyStats> dailyStats=new ArrayList<>();
     private String error = null;
@@ -43,7 +44,7 @@ public class XlsController {
 
     @GetMapping("upload/dailystats")
     public String showUploadForm( Model model){
-        for (File myFile : new File("src\\main\\resources\\dailystats").listFiles())
+        for (File myFile : new File(PATH).listFiles())
             if (myFile.isFile()) myFile.delete();
 
         List<DailyStats> nullStats = new ArrayList<>();
@@ -64,7 +65,7 @@ public class XlsController {
 
     @GetMapping("/save")
     public String saveStats()  {
-        for (File myFile : new File("src\\main\\resources\\dailystats").listFiles())
+        for (File myFile : new File(PATH).listFiles())
             if (myFile.isFile()) myFile.delete();
         int size = dailyStats.size();
         Date date = dailyStats.get(0).getDate();
@@ -81,7 +82,7 @@ public class XlsController {
         return "redirect:/upload/dailystats";
     }
 
-    @PostMapping("dailystats")
+    @PostMapping("static/dailystats")
     public String UploadStats( @RequestParam("xlsstats") MultipartFile file)  {
 
         try {
@@ -91,7 +92,7 @@ public class XlsController {
             uploadXlsService.uploadXls(file);
 
 
-            dailyStats = parseXlsService.parseStatsXml("src\\main\\resources\\dailystats\\" + file.getOriginalFilename(), operatorRepository, dailyStatsRepository);
+            dailyStats = parseXlsService.parseStatsXml(PATH + file.getOriginalFilename(), operatorRepository, dailyStatsRepository);
             List<DailyStats> nullStats = new ArrayList<>();
             if (dailyStats.size() > 0) {
                 for (DailyStats ds : dailyStats
@@ -101,7 +102,7 @@ public class XlsController {
                 }
             }
             if (nullStats.size() > 0) {
-                Files.deleteIfExists(Paths.get("src\\main\\resources\\dailystats\\" + file.getOriginalFilename()));
+                Files.deleteIfExists(Paths.get(PATH + file.getOriginalFilename()));
                 System.out.println("File deleted");
             } else {
 //            dailyStatsRepository.saveAll(dailyStats);
@@ -131,9 +132,7 @@ public class XlsController {
       }
 
         uploadXlsService.uploadXls(file);
-
-        dailyStats = parseXlsService.parseLostXml("src\\main\\resources\\dailystats\\"
-                +file.getOriginalFilename(),dailyStats);
+        dailyStats = parseXlsService.parseLostXml(PATH+file.getOriginalFilename(),dailyStats);
         return "redirect:/upload/dailystats";
     }
 
@@ -151,4 +150,5 @@ public class XlsController {
         System.out.println("Deleted statistics for "+date);
         return "redirect:/upload/dailystats";
     }
+
 }

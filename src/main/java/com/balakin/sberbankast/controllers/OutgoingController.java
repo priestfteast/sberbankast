@@ -1,9 +1,6 @@
 package com.balakin.sberbankast.controllers;
 
-import com.balakin.sberbankast.commands.FineCommand;
-import com.balakin.sberbankast.commands.OperatorCommand;
 import com.balakin.sberbankast.commands.OutgoingCommand;
-import com.balakin.sberbankast.domain.Outgoing;
 import com.balakin.sberbankast.services.OutgoingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

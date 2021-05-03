@@ -32,15 +32,13 @@ public class OperatorCommandToOperator implements Converter<OperatorCommand, Ope
             return null;
         }
 
-
-
         Operator operator = new Operator();
         operator.setId(operatorCommand.getId());
         operator.setFirstName(operatorCommand.getFirstName());
         operator.setLastName(operatorCommand.getLastName());
         operator.setEmployementDate(operatorCommand.getEmployementDate());
-//        System.out.println(operator.getEmployementDate());
         operator.setNumber(operatorCommand.getNumber());
+        operator.setImage(operatorCommand.getImage());
         if(operatorCommand.getAdditionalNumber().equals("")) {
             operator.setAdditionalNumber(null);
         }

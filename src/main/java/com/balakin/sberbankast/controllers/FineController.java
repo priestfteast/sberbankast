@@ -84,7 +84,7 @@ public class FineController {
         log.debug("saved operator id:" + savedCommand.getOperatorId());
         log.debug("saved fine id:" + savedCommand.getId());
 
-        return "redirect:/operator/" + savedCommand.getOperatorId() + "/fines/" + savedCommand.getId() + "/show";
+        return "redirect:/operator/" + savedCommand.getOperatorId() + "/show/";
     }
 
     @GetMapping("operator/{operatorId}/fines/{id}/delete")
@@ -93,7 +93,7 @@ public class FineController {
 
 
         fineService.deleteById(Long.valueOf(operatorId), Long.valueOf(id));
-        return "redirect:/operator/"+operatorId+"/fines";
+        return "redirect:/operator/" + operatorId + "/show/";
     }
 
 }

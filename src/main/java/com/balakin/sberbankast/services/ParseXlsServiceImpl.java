@@ -1,5 +1,6 @@
 package com.balakin.sberbankast.services;
 
+import com.balakin.sberbankast.SberbankastApplication;
 import com.balakin.sberbankast.domain.*;
 import com.balakin.sberbankast.repositories.*;
 import lombok.extern.slf4j.Slf4j;
@@ -28,13 +29,13 @@ public class ParseXlsServiceImpl implements ParseXlsService {
     private final OperatorService operatorService;
     private final BonusRepository bonusRepository;
     private final FineRepository fineRepository;
+    private final String PATH = "C:\\java\\sber-ast\\";
 
     public ParseXlsServiceImpl(OperatorService operatorService, BonusRepository bonusRepository, FineRepository fineRepository) {
         this.operatorService = operatorService;
         this.bonusRepository = bonusRepository;
         this.fineRepository = fineRepository;
     }
-
 
     @Override
     public List<DailyStats> parseStatsXml(String path,OperatorRepository operatorRepository,DailyStatsRepository dailyStatsRepository) throws Exception {
@@ -316,7 +317,7 @@ public class ParseXlsServiceImpl implements ParseXlsService {
 
     @Override
     public File saveStatsToXLS(List<String> request, List<DailyStats> stats, DailyStats totalStats, PositionService positionService) throws Exception {
-        for (File myFile : new File("src\\main\\resources\\dailystats").listFiles())
+        for (File myFile : new File(PATH).listFiles())
             if (myFile.isFile()) myFile.delete();
 
         stats.add(totalStats);
@@ -397,8 +398,7 @@ public class ParseXlsServiceImpl implements ParseXlsService {
         }
 
 
-        File file = new File("src\\main\\resources\\dailystats\\"
-                +request.get(0)+" - "+request.get(1)+".xlsx");
+        File file = new File(PATH+request.get(0)+" - "+request.get(1)+".xlsx");
 
         FileOutputStream out = new FileOutputStream(file);
         workBook.write(out);

@@ -40,7 +40,7 @@ public class OperatorController {
         data = initialData;
         model.addAttribute("data",requestData);
         model.addAttribute("specialtylist", specialtyService.listAllSpecialties());
-        model.addAttribute("operators",operatorService.getOperators(data));
+        model.addAttribute("operators",operatorService.getOperators(requestData));
         return OPERATOR_OPERATORS;
     }
 

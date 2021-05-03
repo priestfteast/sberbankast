@@ -134,9 +134,10 @@ public class OperatorServiceImpl implements OperatorService {
     @Override
     @Transactional
     public OperatorCommand saveOperatorCommand(OperatorCommand operatorCommand){
+        if(operatorCommand.getId()!=null && operatorRepository.findById(operatorCommand.getId()).isPresent())
+            operatorCommand.setImage(operatorRepository.findById(operatorCommand.getId()).get().getImage());
         Operator detachedOperator = operatorCommandToOperator.convert(operatorCommand);
         Operator savedOperator = operatorRepository.save(detachedOperator);
-
         return operatorToOperatorCommand.convert(savedOperator);
     }
 
